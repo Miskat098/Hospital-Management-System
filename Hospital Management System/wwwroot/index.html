@@ -1,0 +1,856 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Premier Hospital — Compassionate Care, Modern Medicine</title>
+    <meta name="description" content="Premier Hospital Management System — book appointments, manage prescriptions, and access care across our departments." />
+    <link rel="stylesheet" href="css/style.css" />
+    <style>
+        /* Page-specific styles kept local to index.html since they don't belong in the shared dashboard shell */
+        .site-header {
+            position: sticky;
+            top: 0;
+            z-index: 200;
+            background: rgba(255,255,255,0.92);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .site-nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-block: var(--space-4);
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+        }
+
+            .brand .mark {
+                width: 40px;
+                height: 40px;
+                border-radius: var(--radius-sm);
+                background: var(--teal-600);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+                .brand .mark svg {
+                    width: 22px;
+                    height: 22px;
+                    color: #fff;
+                }
+
+            .brand .brand-name {
+                font-family: var(--font-heading);
+                font-weight: 700;
+                font-size: 1.15rem;
+                color: var(--ink);
+            }
+
+                .brand .brand-name span {
+                    color: var(--teal-600);
+                }
+
+        .nav-links {
+            display: none;
+            align-items: center;
+            gap: var(--space-6);
+        }
+
+            .nav-links a {
+                font-size: 0.9rem;
+                font-weight: 500;
+                color: var(--ink-soft);
+                transition: color var(--dur-fast) var(--ease);
+            }
+
+                .nav-links a:hover {
+                    color: var(--teal-700);
+                }
+
+        @media (min-width: 880px) {
+            .nav-links {
+                display: flex;
+            }
+        }
+
+        .nav-cta {
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+        }
+
+            .nav-cta .btn-secondary {
+                display: none;
+            }
+
+        @media (min-width: 620px) {
+            .nav-cta .btn-secondary {
+                display: inline-flex;
+            }
+        }
+
+        /* Hero */
+        .hero {
+            padding-block: var(--space-9) var(--space-8);
+            position: relative;
+            overflow: hidden;
+        }
+
+            .hero::before {
+                content: "";
+                position: absolute;
+                top: -180px;
+                right: -160px;
+                width: 520px;
+                height: 520px;
+                border-radius: 50%;
+                background: radial-gradient(circle, var(--teal-100) 0%, transparent 70%);
+                z-index: 0;
+            }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: var(--space-8);
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        @media (max-width: 900px) {
+            .hero-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .hero-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-2);
+            background: var(--teal-50);
+            color: var(--teal-700);
+            padding: 0.4rem 0.9rem;
+            border-radius: var(--radius-pill);
+            font-size: 0.8125rem;
+            font-weight: 600;
+            margin-bottom: var(--space-5);
+        }
+
+            .hero-eyebrow .pulse {
+                width: 7px;
+                height: 7px;
+                border-radius: 50%;
+                background: var(--teal-600);
+            }
+
+        .hero h1 {
+            margin-bottom: var(--space-5);
+            max-width: 13ch;
+        }
+
+        .hero .lede {
+            font-size: 1.1rem;
+            color: var(--muted);
+            max-width: 46ch;
+            margin-bottom: var(--space-6);
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: var(--space-3);
+            flex-wrap: wrap;
+            margin-bottom: var(--space-7);
+        }
+
+        .hero-trust-row {
+            display: flex;
+            align-items: center;
+            gap: var(--space-5);
+            flex-wrap: wrap;
+        }
+
+        .trust-item {
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+            font-size: 0.85rem;
+            color: var(--muted);
+        }
+
+            .trust-item svg {
+                width: 18px;
+                height: 18px;
+                color: var(--teal-600);
+            }
+
+        .hero-visual {
+            background: var(--teal-900);
+            border-radius: var(--radius-lg);
+            padding: var(--space-6);
+            color: #fff;
+            position: relative;
+            min-height: 380px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+            .hero-visual .visual-label {
+                font-size: 0.75rem;
+                color: var(--teal-100);
+                opacity: 0.8;
+                margin-bottom: var(--space-2);
+            }
+
+            .hero-visual .visual-title {
+                font-family: var(--font-heading);
+                font-size: 1.3rem;
+                font-weight: 700;
+            }
+
+        .queue-card {
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.14);
+            border-radius: var(--radius-md);
+            padding: var(--space-4);
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+            margin-top: var(--space-4);
+        }
+
+            .queue-card .avatar {
+                background: var(--teal-500);
+                color: #fff;
+            }
+
+            .queue-card .qc-name {
+                font-size: 0.9rem;
+                font-weight: 600;
+            }
+
+            .queue-card .qc-role {
+                font-size: 0.75rem;
+                color: #a9cbc5;
+            }
+
+            .queue-card .qc-time {
+                margin-left: auto;
+                font-size: 0.8rem;
+                font-weight: 700;
+                color: #cdeee6;
+            }
+
+        .hero-stats {
+            display: flex;
+            gap: var(--space-6);
+            margin-top: var(--space-6);
+            padding-top: var(--space-5);
+            border-top: 1px solid rgba(255,255,255,0.12);
+        }
+
+            .hero-stats .hs-value {
+                font-family: var(--font-heading);
+                font-size: 1.5rem;
+                font-weight: 800;
+            }
+
+            .hero-stats .hs-label {
+                font-size: 0.72rem;
+                color: #a9cbc5;
+            }
+
+        /* Services */
+        .section {
+            padding-block: var(--space-8);
+        }
+
+        .section-head {
+            max-width: 60ch;
+            margin-bottom: var(--space-6);
+        }
+
+            .section-head .kicker {
+                color: var(--teal-700);
+                font-weight: 700;
+                font-size: 0.85rem;
+                margin-bottom: var(--space-2);
+            }
+
+        .service-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: var(--space-5);
+            transition: border-color var(--dur-fast) var(--ease), transform var(--dur-fast) var(--ease);
+        }
+
+            .service-card:hover {
+                border-color: var(--teal-500);
+                transform: translateY(-2px);
+            }
+
+            .service-card .s-icon {
+                width: 46px;
+                height: 46px;
+                border-radius: var(--radius-sm);
+                background: var(--teal-50);
+                color: var(--teal-700);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin-bottom: var(--space-4);
+            }
+
+                .service-card .s-icon svg {
+                    width: 24px;
+                    height: 24px;
+                }
+
+            .service-card h4 {
+                margin-bottom: var(--space-2);
+            }
+
+            .service-card p {
+                font-size: 0.875rem;
+            }
+
+        /* Stats strip */
+        .stats-strip {
+            background: var(--teal-900);
+            border-radius: var(--radius-lg);
+            padding: var(--space-6) var(--space-5);
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: var(--space-5);
+            color: #fff;
+        }
+
+        @media (max-width: 760px) {
+            .stats-strip {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .stats-strip .item {
+            text-align: left;
+            border-left: 2px solid rgba(255,255,255,0.2);
+            padding-left: var(--space-4);
+        }
+
+            .stats-strip .item .val {
+                font-family: var(--font-heading);
+                font-size: 2.1rem;
+                font-weight: 800;
+            }
+
+            .stats-strip .item .lbl {
+                font-size: 0.8rem;
+                color: #a9cbc5;
+                margin-top: 2px;
+            }
+
+        /* Doctors */
+        .doctor-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+        }
+
+        .doctor-photo {
+            height: 190px;
+            background: linear-gradient(160deg, var(--teal-100), var(--teal-50));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+            .doctor-photo .avatar {
+                width: 84px;
+                height: 84px;
+                font-size: 1.6rem;
+                background: var(--teal-600);
+                color: #fff;
+            }
+
+        .doctor-info {
+            padding: var(--space-4);
+        }
+
+            .doctor-info h5 {
+                margin-bottom: 2px;
+            }
+
+            .doctor-info .dept {
+                color: var(--teal-700);
+                font-size: 0.8rem;
+                font-weight: 600;
+                margin-bottom: var(--space-3);
+            }
+
+            .doctor-info .meta-row {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                font-size: 0.8rem;
+                color: var(--muted);
+            }
+
+            .doctor-info .rating {
+                display: flex;
+                align-items: center;
+                gap: 4px;
+                color: var(--warning);
+                font-weight: 700;
+            }
+
+                .doctor-info .rating svg {
+                    width: 14px;
+                    height: 14px;
+                }
+
+        /* Testimonial */
+        .testimonial-card {
+            background: var(--teal-50);
+            border-radius: var(--radius-lg);
+            padding: var(--space-6);
+            border: 1px solid var(--teal-100);
+        }
+
+            .testimonial-card .quote-mark {
+                font-family: var(--font-heading);
+                font-size: 2.6rem;
+                color: var(--teal-500);
+                line-height: 1;
+                margin-bottom: var(--space-3);
+            }
+
+            .testimonial-card p.quote {
+                color: var(--ink-soft);
+                font-size: 1rem;
+                margin-bottom: var(--space-5);
+            }
+
+        .testimonial-person {
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+        }
+
+            .testimonial-person .t-name {
+                font-weight: 700;
+                font-size: 0.9rem;
+            }
+
+            .testimonial-person .t-role {
+                font-size: 0.78rem;
+                color: var(--muted);
+            }
+
+        /* CTA band */
+        .cta-band {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: var(--space-7) var(--space-6);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: var(--space-5);
+            flex-wrap: wrap;
+        }
+
+            .cta-band h2 {
+                max-width: 16ch;
+                margin-bottom: var(--space-2);
+            }
+
+        /* Footer */
+        .site-footer {
+            border-top: 1px solid var(--border);
+            padding-block: var(--space-7) var(--space-6);
+            margin-top: var(--space-7);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1.4fr 1fr 1fr 1fr;
+            gap: var(--space-6);
+            margin-bottom: var(--space-6);
+        }
+
+        @media (max-width: 760px) {
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .footer-col h6 {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--ink);
+            margin-bottom: var(--space-4);
+        }
+
+        .footer-col ul {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-3);
+        }
+
+        .footer-col a {
+            font-size: 0.85rem;
+            color: var(--muted);
+        }
+
+            .footer-col a:hover {
+                color: var(--teal-700);
+            }
+
+        .footer-bottom {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: var(--space-3);
+            padding-top: var(--space-5);
+            border-top: 1px solid var(--border);
+            font-size: 0.8rem;
+            color: var(--muted);
+        }
+
+        .mobile-menu-btn {
+            display: flex;
+        }
+
+        @media (min-width: 880px) {
+            .mobile-menu-btn {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ============================= HEADER ============================= -->
+    <header class="site-header">
+        <div class="container site-nav">
+            <a href="index.html" class="brand" aria-label="Premier Hospital home">
+                <span class="mark">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M2 12h20" /></svg>
+                </span>
+                <span class="brand-name">Premi<span>er</span> Hospital</span>
+            </a>
+
+            <nav class="nav-links" aria-label="Primary">
+                <a href="#services">Services</a>
+                <a href="#departments">Departments</a>
+                <a href="#doctors">Our Doctors</a>
+                <a href="#testimonials">Patient Stories</a>
+                <a href="#contact">Contact</a>
+            </nav>
+
+            <div class="nav-cta">
+                <a href="pages/login.html" class="btn btn-secondary btn-sm">Log In</a>
+                <a href="pages/patient/appointments.html" class="btn btn-primary btn-sm">Book Appointment</a>
+                <button class="icon-btn mobile-menu-btn" aria-label="Open menu">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18" /></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+
+        <!-- ============================= HERO ============================= -->
+        <section class="hero">
+            <div class="container hero-grid">
+                <div class="hero-copy">
+                    <span class="hero-eyebrow"><span class="pulse"></span> Now accepting new patients</span>
+                    <h1>Care that fits around your life, not the other way around.</h1>
+                    <p class="lede">Premier brings your appointments, prescriptions, and billing into one place — so you spend less time on hospital admin and more time getting better.</p>
+
+                    <div class="hero-actions">
+                        <a href="pages/patient/appointments.html" class="btn btn-primary btn-lg">Book an Appointment</a>
+                        <a href="pages/register.html" class="btn btn-secondary btn-lg">Create Patient Account</a>
+                    </div>
+
+                    <div class="hero-trust-row">
+                        <div class="trust-item">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-11V5l-8-3-8 3v6c0 7 8 11 8 11Z" /></svg>
+                            24/7 Emergency Care
+                        </div>
+                        <div class="trust-item">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9" /><path d="M12 7v5l3 3" /></svg>
+                            Same-day slots available
+                        </div>
+                        <div class="trust-item">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4" /><circle cx="12" cy="12" r="9" /></svg>
+                            140+ verified specialists
+                        </div>
+                    </div>
+                </div>
+
+                <div class="hero-visual">
+                    <div>
+                        <div class="visual-label">Today · Cardiology Wing</div>
+                        <div class="visual-title">Live Appointment Queue</div>
+
+                        <div class="queue-card">
+                            <span class="avatar avatar-md">RA</span>
+                            <div>
+                                <div class="qc-name">Rafiq Ahmed</div>
+                                <div class="qc-role">Follow-up · Dr. N. Karim</div>
+                            </div>
+                            <span class="qc-time">10:30 AM</span>
+                        </div>
+                        <div class="queue-card">
+                            <span class="avatar avatar-md">SB</span>
+                            <div>
+                                <div class="qc-name">Shirin Begum</div>
+                                <div class="qc-role">New Patient · Dr. F. Rahman</div>
+                            </div>
+                            <span class="qc-time">10:45 AM</span>
+                        </div>
+                        <div class="queue-card">
+                            <span class="avatar avatar-md">TI</span>
+                            <div>
+                                <div class="qc-name">Tanvir Islam</div>
+                                <div class="qc-role">Prescription Review</div>
+                            </div>
+                            <span class="qc-time">11:00 AM</span>
+                        </div>
+                    </div>
+
+                    <div class="hero-stats">
+                        <div>
+                            <div class="hs-value">4.8m</div>
+                            <div class="hs-label">Avg. wait time</div>
+                        </div>
+                        <div>
+                            <div class="hs-value">98%</div>
+                            <div class="hs-label">On-time consults</div>
+                        </div>
+                        <div>
+                            <div class="hs-value">12</div>
+                            <div class="hs-label">Departments live</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================= SERVICES ============================= -->
+        <section class="section" id="services">
+            <div class="container">
+                <div class="section-head">
+                    <div class="kicker">What we offer</div>
+                    <h2>Every step of your care, handled in one system</h2>
+                </div>
+
+                <div class="grid grid-4">
+                    <div class="service-card">
+                        <div class="s-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" /><path d="M16 2v4M8 2v4M3 10h18" /></svg></div>
+                        <h4>Appointment Booking</h4>
+                        <p>Search doctors by department, check live availability, and book or cancel visits in a few taps.</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="s-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12h6M9 16h6M9 8h1" /><rect x="4" y="3" width="16" height="18" rx="2" /></svg></div>
+                        <h4>Digital Prescriptions</h4>
+                        <p>Doctors issue prescriptions electronically, with dosage and duration you can view or download anytime.</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="s-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2" /><path d="M2 10h20" /></svg></div>
+                        <h4>Billing & Payments</h4>
+                        <p>Review itemized invoices per visit and pay online — no more waiting at the billing counter.</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="s-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 0 0 0-7.8Z" /></svg></div>
+                        <h4>Care Feedback</h4>
+                        <p>Rate your visit and share feedback directly with the department — we act on what patients tell us.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================= DEPARTMENTS / STATS ============================= -->
+        <section class="section" id="departments">
+            <div class="container">
+                <div class="stats-strip">
+                    <div class="item"><div class="val">12</div><div class="lbl">Active departments</div></div>
+                    <div class="item"><div class="val">140+</div><div class="lbl">Doctors on staff</div></div>
+                    <div class="item"><div class="val">32k</div><div class="lbl">Patients served yearly</div></div>
+                    <div class="item"><div class="val">4.7 / 5</div><div class="lbl">Average patient rating</div></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================= DOCTORS ============================= -->
+        <section class="section" id="doctors">
+            <div class="container">
+                <div class="section-head">
+                    <div class="kicker">Meet the team</div>
+                    <h2>Specialists across every major department</h2>
+                </div>
+
+                <div class="grid grid-4">
+                    <div class="doctor-card">
+                        <div class="doctor-photo"><span class="avatar">NK</span></div>
+                        <div class="doctor-info">
+                            <h5>Dr. Nasrin Karim</h5>
+                            <div class="dept">Cardiology</div>
+                            <div class="meta-row">
+                                <span>14 yrs experience</span>
+                                <span class="rating"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1L12 2Z" /></svg>4.9</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="doctor-card">
+                        <div class="doctor-photo"><span class="avatar">FR</span></div>
+                        <div class="doctor-info">
+                            <h5>Dr. Faisal Rahman</h5>
+                            <div class="dept">Orthopedics</div>
+                            <div class="meta-row">
+                                <span>9 yrs experience</span>
+                                <span class="rating"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1L12 2Z" /></svg>4.8</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="doctor-card">
+                        <div class="doctor-photo"><span class="avatar">SA</span></div>
+                        <div class="doctor-info">
+                            <h5>Dr. Sadia Anwar</h5>
+                            <div class="dept">Pediatrics</div>
+                            <div class="meta-row">
+                                <span>11 yrs experience</span>
+                                <span class="rating"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1L12 2Z" /></svg>5.0</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="doctor-card">
+                        <div class="doctor-photo"><span class="avatar">MH</span></div>
+                        <div class="doctor-info">
+                            <h5>Dr. Mehedi Hasan</h5>
+                            <div class="dept">Neurology</div>
+                            <div class="meta-row">
+                                <span>16 yrs experience</span>
+                                <span class="rating"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1L12 2Z" /></svg>4.9</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================= TESTIMONIALS ============================= -->
+        <section class="section" id="testimonials">
+            <div class="container">
+                <div class="grid grid-3">
+                    <div class="testimonial-card">
+                        <div class="quote-mark">“</div>
+                        <p class="quote">Booking a follow-up took less than a minute, and I could see Dr. Karim's notes right after the visit.</p>
+                        <div class="testimonial-person">
+                            <span class="avatar avatar-sm">RA</span>
+                            <div>
+                                <div class="t-name">Rafiq Ahmed</div>
+                                <div class="t-role">Cardiology patient</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card">
+                        <div class="quote-mark">“</div>
+                        <p class="quote">I paid my invoice from my phone the same evening. No more standing in line at the billing desk.</p>
+                        <div class="testimonial-person">
+                            <span class="avatar avatar-sm">SB</span>
+                            <div>
+                                <div class="t-name">Shirin Begum</div>
+                                <div class="t-role">Orthopedics patient</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card">
+                        <div class="quote-mark">“</div>
+                        <p class="quote">My son's prescription history is all in one place now — makes every pediatrician visit faster.</p>
+                        <div class="testimonial-person">
+                            <span class="avatar avatar-sm">TI</span>
+                            <div>
+                                <div class="t-name">Tanvir Islam</div>
+                                <div class="t-role">Guardian, Pediatrics</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================= CTA ============================= -->
+        <section class="section" id="contact">
+            <div class="container">
+                <div class="cta-band">
+                    <div>
+                        <h2>Ready to see a doctor this week?</h2>
+                        <p>Create a free patient account and book your first appointment in minutes.</p>
+                    </div>
+                    <div class="flex gap-3">
+                        <a href="pages/register.html" class="btn btn-primary btn-lg">Get Started</a>
+                        <a href="pages/login.html" class="btn btn-secondary btn-lg">Staff Login</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ============================= FOOTER ============================= -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="brand mb-3">
+                        <span class="mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M2 12h20" /></svg></span>
+                        <span class="brand-name">Premi<span>er</span></span>
+                    </div>
+                    <p class="text-sm text-muted">123 Zakir Hossain Road, Chattogram, Bangladesh. Open 24/7 for emergencies.</p>
+                </div>
+             
+                <div class="footer-col">
+                    
+                    
+                        <!-- Clean Footer Quick Links -->
+                        <div class="footer-col">
+                            <h4>Quick Portals</h4>
+                            <ul>
+                                <li><a href="pages/login.html">Patient Login</a></li>
+                                <li><a href="pages/login.html">Doctor Login</a></li>
+                                <li><a href="pages/register.html">Patient Registration</a></li>
+                            </ul>
+                        </div>
+                    
+                </div>
+                <div class="footer-col">
+                    <h6>Departments</h6>
+                    <ul>
+                        <li><a href="#departments">Cardiology</a></li>
+                        <li><a href="#departments">Orthopedics</a></li>
+                        <li><a href="#departments">Pediatrics</a></li>
+                        <li><a href="#departments">Neurology</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <span>© 2026 Premier Hospital Management System.</span>
+                <span>Built for demonstration purposes.</span>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

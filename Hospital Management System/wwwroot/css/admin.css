@@ -1,0 +1,278 @@
+﻿/* ==========================================================================
+   MediCore HMS — Admin Stylesheet
+   File: wwwroot/css/admin.css
+   Depends on: style.css, dashboard.css (must be loaded first)
+   Used by: pages/admin/*.html
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Filter bar (used across staff / inventory / billing tables)
+   -------------------------------------------------------------------------- */
+.filter-bar {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    flex-wrap: wrap;
+}
+
+    .filter-bar .input-group {
+        min-width: 220px;
+    }
+
+    .filter-bar select.input {
+        min-width: 160px;
+    }
+
+.chip-group {
+    display: flex;
+    gap: var(--space-2);
+    flex-wrap: wrap;
+}
+
+.chip {
+    padding: 0.4rem 0.9rem;
+    border-radius: var(--radius-pill);
+    border: 1px solid var(--border-strong);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--muted);
+    transition: background var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease);
+}
+
+    .chip:hover {
+        border-color: var(--teal-500);
+    }
+
+    .chip.is-active {
+        background: var(--teal-600);
+        color: #fff;
+        border-color: var(--teal-600);
+    }
+
+/* --------------------------------------------------------------------------
+   Role tag (staff-management table)
+   -------------------------------------------------------------------------- */
+.role-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 3px 10px;
+    border-radius: var(--radius-pill);
+    font-size: 0.72rem;
+    font-weight: 700;
+}
+
+    .role-tag.role-admin {
+        background: #efe6fb;
+        color: #6b3fb0;
+    }
+
+    .role-tag.role-doctor {
+        background: var(--info-bg);
+        color: var(--info);
+    }
+
+    .role-tag.role-patient {
+        background: var(--teal-100);
+        color: var(--teal-800);
+    }
+
+    .role-tag.role-staff {
+        background: var(--warning-bg);
+        color: var(--warning);
+    }
+
+/* --------------------------------------------------------------------------
+   Department cards
+   -------------------------------------------------------------------------- */
+.department-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-5);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+}
+
+    .department-card .dept-head {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+    }
+
+    .department-card .dept-icon {
+        width: 44px;
+        height: 44px;
+        border-radius: var(--radius-sm);
+        background: var(--teal-50);
+        color: var(--teal-700);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+        .department-card .dept-icon svg {
+            width: 22px;
+            height: 22px;
+        }
+
+    .department-card h4 {
+        margin-top: var(--space-3);
+    }
+
+    .department-card .dept-meta {
+        display: flex;
+        gap: var(--space-4);
+        font-size: 0.8rem;
+        color: var(--muted);
+        margin-top: var(--space-1);
+    }
+
+        .department-card .dept-meta strong {
+            color: var(--ink);
+        }
+
+    .department-card .dept-actions {
+        display: flex;
+        gap: var(--space-2);
+        margin-top: var(--space-2);
+        border-top: 1px solid var(--border);
+        padding-top: var(--space-3);
+    }
+
+/* --------------------------------------------------------------------------
+   Medicine inventory
+   -------------------------------------------------------------------------- */
+.stock-bar-track {
+    width: 100px;
+    height: 6px;
+    border-radius: var(--radius-pill);
+    background: var(--border);
+    overflow: hidden;
+}
+
+.stock-bar-fill {
+    height: 100%;
+    border-radius: var(--radius-pill);
+}
+
+    .stock-bar-fill.tone-ok {
+        background: var(--success);
+    }
+
+    .stock-bar-fill.tone-low {
+        background: var(--warning);
+    }
+
+    .stock-bar-fill.tone-critical {
+        background: var(--coral);
+    }
+
+.stock-cell {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+}
+
+    .stock-cell .stock-num {
+        font-weight: 700;
+        font-size: 0.8125rem;
+        min-width: 34px;
+    }
+
+/* --------------------------------------------------------------------------
+   Billing & revenue overview
+   -------------------------------------------------------------------------- */
+.revenue-summary-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: var(--space-5);
+}
+
+@media (max-width: 960px) {
+    .revenue-summary-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.chart-placeholder {
+    height: 260px;
+    border-radius: var(--radius-md);
+    background: linear-gradient(0deg, var(--bg) 1px, transparent 1px), linear-gradient(90deg, var(--bg) 1px, transparent 1px);
+    background-size: 100% 20%, 12.5% 100%;
+    background-color: var(--surface);
+    border: 1px solid var(--border);
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    padding: var(--space-4);
+    gap: 10px;
+}
+
+    .chart-placeholder .bar {
+        flex: 1;
+        background: linear-gradient(180deg, var(--teal-500), var(--teal-700));
+        border-radius: 4px 4px 0 0;
+        position: relative;
+    }
+
+        .chart-placeholder .bar span {
+            position: absolute;
+            top: -22px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: var(--muted);
+        }
+
+.invoice-status-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+}
+
+.invoice-status-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--space-3) var(--space-4);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+}
+
+    .invoice-status-row .isr-left {
+        display: flex;
+        align-items: center;
+        gap: var(--space-3);
+    }
+
+    .invoice-status-row .isr-icon {
+        width: 34px;
+        height: 34px;
+        border-radius: var(--radius-sm);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+        .invoice-status-row .isr-icon svg {
+            width: 17px;
+            height: 17px;
+        }
+
+/* --------------------------------------------------------------------------
+   Modal form grid (used in staff / department / inventory add-edit modals)
+   -------------------------------------------------------------------------- */
+.form-grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 var(--space-4);
+}
+
+@media (max-width: 560px) {
+    .form-grid-2 {
+        grid-template-columns: 1fr;
+    }
+}

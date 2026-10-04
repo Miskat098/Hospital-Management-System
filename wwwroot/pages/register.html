@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Create Account &middot; MediChart HMS</title>
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <script>
+    // Redirect static duplicate page to the MVC Register view so the proper server-side form is used
+    // This avoids the broken static form (no names/action) and ensures the AccountController handles registration
+    window.location.replace('/Account/Register');
+  </script>
+<div class="auth-wrap">
+  <div class="auth-side">
+    <div class="brand">
+      <div class="brand-mark">M</div>
+      <div class="brand-name" style="color:#fff;">MediChart<span>Hospital System</span></div>
+    </div>
+    <div class="auth-quote">
+      &ldquo;Every account starts as a USER, then branches into a role.&rdquo;
+      <small>Role: Patient &middot; Doctor &middot; Admin</small>
+    </div>
+  </div>
+
+  <div class="auth-form-col">
+    <div class="auth-card" style="max-width:420px;">
+      <h1>Create your account</h1>
+      <p class="lead">Register to book appointments and view your records.</p>
+
+      <form>
+        <div class="form-grid" style="margin-bottom:16px;">
+          <div class="field full">
+            <label>Full Name <span class="req">*</span></label>
+            <input type="text" placeholder="e.g. Rafiul Hasan" required>
+          </div>
+          <div class="field full">
+            <label>Email <span class="req">*</span></label>
+            <input type="email" placeholder="you@email.com" required>
+          </div>
+          <div class="field">
+            <label>Phone <span class="req">*</span></label>
+            <input type="tel" placeholder="01XXXXXXXXX" required>
+          </div>
+          <div class="field">
+            <label>Role</label>
+            <select>
+              <option>Patient</option>
+              <option>Doctor</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Password <span class="req">*</span></label>
+            <input type="password" placeholder="&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;" required>
+          </div>
+          <div class="field">
+            <label>Confirm Password <span class="req">*</span></label>
+            <input type="password" placeholder="&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;" required>
+          </div>
+        </div>
+        <label style="display:flex; align-items:flex-start; gap:8px; font-size:12px; color:var(--muted); margin-bottom:18px;">
+          <input type="checkbox" style="width:auto; margin-top:2px;">
+          I agree to the terms of service and privacy policy.
+        </label>
+        <button type="submit" class="btn btn-primary btn-block">Create Account</button>
+      </form>
+
+      <p class="auth-footnote">Already have an account? <a href="login.html" style="font-weight:600;">Sign in</a></p>
+    </div>
+  </div>
+</div>
+</body>
+</html>

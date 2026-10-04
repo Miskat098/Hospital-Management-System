@@ -1,0 +1,49 @@
+@{
+	Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Forgot Password &middot; MediChart HMS</title>
+<link rel="stylesheet" href="~/css/style.css">
+</head>
+<body>
+<div class="auth-wrap">
+  <div class="auth-side">
+	<div class="brand">
+	  <div class="brand-mark">M</div>
+	  <div class="brand-name" style="color:#fff;">MediChart<span>Hospital System</span></div>
+	</div>
+	<div class="auth-quote">
+	  &ldquo;If you forgot your password, contact your site administrator.&rdquo;
+	  <small>Security first — admin will assist with reset</small>
+	</div>
+  </div>
+
+  <div class="auth-form-col">
+	<div class="auth-card">
+	  <h1>Forgot Password</h1>
+	  <p class="lead">Enter the email address for your account. An administrator will assist with resetting your password.</p>
+
+	  @if (TempData["ForgotMessage"] != null)
+	  {
+		<div style="background:var(--good-tint); color:var(--good); padding:10px 14px; border-radius:8px; font-size:13px; margin-bottom:14px;">@TempData["ForgotMessage"]</div>
+	  }
+
+	  <form asp-controller="Account" asp-action="Forgot" method="post">
+		@Html.AntiForgeryToken()
+		<div class="field" style="margin-bottom:16px;">
+		  <label>Email <span class="req">*</span></label>
+		  <input type="email" name="email" placeholder="you@hospital.com" required>
+		</div>
+		<button type="submit" class="btn btn-primary btn-block">Request Assistance</button>
+	  </form>
+
+	  <p class="auth-footnote">Remembered your password? <a asp-controller="Account" asp-action="Login" style="font-weight:600;">Sign in</a></p>
+	</div>
+  </div>
+</div>
+</body>
+</html>

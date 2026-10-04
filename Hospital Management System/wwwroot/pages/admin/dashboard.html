@@ -1,0 +1,257 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard — MediCore Hospital</title>
+    <link rel="stylesheet" href="../../css/style.css" />
+    <link rel="stylesheet" href="../../css/dashboard.css" />
+    <link rel="stylesheet" href="../../css/admin.css" />
+</head>
+<body>
+
+    <div class="app-shell">
+
+        <!-- ============================= SIDEBAR ============================= -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-brand">
+                <span class="mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M2 12h20" /></svg></span>
+                <div>
+                    <div class="name">MediCore</div>
+                    <div class="role-tag">Admin Console</div>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav" aria-label="Admin navigation">
+                <a href="dashboard.html" class="sidebar-link is-active">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9" rx="1" /><rect x="14" y="3" width="7" height="5" rx="1" /><rect x="14" y="12" width="7" height="9" rx="1" /><rect x="3" y="16" width="7" height="5" rx="1" /></svg>
+                    Dashboard
+                </a>
+                <a href="staff-management.html" class="sidebar-link">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" /><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" /></svg>
+                    Staff Management
+                </a>
+                <a href="department-management.html" class="sidebar-link">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="14" rx="2" /><path d="M9 21V11h6v10M9 7V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v3" /></svg>
+                    Departments
+                </a>
+                <a href="medicine-inventory.html" class="sidebar-link">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m10.5 20.5 8-8a4.95 4.95 0 1 0-7-7l-8 8a4.95 4.95 0 1 0 7 7Z" /><path d="m8.5 8.5 7 7" /></svg>
+                    Medicine Inventory
+                    <span class="count-pill">6 low</span>
+                </a>
+                <a href="billing-overview.html" class="sidebar-link">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2" /><path d="M2 10h20" /></svg>
+                    Billing &amp; Revenue
+                </a>
+
+                <div class="sidebar-section-label">Account</div>
+                <a href="#" class="sidebar-link">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3" /><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.6a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z" /></svg>
+                    Settings
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="sidebar-user">
+                    <span class="avatar avatar-sm" style="background:var(--teal-500);color:#fff;">AK</span>
+                    <div>
+                        <div class="u-name">Ayesha Khatun</div>
+                        <div class="u-role">System Administrator</div>
+                    </div>
+                </div>
+                <button class="sidebar-logout" id="logoutBtn">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" /><path d="M16 17l5-5-5-5M21 12H9" /></svg>
+                    Log Out
+                </button>
+            </div>
+        </aside>
+
+        <!-- ============================= MAIN ============================= -->
+        <div class="app-main">
+
+            <header class="topbar">
+                <div class="topbar-left">
+                    <button class="icon-btn menu-toggle" id="menuToggle" aria-label="Toggle menu">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18" /></svg>
+                    </button>
+                    <div class="topbar-title">
+                        <h1>Overview</h1>
+                        <div class="subtitle">Monday, 21 September 2026</div>
+                    </div>
+                </div>
+                <div class="topbar-right">
+                    <div class="topbar-search">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8" /><path d="m21 21-4.3-4.3" /></svg>
+                        <input class="input" type="search" placeholder="Search patients, staff, invoices…" />
+                    </div>
+                    <button class="topbar-icon-btn" aria-label="Notifications">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9" /><path d="M13.7 21a2 2 0 0 1-3.4 0" /></svg>
+                        <span class="dot"></span>
+                    </button>
+                    <span class="avatar avatar-sm" style="background:var(--teal-500);color:#fff;">AK</span>
+                </div>
+            </header>
+
+            <main class="app-content">
+
+                <!-- KPI cards -->
+                <div class="grid grid-4 mb-5">
+                    <div class="stat-card">
+                        <div class="stat-card-top">
+                            <span class="stat-icon tone-teal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" /></svg></span>
+                            <span class="stat-trend up">+4.2%</span>
+                        </div>
+                        <div class="stat-value">1,248</div>
+                        <div class="stat-label">Total Patients</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card-top">
+                            <span class="stat-icon tone-info"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12h6M9 16h6M9 8h1" /><rect x="4" y="3" width="16" height="18" rx="2" /></svg></span>
+                            <span class="stat-trend up">+1.1%</span>
+                        </div>
+                        <div class="stat-value">142</div>
+                        <div class="stat-label">Active Doctors</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card-top">
+                            <span class="stat-icon tone-warning"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m10.5 20.5 8-8a4.95 4.95 0 1 0-7-7l-8 8a4.95 4.95 0 1 0 7 7Z" /></svg></span>
+                            <span class="stat-trend down">-3 items</span>
+                        </div>
+                        <div class="stat-value">6</div>
+                        <div class="stat-label">Medicines Low in Stock</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card-top">
+                            <span class="stat-icon tone-coral"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2" /><path d="M2 10h20" /></svg></span>
+                            <span class="stat-trend up">+12.8%</span>
+                        </div>
+                        <div class="stat-value">৳8.4L</div>
+                        <div class="stat-label">Revenue This Month</div>
+                    </div>
+                </div>
+
+                <!-- Recent registrations + department load -->
+                <div class="grid" style="grid-template-columns: 2fr 1fr;">
+                    <div class="panel">
+                        <div class="panel-header">
+                            <div>
+                                <h3>Recent Staff & Patient Registrations</h3>
+                                <p class="text-sm text-muted mb-0">Latest accounts created across all roles</p>
+                            </div>
+                            <a href="staff-management.html" class="btn btn-secondary btn-sm">View All</a>
+                        </div>
+                        <div class="data-table-wrap">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Role</th>
+                                        <th>Department</th>
+                                        <th>Joined</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="recentRegistrationsBody">
+                                    <tr>
+                                        <td>
+                                            <div class="row-person">
+                                                <span class="avatar avatar-sm">NK</span>
+                                                <div>
+                                                    <div class="cell-primary">Dr. Nasrin Karim</div>
+                                                    <div class="cell-sub">nasrin.karim@medicore.com</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td><span class="role-tag role-doctor">Doctor</span></td>
+                                        <td>Cardiology</td>
+                                        <td>18 Sep 2026</td>
+                                        <td><span class="badge badge-success">Active</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="row-person">
+                                                <span class="avatar avatar-sm">SB</span>
+                                                <div>
+                                                    <div class="cell-primary">Shirin Begum</div>
+                                                    <div class="cell-sub">shirin.begum@gmail.com</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td><span class="role-tag role-patient">Patient</span></td>
+                                        <td>—</td>
+                                        <td>17 Sep 2026</td>
+                                        <td><span class="badge badge-success">Active</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="row-person">
+                                                <span class="avatar avatar-sm">MH</span>
+                                                <div>
+                                                    <div class="cell-primary">Dr. Mehedi Hasan</div>
+                                                    <div class="cell-sub">mehedi.hasan@medicore.com</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td><span class="role-tag role-doctor">Doctor</span></td>
+                                        <td>Neurology</td>
+                                        <td>15 Sep 2026</td>
+                                        <td><span class="badge badge-warning">Pending</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="row-person">
+                                                <span class="avatar avatar-sm">RH</span>
+                                                <div>
+                                                    <div class="cell-primary">Rezaul Haque</div>
+                                                    <div class="cell-sub">rezaul.haque@medicore.com</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td><span class="role-tag role-staff">Staff</span></td>
+                                        <td>Billing Desk</td>
+                                        <td>12 Sep 2026</td>
+                                        <td><span class="badge badge-success">Active</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="panel">
+                        <div class="panel-header">
+                            <h3>Department Load</h3>
+                        </div>
+                        <div class="panel-body flex flex-col gap-4">
+                            <div>
+                                <div class="flex justify-between mb-2 text-sm"><span>Cardiology</span><strong>86%</strong></div>
+                                <div class="stock-bar-track" style="width:100%;"><div class="stock-bar-fill tone-critical" style="width:86%;"></div></div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between mb-2 text-sm"><span>Orthopedics</span><strong>64%</strong></div>
+                                <div class="stock-bar-track" style="width:100%;"><div class="stock-bar-fill tone-low" style="width:64%;"></div></div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between mb-2 text-sm"><span>Pediatrics</span><strong>48%</strong></div>
+                                <div class="stock-bar-track" style="width:100%;"><div class="stock-bar-fill tone-ok" style="width:48%;"></div></div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between mb-2 text-sm"><span>Neurology</span><strong>73%</strong></div>
+                                <div class="stock-bar-track" style="width:100%;"><div class="stock-bar-fill tone-low" style="width:73%;"></div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </main>
+        </div>
+    </div>
+
+    <div class="toast-stack" id="toastStack"></div>
+
+    <script src="../../js/utils.js"></script>
+    <script src="../../js/api.js"></script>
+    <script src="../../js/auth.js"></script>
+    <script src="../../js/admin/dashboard.js"></script>
+</body>
+</html>

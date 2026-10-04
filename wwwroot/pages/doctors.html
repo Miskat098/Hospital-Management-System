@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Doctors &middot; MediChart HMS</title>
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-mark">M</div>
+      <div class="brand-name">MediChart<span>Hospital System</span></div>
+    </div>
+    <div class="nav-group-label">Records</div>
+      <a href="dashboard.html" class="nav-link"><span class="ic">&#9635;</span>Dashboard</a>
+      <a href="patients.html" class="nav-link"><span class="ic">&#9906;</span>Patients</a>
+      <a href="doctors.html" class="nav-link active"><span class="ic">&#9877;</span>Doctors</a>
+      <a href="departments.html" class="nav-link"><span class="ic">&#127974;</span>Departments</a>
+      <a href="appointments.html" class="nav-link"><span class="ic">&#128197;</span>Appointments</a>
+      <a href="prescriptions.html" class="nav-link"><span class="ic">&#128209;</span>Prescriptions</a>
+      <a href="billing.html" class="nav-link"><span class="ic">&#128179;</span>Billing</a>
+      <a href="feedback.html" class="nav-link"><span class="ic">&#9733;</span>Feedback</a>
+      <a href="medicines.html" class="nav-link"><span class="ic">&#128138;</span>Medicines</a>
+    <div class="sidebar-foot">
+      <div class="mini-user">
+        <div class="mini-avatar">AR</div>
+        <div><strong>Admin Rahman</strong><small>Front Desk &middot; Admin</small></div>
+      </div>
+      <a href="/Account/Logout" class="nav-link" style="margin-top:6px;"><span class="ic">&#8592;</span>Sign out</a>
+    </div>
+  </aside>
+  <div class="main">
+    <header class="topbar">
+      <div><div class="eyebrow">Records</div><h1>Doctors</h1></div>
+      <div class="topbar-right">
+        <div class="search">&#128269;&nbsp; Search by name or specialization...</div>
+        <button class="icon-btn">&#128276;</button>
+      </div>
+    </header>
+    <main class="content">
+      <div class="card">
+        <div class="card-head"><div><h2>Add New Doctor</h2><div class="hint">Creates a USER record and links a DOCTOR profile to a department</div></div></div>
+        <div class="card-body">
+          <form id="createDoctorForm" class="form-grid">
+            <div class="field"><label>Full Name <span class="req">*</span></label><input id="dName" type="text" placeholder="e.g. Dr. Nusrat Jahan" required></div>
+            <div class="field"><label>Email <span class="req">*</span></label><input id="dEmail" type="email" placeholder="doctor@email.com" required></div>
+            <div class="field"><label>Phone</label><input id="dPhone" type="tel" placeholder="01XXXXXXXXX"></div>
+            <div class="field"><label>Specialization <span class="req">*</span></label><input id="dSpec" type="text" placeholder="e.g. Cardiology"></div>
+            <div class="field full"><label>Department <span class="req">*</span></label>
+              <select id="dDept"><option value="1">Cardiology</option><option value="2">Orthopedics</option><option value="3">Dermatology</option><option value="4">General Medicine</option></select>
+            </div>
+            <div class="form-actions field full">
+              <button type="submit" class="btn btn-primary">Save Doctor</button>
+              <button type="reset" class="btn btn-ghost">Clear Form</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><div><h2>All Doctors</h2><div class="hint">42 records</div></div></div>
+        <table>
+          <thead><tr><th>Doctor ID</th><th>Name</th><th>Specialization</th><th>Department</th><th>Rating</th><th></th></tr></thead>
+          <tbody id="doctorsTbody">
+            <!-- populated by JS -->
+          </tbody>
+        </table>
+      </div>
+
+    </main>
+  </div>
+</div>
+</body>
+<script>
+  // Role-aware doctors management UI (client-side only)
+  (async function(){
+    // Get current user/session
+    let info = { authenticated: false };
+    try{
+      const r = await fetch('/api/account/current');
+      if(r.ok) info = await r.json();
+    }catch(e){ console.error('Failed to fetch current user', e); }
+
+    // Redirect unauthenticated users to login
+    if(!info.authenticated){ window.location.href = '/pages/login.html'; return; }
+
+    const role = (info.UserRole||'').toLowerCase();
+    const isAdmin = role === 'admin';
+
+    // Hide links that are admin-only
+    try{
+      if(!isAdmin){
+        const depLink = document.querySelector('a[href="departments.html"]');
+        const medLink = document.querySelector('a[href="medicines.html"]');
+        if(depLink) depLink.style.display = 'none';
+        if(medLink) medLink.style.display = 'none';
+      }
+    }catch(e){ /* ignore */ }
+
+    // Show/hide create doctor card for non-admins
+    const createForm = document.getElementById('createDoctorForm');
+    const createCard = createForm ? createForm.closest('.card') : null;
+    if(createCard && !isAdmin){ createCard.style.display = 'none'; }
+
+    let editingDoctorId = null;
+
+    // Only attach submit handler if admin (prevent non-admins from attempting create)
+    if(isAdmin && createForm){
+      createForm.addEventListener('submit', async function(e){
+        e.preventDefault();
+        const payload = {
+          Name: document.getElementById('dName').value.trim(),
+          Email: document.getElementById('dEmail').value.trim(),
+          Phone: document.getElementById('dPhone').value.trim(),
+          Specialization: document.getElementById('dSpec').value.trim(),
+          DeptID: parseInt(document.getElementById('dDept').value) || 0
+        };
+        try{
+          if (editingDoctorId) {
+            const res = await fetch('/api/doctors/' + editingDoctorId, { method: 'PUT', headers: {'Content-Type':'application/json'}, body: JSON.stringify(payload) });
+            const data = await res.json();
+            if (res.ok) { alert('Doctor updated'); editingDoctorId = null; createForm.reset(); loadDoctors(); } else alert(data.message || 'Error');
+          } else {
+            const res = await fetch('/api/doctors', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify(payload) });
+            const data = await res.json();
+            if(res.ok) { alert('Doctor created'); createForm.reset(); loadDoctors(); } else { alert(data.message || 'Error'); }
+          }
+        }catch(e){ alert('Network error'); }
+      });
+    }
+
+    async function loadDoctors(){
+      try{
+        const res = await fetch('/api/doctors');
+        if(!res.ok) return;
+        const data = await res.json();
+        const tbody = document.getElementById('doctorsTbody'); tbody.innerHTML = '';
+        data.forEach(d => {
+          const tr = document.createElement('tr');
+          const idTd = document.createElement('td'); idTd.innerHTML = `<span class="id-chip">DR-${d.DoctorID}</span>`;
+          const nameTd = document.createElement('td'); nameTd.className='name-cell'; nameTd.innerHTML = `<div class="avatar">${(d.Name||'').split(' ').map(n=>n[0]).slice(0,2).join('')}</div><span class="cell-name">${d.Name}</span>`;
+          const specTd = document.createElement('td'); specTd.textContent = d.Specialization || '';
+          const deptTd = document.createElement('td'); deptTd.textContent = d.Dept || '';
+          const ratingTd = document.createElement('td'); ratingTd.innerHTML = `<span class="badge badge-good">-</span>`;
+          const actTd = document.createElement('td'); actTd.className='row-actions';
+
+          // Only render Edit/Delete actions for Admin
+          if(isAdmin){
+            const editBtn = document.createElement('button'); editBtn.className='btn btn-ghost btn-sm'; editBtn.textContent='Edit';
+            const delBtn = document.createElement('button'); delBtn.className='btn btn-danger-ghost btn-sm'; delBtn.textContent='Delete';
+
+            editBtn.addEventListener('click', async ()=>{
+              try{
+                const r = await fetch('/api/doctors/' + d.DoctorID);
+                if(!r.ok) { alert('Failed to load doctor'); return; }
+                const doc = await r.json();
+                if(document.getElementById('dName')) document.getElementById('dName').value = doc.Name || '';
+                if(document.getElementById('dEmail')) document.getElementById('dEmail').value = doc.Email || '';
+                if(document.getElementById('dPhone')) document.getElementById('dPhone').value = doc.Phone || '';
+                if(document.getElementById('dSpec')) document.getElementById('dSpec').value = doc.Specialization || '';
+                if(document.getElementById('dDept')) document.getElementById('dDept').value = doc.DeptID || '';
+                editingDoctorId = d.DoctorID;
+                if(createCard) createCard.scrollIntoView({behavior:'smooth'});
+              }catch(e){ alert('Error loading doctor'); }
+            });
+
+            delBtn.addEventListener('click', async ()=>{
+              if(!confirm('Delete this doctor? This will remove the user and doctor profile.')) return;
+              try{
+                const r = await fetch('/api/doctors/' + d.DoctorID, { method: 'DELETE' });
+                if(r.ok){ alert('Deleted'); loadDoctors(); } else { const j = await r.json(); alert(j.message || 'Delete failed'); }
+              }catch(e){ alert('Network error'); }
+            });
+
+            actTd.appendChild(editBtn);
+            actTd.appendChild(delBtn);
+          }
+
+          tr.appendChild(idTd); tr.appendChild(nameTd); tr.appendChild(specTd); tr.appendChild(deptTd); tr.appendChild(ratingTd); tr.appendChild(actTd);
+          tbody.appendChild(tr);
+        });
+      }catch(e){ console.error('Failed to load doctors', e); }
+    }
+
+    // Initial load
+    loadDoctors();
+  })();
+</script>
+</html>

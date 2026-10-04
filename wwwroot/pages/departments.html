@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Departments &middot; MediChart HMS</title>
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-mark">M</div>
+      <div class="brand-name">MediChart<span>Hospital System</span></div>
+    </div>
+    <div class="nav-group-label">Records</div>
+      <a href="dashboard.html" class="nav-link"><span class="ic">&#9635;</span>Dashboard</a>
+      <a href="patients.html" class="nav-link"><span class="ic">&#9906;</span>Patients</a>
+      <a href="doctors.html" class="nav-link"><span class="ic">&#9877;</span>Doctors</a>
+      <a href="departments.html" class="nav-link active"><span class="ic">&#127974;</span>Departments</a>
+      <a href="appointments.html" class="nav-link"><span class="ic">&#128197;</span>Appointments</a>
+      <a href="prescriptions.html" class="nav-link"><span class="ic">&#128209;</span>Prescriptions</a>
+      <a href="billing.html" class="nav-link"><span class="ic">&#128179;</span>Billing</a>
+      <a href="feedback.html" class="nav-link"><span class="ic">&#9733;</span>Feedback</a>
+      <a href="medicines.html" class="nav-link"><span class="ic">&#128138;</span>Medicines</a>
+    <div class="sidebar-foot">
+      <div class="mini-user">
+        <div class="mini-avatar">AR</div>
+        <div><strong>Admin Rahman</strong><small>Front Desk &middot; Admin</small></div>
+      </div>
+      <a href="/Account/Logout" class="nav-link" style="margin-top:6px;"><span class="ic">&#8592;</span>Sign out</a>
+    </div>
+  </aside>
+  <div class="main">
+    <header class="topbar">
+      <div><div class="eyebrow">Records</div><h1>Departments</h1></div>
+      <div class="topbar-right">
+        <div class="search">&#128269;&nbsp; Search departments...</div>
+        <button class="icon-btn">&#128276;</button>
+      </div>
+    </header>
+    <main class="content">
+      <div class="card">
+        <div class="card-head"><div><h2>Add Department</h2></div></div>
+        <div class="card-body">
+          <form id="createDeptForm" class="form-grid">
+            <div class="field"><label>Department Name <span class="req">*</span></label><input id="deptName" type="text" placeholder="e.g. Neurology" required></div>
+            <div class="field"><label>Head of Department</label><input id="deptHead" type="text" placeholder="Optional"></div>
+            <div class="field full"><label>Description</label><textarea id="deptDesc" placeholder="Short description of services offered..."></textarea></div>
+            <div class="form-actions field full">
+              <button type="submit" class="btn btn-primary">Save Department</button>
+              <button type="reset" class="btn btn-ghost">Clear Form</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><div><h2>All Departments</h2></div></div>
+        <table>
+          <thead><tr><th>Dept ID</th><th>Name</th><th>Description</th><th>Doctors</th><th></th></tr></thead>
+          <tbody id="departmentsTbody">
+            <!-- populated by JS -->
+          </tbody>
+        </table>
+      </div>
+
+    </main>
+  </div>
+</div>
+</body>
+<script>
+  document.getElementById('createDeptForm').addEventListener('submit', async function(e){
+    e.preventDefault();
+    const payload = { DeptName: document.getElementById('deptName').value.trim(), Description: document.getElementById('deptDesc').value.trim() };
+    try{ const res = await fetch('/api/departments',{ method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload)}); const data = await res.json(); if(res.ok){ alert('Department created'); loadDepartments(); } else alert(data.message||'Error'); }catch(e){alert('Network error');}
+  });
+
+  let editingDeptId = null;
+  async function loadDepartments(){
+    try{ const res = await fetch('/api/departments'); if(!res.ok) return; const data = await res.json(); const tbody = document.getElementById('departmentsTbody'); tbody.innerHTML = ''; data.forEach(d=>{ const tr=document.createElement('tr'); tr.innerHTML = `<td><span class="id-chip">DEP-${d.DeptID}</span></td><td class="cell-name">${d.DeptName}</td><td>${d.Description||''}</td><td>${d.doctorsCount||''}</td><td class="row-actions"><button class="btn btn-ghost btn-sm edit-dept" data-id="${d.DeptID}">Edit</button><button class="btn btn-danger-ghost btn-sm delete-dept" data-id="${d.DeptID}">Delete</button></td>`; tbody.appendChild(tr); });
+      document.querySelectorAll('.delete-dept').forEach(btn=> btn.addEventListener('click', async ()=>{ if(!confirm('Delete department?')) return; const id=btn.getAttribute('data-id'); const r = await fetch('/api/departments/'+id, { method:'DELETE' }); if(r.ok) { alert('Deleted'); loadDepartments(); } else alert('Delete failed'); }));
+      document.querySelectorAll('.edit-dept').forEach(btn=> btn.addEventListener('click', async ()=>{ const id = btn.getAttribute('data-id'); try{ const r = await fetch('/api/departments/'+id); if(!r.ok){ alert('Failed to load'); return; } const dept = await r.json(); document.getElementById('deptName').value = dept.DeptName || dept.deptName || ''; document.getElementById('deptDesc').value = dept.Description || dept.description || ''; editingDeptId = id; }catch(e){ alert('Network error'); } }));
+    }catch(e){console.error(e);} }
+
+  document.getElementById('createDeptForm').addEventListener('submit', async function(e){
+    e.preventDefault();
+    const payload = { DeptName: document.getElementById('deptName').value.trim(), Description: document.getElementById('deptDesc').value.trim() };
+    try{
+      if (editingDeptId) {
+        const res = await fetch('/api/departments/' + editingDeptId, { method: 'PUT', headers: {'Content-Type':'application/json'}, body: JSON.stringify(payload) });
+        const data = await res.json();
+        if (res.ok) { alert('Department updated'); editingDeptId = null; document.getElementById('createDeptForm').reset(); loadDepartments(); } else alert(data.message||'Error');
+      } else {
+        const res = await fetch('/api/departments',{ method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload)});
+        const data = await res.json(); if(res.ok){ alert('Department created'); loadDepartments(); } else alert(data.message||'Error');
+      }
+    }catch(e){ alert('Network error'); }
+  });
+
+  loadDepartments();
+</script>
+<script src="../js/role-nav.js"></script>
+<script>
+  (async function(){
+    try{
+      const info = await getCurrentUser();
+      if(!info || !info.authenticated) return;
+      const role = (info.UserRole||'').toLowerCase();
+      if(role !== 'admin'){
+        // Hide create/edit controls for non-admin users
+        const createCard = document.getElementById('createDeptForm')?.closest('.card');
+        if(createCard) createCard.style.display = 'none';
+        document.querySelectorAll('.row-actions button').forEach(btn=>{
+          const t = (btn.textContent||'').trim().toLowerCase();
+          if(t !== 'view') btn.remove();
+        });
+      }
+    }catch(e){ console.error(e); }
+  })();
+</script>
+</html>

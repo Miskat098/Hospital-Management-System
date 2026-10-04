@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prescriptions &middot; MediChart HMS</title>
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-mark">M</div>
+      <div class="brand-name">MediChart<span>Hospital System</span></div>
+    </div>
+    <div class="nav-group-label">Records</div>
+      <a href="dashboard.html" class="nav-link"><span class="ic">&#9635;</span>Dashboard</a>
+      <a href="patients.html" class="nav-link"><span class="ic">&#9906;</span>Patients</a>
+      <a href="doctors.html" class="nav-link"><span class="ic">&#9877;</span>Doctors</a>
+      <a href="departments.html" class="nav-link"><span class="ic">&#127974;</span>Departments</a>
+      <a href="appointments.html" class="nav-link"><span class="ic">&#128197;</span>Appointments</a>
+      <a href="prescriptions.html" class="nav-link active"><span class="ic">&#128209;</span>Prescriptions</a>
+      <a href="billing.html" class="nav-link"><span class="ic">&#128179;</span>Billing</a>
+      <a href="feedback.html" class="nav-link"><span class="ic">&#9733;</span>Feedback</a>
+      <a href="medicines.html" class="nav-link"><span class="ic">&#128138;</span>Medicines</a>
+    <div class="sidebar-foot">
+      <div class="mini-user">
+        <div class="mini-avatar">AR</div>
+        <div><strong>Admin Rahman</strong><small>Front Desk &middot; Admin</small></div>
+      </div>
+      <a href="/Account/Logout" class="nav-link" style="margin-top:6px;"><span class="ic">&#8592;</span>Sign out</a>
+    </div>
+  </aside>
+  <div class="main">
+    <header class="topbar">
+      <div><div class="eyebrow">Clinical</div><h1>Prescriptions</h1></div>
+      <div class="topbar-right">
+        <div class="search">&#128269;&nbsp; Search prescriptions...</div>
+        <button class="icon-btn">&#128276;</button>
+      </div>
+    </header>
+    <main class="content">
+      <div class="card">
+        <div class="card-head"><div><h2>Add Prescription</h2><div class="hint">Attached to a completed appointment</div></div></div>
+        <div class="card-body">
+          <form id="createPrescForm" class="form-grid">
+            <div class="field full"><label>Appointment <span class="req">*</span></label><select id="prescApptSelect"><option value="">Select appointment</option></select></div>
+            <div class="field full"><label>Notes <span class="req">*</span></label><textarea id="prescNotes" placeholder="Diagnosis, dosage instructions, follow-up..."></textarea></div>
+            <div class="field full"><label>Attach File</label><input id="prescFile" type="file"><small class="helper">PDF or image of scan / report (optional)</small></div>
+            <div class="form-actions field full">
+              <button type="submit" class="btn btn-primary">Save Prescription</button>
+              <button type="reset" class="btn btn-ghost">Clear Form</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><div><h2>All Prescriptions</h2></div></div>
+        <table>
+          <thead><tr><th>Presc ID</th><th>Appointment</th><th>Notes</th><th>Attachment</th><th></th></tr></thead>
+          <tbody id="prescTbody">
+            <!-- populated by JS -->
+          </tbody>
+        </table>
+      </div>
+
+    </main>
+  </div>
+</div>
+</body>
+<script>
+  async function loadAppointmentsIntoSelect(){
+    try{
+      const res = await fetch('/api/appointments/forcurrent');
+      if(!res.ok) return;
+      const data = await res.json();
+      const sel = document.getElementById('prescApptSelect'); sel.innerHTML = '<option value="">Select appointment</option>';
+      data.forEach(a=>{
+        const opt = document.createElement('option'); opt.value=a.ApptID; opt.textContent=`APT-${a.ApptID} — ${a.Patient || ''} — ${a.Doctor || ''}`; sel.appendChild(opt);
+      });
+    }catch(e){ console.error(e); }
+  }
+
+  async function loadPrescriptions(){
+    try{
+      const res = await fetch('/api/prescriptions'); if(!res.ok) return; const data = await res.json();
+      const tbody = document.getElementById('prescTbody'); tbody.innerHTML = '';
+      data.forEach(p=>{
+        const tr=document.createElement('tr');
+        tr.innerHTML = `<td><span class="id-chip">PRE-${p.PrescID}</span></td><td>${p.ApptID} — ${p.Patient||''}</td><td>${p.Notes}</td><td><span class="badge badge-neutral">${p.File||'none'}</span></td><td class="row-actions"><button class="btn btn-ghost btn-sm">View</button></td>`;
+        tbody.appendChild(tr);
+      });
+    }catch(e){ console.error(e); }
+  }
+
+  document.getElementById('createPrescForm').addEventListener('submit', async function(e){
+    e.preventDefault();
+    const apptId = parseInt(document.getElementById('prescApptSelect').value);
+    const notes = document.getElementById('prescNotes').value.trim();
+    if(!apptId || !notes) { alert('Appointment and notes are required'); return; }
+    try{
+      if (window.editingPrescId) {
+        const res = await fetch('/api/prescriptions/' + window.editingPrescId, { method:'PUT', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ ApptID: apptId, Notes: notes }) });
+        const data = await res.json(); if(res.ok){ alert('Prescription updated'); window.editingPrescId = null; document.getElementById('createPrescForm').reset(); loadPrescriptions(); } else alert(data.message||'Error');
+      } else {
+        const res = await fetch('/api/prescriptions', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ ApptID: apptId, Notes: notes }) });
+        const data = await res.json(); if(res.ok){ alert('Prescription saved'); loadPrescriptions(); } else alert(data.message||'Error');
+      }
+    }catch(e){ alert('Network error'); }
+  });
+
+  loadAppointmentsIntoSelect();
+  loadPrescriptions();
+
+  // allow editing existing prescription via View button (change to Edit behavior)
+  document.addEventListener('click', async function(e){
+    if (!e.target.matches('.btn.btn-ghost.btn-sm')) return;
+    const row = e.target.closest('tr'); if(!row) return;
+    const idChip = row.querySelector('.id-chip'); if(!idChip) return;
+    const idText = idChip.textContent || '';
+    const match = idText.match(/PRE-(\d+)/);
+    if(!match) return;
+    const id = match[1];
+    try{
+      const r = await fetch('/api/prescriptions/' + id);
+      if(!r.ok) { alert('Failed to load'); return; }
+      const presc = await r.json();
+      document.getElementById('prescApptSelect').value = presc.ApptID || '';
+      document.getElementById('prescNotes').value = presc.Notes || '';
+      window.editingPrescId = id;
+      window.scrollTo(0,0);
+    }catch(e){ alert('Network error'); }
+  });
+</script>
+</script>
+<script src="../js/role-nav.js"></script>
+<script>
+  (async function(){
+    try{
+      const info = await getCurrentUser();
+      if(!info || !info.authenticated) return;
+      const role = (info.UserRole||'').toLowerCase();
+      // Hide create prescription form for patients; viewing remains available for all roles
+      if(role === 'patient'){
+        const formCard = document.getElementById('createPrescForm')?.closest('.card');
+        if(formCard) formCard.style.display = 'none';
+      }
+    }catch(e){ console.error(e); }
+  })();
+</script>
+</html>

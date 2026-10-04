@@ -1,0 +1,279 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Profile — MediCore Hospital</title>
+    <link rel="stylesheet" href="../../css/style.css" />
+    <link rel="stylesheet" href="../../css/dashboard.css" />
+    <link rel="stylesheet" href="../../css/patient.css" />
+</head>
+<body>
+
+    <div class="app-shell">
+
+        <!-- ============================= SIDEBAR ============================= -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-brand">
+                <span class="mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M2 12h20" /></svg></span>
+                <div>
+                    <div class="name">MediCore</div>
+                    <div class="role-tag">Patient Portal</div>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav" aria-label="Patient navigation">
+                <a href="dashboard.html" class="sidebar-link">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9" rx="1" /><rect x="14" y="3" width="7" height="5" rx="1" /><rect x="14" y="12" width="7" height="9" rx="1" /><rect x="3" y="16" width="7" height="5" rx="1" /></svg>
+                    Dashboard
+                </a>
+                <a href="appointments.html" class="sidebar-link">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" /><path d="M16 2v4M8 2v4M3 10h18" /></svg>
+                    My Appointments
+                </a>
+                <a href="prescriptions.html" class="sidebar-link">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12h6M9 16h6M9 8h1" /><rect x="4" y="3" width="16" height="18" rx="2" /></svg>
+                    Prescriptions
+                </a>
+                <a href="billing.html" class="sidebar-link">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2" /><path d="M2 10h20" /></svg>
+                    Billing &amp; Invoices
+                    <span class="count-pill">1 due</span>
+                </a>
+                <a href="feedback.html" class="sidebar-link">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 0 0 0-7.8Z" /></svg>
+                    Feedback
+                </a>
+
+                <div class="sidebar-section-label">Account</div>
+                <a href="profile.html" class="sidebar-link is-active">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4" /><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8" /></svg>
+                    My Profile
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="sidebar-user">
+                    <span class="avatar avatar-sm" style="background:var(--teal-500);color:#fff;">RA</span>
+                    <div>
+                        <div class="u-name">Rafiq Ahmed</div>
+                        <div class="u-role">Patient ID: PAT-7710</div>
+                    </div>
+                </div>
+                <button class="sidebar-logout" id="logoutBtn">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" /><path d="M16 17l5-5-5-5M21 12H9" /></svg>
+                    Log Out
+                </button>
+            </div>
+        </aside>
+
+        <!-- ============================= MAIN ============================= -->
+        <div class="app-main">
+
+            <header class="topbar">
+                <div class="topbar-left">
+                    <button class="icon-btn menu-toggle" id="menuToggle" aria-label="Toggle menu">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18" /></svg>
+                    </button>
+                    <div class="topbar-title">
+                        <h1>My Profile</h1>
+                        <div class="subtitle">Update your personal and medical information</div>
+                    </div>
+                </div>
+                <div class="topbar-right">
+                    <span class="avatar avatar-sm" style="background:var(--teal-500);color:#fff;">RA</span>
+                </div>
+            </header>
+
+            <main class="app-content">
+
+                <div class="profile-header">
+                    <span class="avatar avatar-lg">RA</span>
+                    <div style="flex:1;">
+                        <div class="ph-name">Rafiq Ahmed</div>
+                        <div class="ph-meta">Patient ID: PAT-7710 · Member since 14 Jan 2026</div>
+                    </div>
+                    <button class="btn btn-secondary btn-sm" id="changePhotoBtn">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><rect x="3" y="3" width="18" height="18" rx="2" /><circle cx="9" cy="9" r="2" /><path d="m21 15-5-5L5 21" /></svg>
+                        Change Photo
+                    </button>
+                </div>
+
+                <div class="tabs mb-5" id="profileTabs">
+                    <button class="tab-btn is-active" data-panel="personal">Personal Info</button>
+                    <button class="tab-btn" data-panel="medical">Medical Info</button>
+                    <button class="tab-btn" data-panel="security">Security</button>
+                </div>
+
+                <!-- ============================= PERSONAL INFO ============================= -->
+                <div class="panel profile-panel" id="panel-personal">
+                    <div class="panel-header">
+                        <h3>Personal Information</h3>
+                    </div>
+                    <form id="personalInfoForm">
+                        <div class="panel-body">
+                            <div class="form-grid-2">
+                                <div class="field">
+                                    <label for="pFirstName">First Name</label>
+                                    <input class="input" type="text" id="pFirstName" name="firstName" value="Rafiq" required />
+                                </div>
+                                <div class="field">
+                                    <label for="pLastName">Last Name</label>
+                                    <input class="input" type="text" id="pLastName" name="lastName" value="Ahmed" required />
+                                </div>
+                            </div>
+
+                            <div class="field">
+                                <label for="pEmail">Email Address</label>
+                                <input class="input" type="email" id="pEmail" name="email" value="rafiq.ahmed@gmail.com" required />
+                            </div>
+
+                            <div class="form-grid-2">
+                                <div class="field">
+                                    <label for="pPhone">Phone Number</label>
+                                    <input class="input" type="tel" id="pPhone" name="phone" value="01711223344" required />
+                                </div>
+                                <div class="field">
+                                    <label for="pDob">Date of Birth</label>
+                                    <input class="input" type="date" id="pDob" name="dob" value="1978-03-14" required />
+                                </div>
+                            </div>
+
+                            <div class="form-grid-2">
+                                <div class="field">
+                                    <label for="pGender">Gender</label>
+                                    <select class="input" id="pGender" name="gender" required>
+                                        <option value="Male" selected>Male</option>
+                                        <option value="Female">Female</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+                                </div>
+                                <div class="field">
+                                    <label for="pNid">National ID (optional)</label>
+                                    <input class="input" type="text" id="pNid" name="nationalId" value="1978445521003" />
+                                </div>
+                            </div>
+
+                            <div class="field">
+                                <label for="pAddress">Address</label>
+                                <textarea class="input" id="pAddress" name="address" rows="3">House 24, Road 7, Nasirabad Housing Society, Chattogram, Bangladesh</textarea>
+                            </div>
+
+                            <div class="field">
+                                <label for="pEmergencyContact">Emergency Contact</label>
+                                <input class="input" type="text" id="pEmergencyContact" name="emergencyContact" value="Farida Ahmed (Spouse) — 01822556677" />
+                            </div>
+                        </div>
+                        <div class="modal-footer" style="border-top:1px solid var(--border);">
+                            <button type="reset" class="btn btn-secondary">Discard Changes</button>
+                            <button type="submit" class="btn btn-primary">Save Changes</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- ============================= MEDICAL INFO ============================= -->
+                <div class="panel profile-panel" id="panel-medical" style="display:none;">
+                    <div class="panel-header">
+                        <h3>Medical Information</h3>
+                    </div>
+                    <form id="medicalInfoForm">
+                        <div class="panel-body">
+                            <div class="form-grid-2">
+                                <div class="field">
+                                    <label for="mBloodGroup">Blood Group</label>
+                                    <select class="input" id="mBloodGroup" name="bloodGroup" required>
+                                        <option value="A+">A+</option>
+                                        <option value="A-">A-</option>
+                                        <option value="B+" selected>B+</option>
+                                        <option value="B-">B-</option>
+                                        <option value="AB+">AB+</option>
+                                        <option value="AB-">AB-</option>
+                                        <option value="O+">O+</option>
+                                        <option value="O-">O-</option>
+                                    </select>
+                                </div>
+                                <div class="field">
+                                    <label for="mHeight">Height (cm)</label>
+                                    <input class="input" type="number" id="mHeight" name="heightCm" value="172" />
+                                </div>
+                            </div>
+
+                            <div class="field">
+                                <label for="mAllergies">Known Allergies</label>
+                                <input class="input" type="text" id="mAllergies" name="allergies" value="Penicillin" placeholder="e.g. Penicillin, Peanuts" />
+                                <span class="hint">Separate multiple allergies with commas</span>
+                            </div>
+
+                            <div class="field">
+                                <label for="mConditions">Chronic Conditions</label>
+                                <input class="input" type="text" id="mConditions" name="chronicConditions" value="Hypertension" placeholder="e.g. Diabetes, Hypertension" />
+                            </div>
+
+                            <div class="field">
+                                <label for="mMedications">Current Medications</label>
+                                <textarea class="input" id="mMedications" name="currentMedications" rows="3">Amlodipine 5mg (once daily), Atorvastatin 20mg (once daily)</textarea>
+                            </div>
+
+                            <div class="alert alert-info">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" /><path d="M12 16v-4M12 8h.01" /></svg>
+                                This information is visible to doctors treating you to help ensure safe, accurate care.
+                            </div>
+                        </div>
+                        <div class="modal-footer" style="border-top:1px solid var(--border);">
+                            <button type="reset" class="btn btn-secondary">Discard Changes</button>
+                            <button type="submit" class="btn btn-primary">Save Changes</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- ============================= SECURITY ============================= -->
+                <div class="panel profile-panel" id="panel-security" style="display:none;">
+                    <div class="panel-header">
+                        <h3>Password &amp; Security</h3>
+                    </div>
+                    <form id="securityForm">
+                        <div class="panel-body" style="max-width:440px;">
+                            <div class="field">
+                                <label for="currentPassword">Current Password</label>
+                                <input class="input" type="password" id="currentPassword" name="currentPassword" required />
+                            </div>
+                            <div class="field">
+                                <label for="newPassword">New Password</label>
+                                <input class="input" type="password" id="newPassword" name="newPassword" required minlength="8" />
+                            </div>
+                            <div class="field">
+                                <label for="confirmNewPassword">Confirm New Password</label>
+                                <input class="input" type="password" id="confirmNewPassword" name="confirmNewPassword" required />
+                                <span class="error-msg">Passwords do not match.</span>
+                            </div>
+
+                            <div class="divider"></div>
+
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <div style="font-weight:600;font-size:0.9rem;">Two-Factor Authentication</div>
+                                    <div class="text-sm text-muted">Add an extra layer of security to your account</div>
+                                </div>
+                                <label class="checkbox-row">
+                                    <input type="checkbox" id="twoFactorToggle" />
+                                </label>
+                            </div>
+                        </div>
+                        <div class="modal-footer" style="border-top:1px solid var(--border);">
+                            <button type="submit" class="btn btn-primary">Update Password</button>
+                        </div>
+                    </form>
+                </div>
+
+            </main>
+        </div>
+    </div>
+
+    <div class="toast-stack" id="toastStack"></div>
+
+    <script src="../../js/utils.js"></script>
+    <script src="../../js/api.js"></script>
+    <script src="../../js/auth.js"></script>
+    <script src="../../js/patient/dashboard.js"></script>
+</body>
+</html>

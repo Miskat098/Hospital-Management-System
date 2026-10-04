@@ -1,0 +1,193 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Feedback — MediCore Hospital</title>
+    <link rel="stylesheet" href="../../css/style.css" />
+    <link rel="stylesheet" href="../../css/dashboard.css" />
+    <link rel="stylesheet" href="../../css/patient.css" />
+</head>
+<body>
+
+    <div class="app-shell">
+
+        <!-- ============================= SIDEBAR ============================= -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-brand">
+                <span class="mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M2 12h20" /></svg></span>
+                <div>
+                    <div class="name">MediCore</div>
+                    <div class="role-tag">Patient Portal</div>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav" aria-label="Patient navigation">
+                <a href="dashboard.html" class="sidebar-link">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9" rx="1" /><rect x="14" y="3" width="7" height="5" rx="1" /><rect x="14" y="12" width="7" height="9" rx="1" /><rect x="3" y="16" width="7" height="5" rx="1" /></svg>
+                    Dashboard
+                </a>
+                <a href="appointments.html" class="sidebar-link">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" /><path d="M16 2v4M8 2v4M3 10h18" /></svg>
+                    My Appointments
+                </a>
+                <a href="prescriptions.html" class="sidebar-link">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12h6M9 16h6M9 8h1" /><rect x="4" y="3" width="16" height="18" rx="2" /></svg>
+                    Prescriptions
+                </a>
+                <a href="billing.html" class="sidebar-link">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2" /><path d="M2 10h20" /></svg>
+                    Billing &amp; Invoices
+                    <span class="count-pill">1 due</span>
+                </a>
+                <a href="feedback.html" class="sidebar-link is-active">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 0 0 0-7.8Z" /></svg>
+                    Feedback
+                </a>
+
+                <div class="sidebar-section-label">Account</div>
+                <a href="profile.html" class="sidebar-link">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4" /><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8" /></svg>
+                    My Profile
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="sidebar-user">
+                    <span class="avatar avatar-sm" style="background:var(--teal-500);color:#fff;">RA</span>
+                    <div>
+                        <div class="u-name">Rafiq Ahmed</div>
+                        <div class="u-role">Patient ID: PAT-7710</div>
+                    </div>
+                </div>
+                <button class="sidebar-logout" id="logoutBtn">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" /><path d="M16 17l5-5-5-5M21 12H9" /></svg>
+                    Log Out
+                </button>
+            </div>
+        </aside>
+
+        <!-- ============================= MAIN ============================= -->
+        <div class="app-main">
+
+            <header class="topbar">
+                <div class="topbar-left">
+                    <button class="icon-btn menu-toggle" id="menuToggle" aria-label="Toggle menu">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18" /></svg>
+                    </button>
+                    <div class="topbar-title">
+                        <h1>Feedback</h1>
+                        <div class="subtitle">Rate your visits and help us improve</div>
+                    </div>
+                </div>
+                <div class="topbar-right">
+                    <span class="avatar avatar-sm" style="background:var(--teal-500);color:#fff;">RA</span>
+                </div>
+            </header>
+
+            <main class="app-content">
+
+                <div class="grid" style="grid-template-columns: 1fr 1fr;">
+
+                    <!-- Feedback form -->
+                    <div class="panel">
+                        <div class="panel-header">
+                            <h3>Rate a Recent Visit</h3>
+                        </div>
+                        <form id="feedbackForm">
+                            <div class="panel-body">
+                                <div class="field">
+                                    <label for="feedbackAppointment">Select Appointment</label>
+                                    <select class="input" id="feedbackAppointment" name="appointmentId" required>
+                                        <option value="" disabled selected>Choose a completed visit</option>
+                                        <option value="APT-90144">Dr. Nasrin Karim — Cardiology — 24 Aug 2026</option>
+                                        <option value="APT-88871">Dr. Faisal Rahman — Orthopedics — 18 Jun 2026</option>
+                                    </select>
+                                </div>
+
+                                <div class="field">
+                                    <label>Overall Rating</label>
+                                    <div class="star-rating" id="starRating">
+                                        <input type="radio" name="rating" id="star5" value="5" />
+                                        <label for="star5" title="5 stars"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1L12 2Z" /></svg></label>
+                                        <input type="radio" name="rating" id="star4" value="4" />
+                                        <label for="star4" title="4 stars"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1L12 2Z" /></svg></label>
+                                        <input type="radio" name="rating" id="star3" value="3" />
+                                        <label for="star3" title="3 stars"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1L12 2Z" /></svg></label>
+                                        <input type="radio" name="rating" id="star2" value="2" />
+                                        <label for="star2" title="2 stars"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1L12 2Z" /></svg></label>
+                                        <input type="radio" name="rating" id="star1" value="1" />
+                                        <label for="star1" title="1 star"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1L12 2Z" /></svg></label>
+                                    </div>
+                                </div>
+
+                                <div class="field">
+                                    <label for="feedbackComment">Your Comments</label>
+                                    <textarea class="input" id="feedbackComment" name="comment" rows="5" placeholder="Tell us about your experience — what went well, and what could be better?" required></textarea>
+                                </div>
+
+                                <label class="checkbox-row text-sm">
+                                    <input type="checkbox" id="feedbackAnonymous" name="anonymous" />
+                                    Submit this feedback anonymously
+                                </label>
+                            </div>
+                            <div class="modal-footer" style="border-top:1px solid var(--border);">
+                                <button type="submit" class="btn btn-primary btn-block">Submit Feedback</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Feedback history -->
+                    <div class="panel">
+                        <div class="panel-header">
+                            <h3>Your Feedback History</h3>
+                        </div>
+                        <div class="panel-body flex flex-col gap-3">
+
+                            <div class="feedback-history-item">
+                                <div class="fhi-head">
+                                    <strong class="text-sm">Dr. Nasrin Karim — Cardiology</strong>
+                                    <div class="fhi-stars">
+                                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1L12 2Z" /></svg>
+                                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1L12 2Z" /></svg>
+                                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1L12 2Z" /></svg>
+                                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1L12 2Z" /></svg>
+                                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1L12 2Z" /></svg>
+                                    </div>
+                                </div>
+                                <p class="text-sm text-muted mb-1">Very thorough explanation of my test results. Felt genuinely listened to.</p>
+                                <span class="text-xs text-muted">2 Jul 2026</span>
+                            </div>
+
+                            <div class="feedback-history-item">
+                                <div class="fhi-head">
+                                    <strong class="text-sm">Dr. Faisal Rahman — Orthopedics</strong>
+                                    <div class="fhi-stars">
+                                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1L12 2Z" /></svg>
+                                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1L12 2Z" /></svg>
+                                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1L12 2Z" /></svg>
+                                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1L12 2Z" /></svg>
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1L12 2Z" /></svg>
+                                    </div>
+                                </div>
+                                <p class="text-sm text-muted mb-1">Good visit overall, though the waiting room was quite crowded that day.</p>
+                                <span class="text-xs text-muted">10 May 2026</span>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </main>
+        </div>
+    </div>
+
+    <div class="toast-stack" id="toastStack"></div>
+
+    <script src="../../js/utils.js"></script>
+    <script src="../../js/api.js"></script>
+    <script src="../../js/auth.js"></script>
+    <script src="../../js/patient/feedback.js"></script>
+</body>
+</html>

@@ -1,0 +1,308 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Appointments — MediCore Hospital</title>
+    <link rel="stylesheet" href="../../css/style.css" />
+    <link rel="stylesheet" href="../../css/dashboard.css" />
+    <link rel="stylesheet" href="../../css/patient.css" />
+</head>
+<body>
+
+    <div class="app-shell">
+
+        <!-- ============================= SIDEBAR ============================= -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-brand">
+                <span class="mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M2 12h20" /></svg></span>
+                <div>
+                    <div class="name">MediCore</div>
+                    <div class="role-tag">Patient Portal</div>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav" aria-label="Patient navigation">
+                <a href="dashboard.html" class="sidebar-link">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9" rx="1" /><rect x="14" y="3" width="7" height="5" rx="1" /><rect x="14" y="12" width="7" height="9" rx="1" /><rect x="3" y="16" width="7" height="5" rx="1" /></svg>
+                    Dashboard
+                </a>
+                <a href="appointments.html" class="sidebar-link is-active">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" /><path d="M16 2v4M8 2v4M3 10h18" /></svg>
+                    My Appointments
+                </a>
+                <a href="prescriptions.html" class="sidebar-link">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12h6M9 16h6M9 8h1" /><rect x="4" y="3" width="16" height="18" rx="2" /></svg>
+                    Prescriptions
+                </a>
+                <a href="billing.html" class="sidebar-link">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2" /><path d="M2 10h20" /></svg>
+                    Billing &amp; Invoices
+                    <span class="count-pill">1 due</span>
+                </a>
+                <a href="feedback.html" class="sidebar-link">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 0 0 0-7.8Z" /></svg>
+                    Feedback
+                </a>
+
+                <div class="sidebar-section-label">Account</div>
+                <a href="profile.html" class="sidebar-link">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4" /><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8" /></svg>
+                    My Profile
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="sidebar-user">
+                    <span class="avatar avatar-sm" style="background:var(--teal-500);color:#fff;">RA</span>
+                    <div>
+                        <div class="u-name">Rafiq Ahmed</div>
+                        <div class="u-role">Patient ID: PAT-7710</div>
+                    </div>
+                </div>
+                <button class="sidebar-logout" id="logoutBtn">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" /><path d="M16 17l5-5-5-5M21 12H9" /></svg>
+                    Log Out
+                </button>
+            </div>
+        </aside>
+
+        <!-- ============================= MAIN ============================= -->
+        <div class="app-main">
+
+            <header class="topbar">
+                <div class="topbar-left">
+                    <button class="icon-btn menu-toggle" id="menuToggle" aria-label="Toggle menu">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18" /></svg>
+                    </button>
+                    <div class="topbar-title">
+                        <h1>My Appointments</h1>
+                        <div class="subtitle">Book new visits or manage upcoming ones</div>
+                    </div>
+                </div>
+                <div class="topbar-right">
+                    <span class="avatar avatar-sm" style="background:var(--teal-500);color:#fff;">RA</span>
+                </div>
+            </header>
+
+            <main class="app-content">
+
+                <div class="tabs mb-5" id="apptPageTabs">
+                    <button class="tab-btn is-active" data-panel="book">Book New</button>
+                    <button class="tab-btn" data-panel="upcoming">Upcoming (2)</button>
+                    <button class="tab-btn" data-panel="past">Past Visits (10)</button>
+                </div>
+
+                <!-- ============================= BOOK NEW ============================= -->
+                <div class="appt-panel" id="panel-book">
+                    <div class="panel mb-5">
+                        <div class="panel-body">
+                            <div class="booking-search-bar">
+                                <div class="field" style="margin:0;">
+                                    <label for="deptSelect">Department</label>
+                                    <select class="input" id="deptSelect">
+                                        <option value="">All Departments</option>
+                                        <option value="cardiology" selected>Cardiology</option>
+                                        <option value="orthopedics">Orthopedics</option>
+                                        <option value="pediatrics">Pediatrics</option>
+                                        <option value="neurology">Neurology</option>
+                                    </select>
+                                </div>
+                                <div class="field" style="margin:0;">
+                                    <label for="doctorSearchInput">Doctor Name</label>
+                                    <input class="input" type="search" id="doctorSearchInput" placeholder="Search by name…" />
+                                </div>
+                                <div class="field" style="margin:0;">
+                                    <label for="apptDateFilter">Preferred Date</label>
+                                    <input class="input" type="date" id="apptDateFilter" />
+                                </div>
+                                <button class="btn btn-primary" id="searchDoctorsBtn">Search</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col gap-3" id="doctorResultsList">
+
+                        <div class="doctor-select-card" data-doctor-id="1">
+                            <span class="avatar avatar-lg">NK</span>
+                            <div class="dsc-info">
+                                <div class="dsc-name">Dr. Nasrin Karim</div>
+                                <div class="dsc-dept">Cardiology</div>
+                                <div class="dsc-meta">14 yrs experience · 4.9 ★ (312 reviews) · Room 204</div>
+                            </div>
+                            <div class="dsc-fee">
+                                ৳1,500
+                                <small>Consultation fee</small>
+                            </div>
+                            <button class="btn btn-primary btn-sm select-doctor-btn">Select Slot</button>
+                        </div>
+
+                        <div class="doctor-select-card" data-doctor-id="2">
+                            <span class="avatar avatar-lg">FR</span>
+                            <div class="dsc-info">
+                                <div class="dsc-name">Dr. Faisal Rahman</div>
+                                <div class="dsc-dept">Cardiology</div>
+                                <div class="dsc-meta">9 yrs experience · 4.8 ★ (198 reviews) · Room 206</div>
+                            </div>
+                            <div class="dsc-fee">
+                                ৳1,200
+                                <small>Consultation fee</small>
+                            </div>
+                            <button class="btn btn-primary btn-sm select-doctor-btn">Select Slot</button>
+                        </div>
+
+                    </div>
+
+                    <!-- Slot selection (shown after choosing a doctor) -->
+                    <div class="panel mt-5" id="slotSelectionPanel">
+                        <div class="panel-header">
+                            <h3>Available Slots — Dr. Nasrin Karim, 21 Sep 2026</h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="slot-picker mb-4">
+                                <button class="slot-btn">9:00 AM</button>
+                                <button class="slot-btn">9:30 AM</button>
+                                <button class="slot-btn" disabled>10:00 AM</button>
+                                <button class="slot-btn is-selected">10:30 AM</button>
+                                <button class="slot-btn">11:00 AM</button>
+                                <button class="slot-btn" disabled>11:30 AM</button>
+                                <button class="slot-btn">2:00 PM</button>
+                                <button class="slot-btn">2:30 PM</button>
+                                <button class="slot-btn">3:00 PM</button>
+                            </div>
+                            <div class="field">
+                                <label for="visitReason">Reason for Visit</label>
+                                <textarea class="input" id="visitReason" rows="3" placeholder="Briefly describe your symptoms or reason for the visit"></textarea>
+                            </div>
+                            <button class="btn btn-primary btn-lg" id="confirmBookingBtn">Confirm Booking — ৳1,500</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ============================= UPCOMING ============================= -->
+                <div class="appt-panel" id="panel-upcoming" style="display:none;">
+                    <div class="flex flex-col gap-4">
+                        <div class="appointment-card">
+                            <div class="ac-date-block">
+                                <div class="ac-day">25</div>
+                                <div class="ac-month">Sep</div>
+                            </div>
+                            <div class="ac-info">
+                                <div class="ac-doctor">Dr. Nasrin Karim</div>
+                                <div class="ac-dept">Cardiology · Follow-up</div>
+                                <div class="ac-time">10:30 AM · Room 204, Cardiology Wing</div>
+                            </div>
+                            <div class="ac-actions">
+                                <button class="btn btn-secondary btn-sm reschedule-patient-appt-btn">Reschedule</button>
+                                <button class="btn btn-outline-danger btn-sm cancel-patient-appt-btn">Cancel</button>
+                            </div>
+                        </div>
+                        <div class="appointment-card">
+                            <div class="ac-date-block">
+                                <div class="ac-day">02</div>
+                                <div class="ac-month">Oct</div>
+                            </div>
+                            <div class="ac-info">
+                                <div class="ac-doctor">Dr. Faisal Rahman</div>
+                                <div class="ac-dept">Orthopedics · Knee pain follow-up</div>
+                                <div class="ac-time">3:00 PM · Room 118, Orthopedics Wing</div>
+                            </div>
+                            <div class="ac-actions">
+                                <button class="btn btn-secondary btn-sm reschedule-patient-appt-btn">Reschedule</button>
+                                <button class="btn btn-outline-danger btn-sm cancel-patient-appt-btn">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ============================= PAST VISITS ============================= -->
+                <div class="appt-panel" id="panel-past" style="display:none;">
+                    <div class="panel">
+                        <div class="data-table-wrap">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Doctor</th>
+                                        <th>Department</th>
+                                        <th>Reason</th>
+                                        <th>Status</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>24 Aug 2026</td>
+                                        <td>Dr. Nasrin Karim</td>
+                                        <td>Cardiology</td>
+                                        <td>ECG results discussion</td>
+                                        <td><span class="badge badge-success">Completed</span></td>
+                                        <td><button class="btn btn-secondary btn-sm">View Summary</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>2 Jul 2026</td>
+                                        <td>Dr. Nasrin Karim</td>
+                                        <td>Cardiology</td>
+                                        <td>Initial hypertension diagnosis</td>
+                                        <td><span class="badge badge-success">Completed</span></td>
+                                        <td><button class="btn btn-secondary btn-sm">View Summary</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>18 Jun 2026</td>
+                                        <td>Dr. Faisal Rahman</td>
+                                        <td>Orthopedics</td>
+                                        <td>Knee X-ray review</td>
+                                        <td><span class="badge badge-danger">Cancelled</span></td>
+                                        <td><button class="btn btn-secondary btn-sm" disabled>View Summary</button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </main>
+        </div>
+    </div>
+
+    <!-- ============================= CANCEL CONFIRM MODAL ============================= -->
+    <div class="modal-overlay" id="cancelPatientApptOverlay">
+        <div class="modal" style="max-width:420px;">
+            <div class="modal-body text-center" style="padding-top:32px;">
+                <div class="stat-icon tone-coral" style="width:56px;height:56px;margin:0 auto 16px;border-radius:50%;">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="26" height="26"><path d="M18 6 6 18M6 6l12 12" /></svg>
+                </div>
+                <h3 class="mb-2">Cancel this appointment?</h3>
+                <p class="text-sm text-muted">Cancellations made less than 24 hours before the visit may be subject to a fee.</p>
+            </div>
+            <div class="modal-footer" style="justify-content:center;">
+                <button type="button" class="btn btn-secondary" id="keepPatientApptBtn">Keep Appointment</button>
+                <button type="button" class="btn btn-danger" id="confirmCancelPatientApptBtn">Yes, Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================= BOOKING SUCCESS MODAL ============================= -->
+    <div class="modal-overlay" id="bookingSuccessOverlay">
+        <div class="modal" style="max-width:420px;">
+            <div class="modal-body text-center" style="padding-top:32px;">
+                <div class="stat-icon" style="width:56px;height:56px;margin:0 auto 16px;border-radius:50%;background:var(--success-bg);color:var(--success);">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="26" height="26"><path d="M9 12l2 2 4-4" /><circle cx="12" cy="12" r="9" /></svg>
+                </div>
+                <h3 class="mb-2">Appointment Confirmed</h3>
+                <p class="text-sm text-muted">Dr. Nasrin Karim · 21 Sep 2026 · 10:30 AM. A confirmation has been sent to your email.</p>
+            </div>
+            <div class="modal-footer" style="justify-content:center;">
+                <button type="button" class="btn btn-primary" id="closeBookingSuccessBtn">Done</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast-stack" id="toastStack"></div>
+
+    <script src="../../js/utils.js"></script>
+    <script src="../../js/api.js"></script>
+    <script src="../../js/auth.js"></script>
+    <script src="../../js/patient/appointments.js"></script>
+</body>
+</html>

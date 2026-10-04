@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Doctor Dashboard · MediChart HMS</title>
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-mark">M</div>
+      <div class="brand-name">MediChart<span>Hospital System</span></div>
+    </div>
+    <div class="nav-group-label">Doctor</div>
+      <a href="doctor-dashboard.html" class="nav-link active"><span class="ic">&#9635;</span>Dashboard</a>
+      <a href="appointments.html" class="nav-link"><span class="ic">&#128197;</span>My Appointments</a>
+      <a href="patients.html" class="nav-link"><span class="ic">&#9906;</span>My Patients</a>
+      <a href="prescriptions.html" class="nav-link"><span class="ic">&#128209;</span>Prescriptions</a>
+      <a href="feedback.html" class="nav-link"><span class="ic">&#9733;</span>Feedback</a>
+      <a href="/Account/Logout" class="nav-link" style="margin-top:6px;"><span class="ic">&#8592;</span>Sign out</a>
+    <div class="sidebar-foot">
+      <div class="mini-user" id="miniUserDoc">
+        <div class="mini-avatar">DR</div>
+        <div><strong>Doctor</strong><small>Specialist</small></div>
+      </div>
+    </div>
+  </aside>
+  <div class="main">
+    <header class="topbar">
+      <div><div class="eyebrow">Doctor View</div><h1>My Dashboard</h1></div>
+      <div class="topbar-right">
+        <div class="search">&#128269;&nbsp; Search my patients...</div>
+        <button class="icon-btn">&#128276;</button>
+      </div>
+    </header>
+    <main class="content">
+      <section class="stats-row">
+        <div class="stat-card"><div class="stripe"></div><div class="tag">Today's Appointments</div><div class="num" id="docToday">0</div><div class="delta">&nbsp;</div></div>
+        <div class="stat-card"><div class="stripe"></div><div class="tag">Upcoming Appointments</div><div class="num" id="docUpcoming">0</div><div class="delta">&nbsp;</div></div>
+        <div class="stat-card"><div class="stripe"></div><div class="tag">Assigned Patients</div><div class="num" id="docPatients">0</div><div class="delta">&nbsp;</div></div>
+      </section>
+
+      <div class="card">
+        <div class="card-head"><div><h2>Today's Queue</h2><div class="hint">Appointments assigned to you</div></div><a href="appointments.html" class="btn btn-outline btn-sm">View all</a></div>
+        <table id="docAppts"><thead><tr><th>Appt ID</th><th>Patient</th><th>Time</th><th>Status</th></tr></thead><tbody></tbody></table>
+      </div>
+
+    </main>
+  </div>
+</div>
+<script src="../js/role-nav.js"></script>
+<script>
+  (async function(){
+    const info = await getCurrentUser();
+    if(!info.authenticated){ window.location.href='/pages/login.html'; return; }
+    if((info.UserRole||'').toLowerCase() !== 'doctor'){
+      if((info.UserRole||'').toLowerCase()==='admin') window.location.href='/pages/admin-dashboard.html';
+      else if((info.UserRole||'').toLowerCase()==='patient') window.location.href='/pages/patient-dashboard.html';
+      else window.location.href='/pages/access-denied.html';
+      return;
+    }
+    document.getElementById('miniUserDoc').querySelector('div strong').textContent = info.UserName || 'Doctor';
+
+    try{
+      const res = await fetch('/api/appointments/forcurrent');
+      if(res.ok){ const list = await res.json(); document.getElementById('docToday').textContent = list.length; const tbody = document.querySelector('#docAppts tbody'); list.slice(0,12).forEach(a=>{
+        const tr = document.createElement('tr'); tr.innerHTML = `<td><span class="id-chip">APT-${a.ApptID}</span></td><td>${a.PatientName||''}</td><td>${new Date(a.AppointmentDateTime).toLocaleString()}</td><td>${a.Status||''}</td>`; tbody.appendChild(tr);
+      }); }
+    }catch(e){ console.warn(e); }
+  })();
+</script>
+</body>
+</html>

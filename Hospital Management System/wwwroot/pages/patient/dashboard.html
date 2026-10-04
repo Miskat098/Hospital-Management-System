@@ -1,0 +1,211 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Dashboard — MediCore Hospital</title>
+    <link rel="stylesheet" href="../../css/style.css" />
+    <link rel="stylesheet" href="../../css/dashboard.css" />
+    <link rel="stylesheet" href="../../css/patient.css" />
+</head>
+<body>
+
+    <div class="app-shell">
+
+        <!-- ============================= SIDEBAR ============================= -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-brand">
+                <span class="mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M2 12h20" /></svg></span>
+                <div>
+                    <div class="name">MediCore</div>
+                    <div class="role-tag">Patient Portal</div>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav" aria-label="Patient navigation">
+                <a href="dashboard.html" class="sidebar-link is-active">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9" rx="1" /><rect x="14" y="3" width="7" height="5" rx="1" /><rect x="14" y="12" width="7" height="9" rx="1" /><rect x="3" y="16" width="7" height="5" rx="1" /></svg>
+                    Dashboard
+                </a>
+                <a href="appointments.html" class="sidebar-link">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" /><path d="M16 2v4M8 2v4M3 10h18" /></svg>
+                    My Appointments
+                </a>
+                <a href="prescriptions.html" class="sidebar-link">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12h6M9 16h6M9 8h1" /><rect x="4" y="3" width="16" height="18" rx="2" /></svg>
+                    Prescriptions
+                </a>
+                <a href="billing.html" class="sidebar-link">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2" /><path d="M2 10h20" /></svg>
+                    Billing &amp; Invoices
+                    <span class="count-pill">1 due</span>
+                </a>
+                <a href="feedback.html" class="sidebar-link">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 0 0 0-7.8Z" /></svg>
+                    Feedback
+                </a>
+
+                <div class="sidebar-section-label">Account</div>
+                <a href="profile.html" class="sidebar-link">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4" /><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8" /></svg>
+                    My Profile
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="sidebar-user">
+                    <span class="avatar avatar-sm" style="background:var(--teal-500);color:#fff;">RA</span>
+                    <div>
+                        <div class="u-name">Rafiq Ahmed</div>
+                        <div class="u-role">Patient ID: PAT-7710</div>
+                    </div>
+                </div>
+                <button class="sidebar-logout" id="logoutBtn">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" /><path d="M16 17l5-5-5-5M21 12H9" /></svg>
+                    Log Out
+                </button>
+            </div>
+        </aside>
+
+        <!-- ============================= MAIN ============================= -->
+        <div class="app-main">
+
+            <header class="topbar">
+                <div class="topbar-left">
+                    <button class="icon-btn menu-toggle" id="menuToggle" aria-label="Toggle menu">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18" /></svg>
+                    </button>
+                    <div class="topbar-title">
+                        <h1>Welcome back, Rafiq</h1>
+                        <div class="subtitle">Here's what's happening with your care</div>
+                    </div>
+                </div>
+                <div class="topbar-right">
+                    <button class="topbar-icon-btn" aria-label="Notifications">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9" /><path d="M13.7 21a2 2 0 0 1-3.4 0" /></svg>
+                        <span class="dot"></span>
+                    </button>
+                    <span class="avatar avatar-sm" style="background:var(--teal-500);color:#fff;">RA</span>
+                </div>
+            </header>
+
+            <main class="app-content">
+
+                <!-- Next appointment banner -->
+                <div class="card mb-5" style="background:var(--teal-900);border:none;color:#fff;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;">
+                    <div class="flex items-center gap-4">
+                        <span class="avatar avatar-lg" style="background:var(--teal-500);color:#fff;">NK</span>
+                        <div>
+                            <div class="text-xs" style="color:#a9cbc5;">Your next appointment</div>
+                            <div style="font-family:var(--font-heading);font-weight:700;font-size:1.15rem;">Dr. Nasrin Karim · Cardiology</div>
+                            <div class="text-sm" style="color:#cdeee6;">Friday, 25 September 2026 · 10:30 AM</div>
+                        </div>
+                    </div>
+                    <div class="flex gap-3">
+                        <button class="btn btn-secondary btn-sm">Reschedule</button>
+                        <button class="btn btn-primary btn-sm" style="background:var(--teal-500);">View Details</button>
+                    </div>
+                </div>
+
+                <!-- Quick stats -->
+                <div class="grid grid-4 mb-5">
+                    <div class="stat-card">
+                        <div class="stat-card-top">
+                            <span class="stat-icon tone-teal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" /><path d="M16 2v4M8 2v4M3 10h18" /></svg></span>
+                        </div>
+                        <div class="stat-value">2</div>
+                        <div class="stat-label">Upcoming Appointments</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card-top">
+                            <span class="stat-icon tone-info"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12h6M9 16h6M9 8h1" /><rect x="4" y="3" width="16" height="18" rx="2" /></svg></span>
+                        </div>
+                        <div class="stat-value">6</div>
+                        <div class="stat-label">Active Prescriptions</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card-top">
+                            <span class="stat-icon tone-warning"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2" /><path d="M2 10h20" /></svg></span>
+                        </div>
+                        <div class="stat-value">৳3,200</div>
+                        <div class="stat-label">Outstanding Balance</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card-top">
+                            <span class="stat-icon tone-coral"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 0 0 0-7.8Z" /></svg></span>
+                        </div>
+                        <div class="stat-value">12</div>
+                        <div class="stat-label">Total Visits</div>
+                    </div>
+                </div>
+
+                <div class="grid" style="grid-template-columns: 1fr 1fr;">
+
+                    <div class="panel">
+                        <div class="panel-header">
+                            <h3>Recent Prescriptions</h3>
+                            <a href="prescriptions.html" class="btn btn-secondary btn-sm">View All</a>
+                        </div>
+                        <div class="panel-body flex flex-col gap-3">
+                            <div class="patient-list-item">
+                                <span class="avatar avatar-sm" style="background:var(--teal-100);color:var(--teal-800);">NK</span>
+                                <div class="pli-info">
+                                    <div class="pli-name">Dr. Nasrin Karim</div>
+                                    <div class="pli-meta">2 medicines · 21 Sep 2026</div>
+                                </div>
+                                <a href="prescriptions.html" class="icon-btn" aria-label="View"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6" /></svg></a>
+                            </div>
+                            <div class="patient-list-item">
+                                <span class="avatar avatar-sm" style="background:var(--teal-100);color:var(--teal-800);">NK</span>
+                                <div class="pli-info">
+                                    <div class="pli-name">Dr. Nasrin Karim</div>
+                                    <div class="pli-meta">2 medicines · 24 Aug 2026</div>
+                                </div>
+                                <a href="prescriptions.html" class="icon-btn" aria-label="View"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6" /></svg></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel">
+                        <div class="panel-header">
+                            <h3>Recent Invoices</h3>
+                            <a href="billing.html" class="btn btn-secondary btn-sm">View All</a>
+                        </div>
+                        <div class="panel-body flex flex-col gap-3">
+                            <div class="patient-list-item">
+                                <span class="avatar avatar-sm" style="background:var(--warning-bg);color:var(--warning);">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><rect x="2" y="5" width="20" height="14" rx="2" /><path d="M2 10h20" /></svg>
+                                </span>
+                                <div class="pli-info">
+                                    <div class="pli-name">INV-20261901</div>
+                                    <div class="pli-meta">Cardiology consult · Due 28 Sep</div>
+                                </div>
+                                <span class="badge badge-warning">Pending</span>
+                            </div>
+                            <div class="patient-list-item">
+                                <span class="avatar avatar-sm" style="background:var(--success-bg);color:var(--success);">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><rect x="2" y="5" width="20" height="14" rx="2" /><path d="M2 10h20" /></svg>
+                                </span>
+                                <div class="pli-info">
+                                    <div class="pli-name">INV-20261845</div>
+                                    <div class="pli-meta">ECG &amp; lab tests · Paid 24 Aug</div>
+                                </div>
+                                <span class="badge badge-success">Paid</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </main>
+        </div>
+    </div>
+
+    <div class="toast-stack" id="toastStack"></div>
+
+    <script src="../../js/utils.js"></script>
+    <script src="../../js/api.js"></script>
+    <script src="../../js/auth.js"></script>
+    <script src="../../js/patient/dashboard.js"></script>
+</body>
+</html>

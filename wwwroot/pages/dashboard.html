@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard &middot; MediChart HMS</title>
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-mark">M</div>
+      <div class="brand-name">MediChart<span>Hospital System</span></div>
+    </div>
+    <div class="nav-group-label">Records</div>
+      <a href="dashboard.html" class="nav-link active"><span class="ic">&#9635;</span>Dashboard</a>
+      <a href="patients.html" class="nav-link"><span class="ic">&#9906;</span>Patients</a>
+      <a href="doctors.html" class="nav-link"><span class="ic">&#9877;</span>Doctors</a>
+      <a href="departments.html" class="nav-link"><span class="ic">&#127974;</span>Departments</a>
+      <a href="appointments.html" class="nav-link"><span class="ic">&#128197;</span>Appointments</a>
+      <a href="prescriptions.html" class="nav-link"><span class="ic">&#128209;</span>Prescriptions</a>
+      <a href="billing.html" class="nav-link"><span class="ic">&#128179;</span>Billing</a>
+      <a href="feedback.html" class="nav-link"><span class="ic">&#9733;</span>Feedback</a>
+      <a href="medicines.html" class="nav-link"><span class="ic">&#128138;</span>Medicines</a>
+    <div class="sidebar-foot">
+      <div class="mini-user">
+        <div class="mini-avatar">AR</div>
+        <div><strong>Abida Sultana</strong><small>Front Desk &middot; Admin</small></div>
+      </div>
+      <a href="/Account/Logout" class="nav-link" style="margin-top:6px;"><span class="ic">&#8592;</span>Sign out</a>
+    </div>
+  </aside>
+  <div class="main">
+    <header class="topbar">
+      <div><div class="eyebrow">Overview</div><h1>Dashboard</h1></div>
+      <div class="topbar-right">
+        <div class="search">&#128269;&nbsp; Search records...</div>
+        <button class="icon-btn">&#128276;</button>
+      </div>
+    </header>
+    <main class="content">
+      <section class="stats-row">
+        <div class="stat-card"><div class="stripe"></div><div class="tag">Patients Registered</div><div class="num">000</div><div class="delta">&#8593; 18 this week</div></div>
+        <div class="stat-card"><div class="stripe"></div><div class="tag">Doctors On Roster</div><div class="num">00</div><div class="delta">&#8593; 2 new joiners</div></div>
+        <div class="stat-card"><div class="stripe"></div><div class="tag">Appointments Today</div><div class="num">00</div><div class="delta">&#8593; 6 vs yesterday</div></div>
+        <div class="stat-card"><div class="stripe"></div><div class="tag">Pending Bills</div><div class="num">&#2547;84,5000000</div><div class="delta" style="color:var(--bad)">14 unpaid invoices</div></div>
+      </section>
+
+      <div class="card">
+        <div class="card-head">
+          <div><h2>Today's Appointments</h2><div class="hint">Live queue across all departments</div></div>
+          <a href="appointments.html" class="btn btn-outline btn-sm">View all</a>
+        </div>
+        <table>
+          <thead><tr><th>Appt ID</th><th>Patient</th><th>Doctor</th><th>Date / Time</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td><span class="id-chip">APT-1042</span></td><td class="name-cell"><div class="avatar">RH</div><div class="cell-name">Rafiul Hasan<span class="cell-sub">PT-0182</span></div></td><td>Dr. Nusrat Jahan<span class="cell-sub">Cardiology</span></td><td>18 Aug, 10:30 AM</td><td><span class="badge badge-good">Confirmed</span></td></tr>
+            <tr><td><span class="id-chip">APT-1043</span></td><td class="name-cell"><div class="avatar">SA</div><div class="cell-name">Sumaiya Akter<span class="cell-sub">PT-0201</span></div></td><td>Dr. Kamrul Islam<span class="cell-sub">Orthopedics</span></td><td>18 Aug, 11:00 AM</td><td><span class="badge badge-warn">Waiting</span></td></tr>
+            <tr><td><span class="id-chip">APT-1044</span></td><td class="name-cell"><div class="avatar">TA</div><div class="cell-name">Tanvir Ahmed<span class="cell-sub">PT-0155</span></div></td><td>Dr. Farzana Chowdhury<span class="cell-sub">Dermatology</span></td><td>18 Aug, 11:45 AM</td><td><span class="badge badge-bad">Cancelled</span></td></tr>
+            <tr><td><span class="id-chip">APT-1045</span></td><td class="name-cell"><div class="avatar">MJ</div><div class="cell-name">Mim Jahan<span class="cell-sub">PT-0233</span></div></td><td>Dr. Nusrat Jahan<span class="cell-sub">Cardiology</span></td><td>18 Aug, 1:15 PM</td><td><span class="badge badge-good">Confirmed</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><div><h2>Department Load</h2><div class="hint">Active patients by department this week</div></div></div>
+        <table>
+          <thead><tr><th>Department</th><th>Doctors</th><th>Patients Seen</th><th>Avg. Rating</th></tr></thead>
+          <tbody>
+            <tr><td class="cell-name">Cardiology</td><td>6</td><td>112</td><td><span class="badge badge-good">4.8</span></td></tr>
+            <tr><td class="cell-name">Orthopedics</td><td>5</td><td>96</td><td><span class="badge badge-good">4.6</span></td></tr>
+            <tr><td class="cell-name">Dermatology</td><td>4</td><td>74</td><td><span class="badge badge-warn">4.1</span></td></tr>
+            <tr><td class="cell-name">General Medicine</td><td>9</td><td>203</td><td><span class="badge badge-good">4.7</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+    </main>
+  </div>
+</div>
+</body>
+<script>
+  // Adjust visible navigation and dashboard content based on authenticated role
+  (async function(){
+    try{
+      const info = await getCurrentUser();
+      if(!info.authenticated){ window.location.href='/pages/login.html'; return; }
+      const role = (info.UserRole||'').toLowerCase();
+
+      // Hide admin-only links
+      if(role !== 'admin'){
+        document.querySelectorAll('a[href="departments.html"]').forEach(e=>e.style.display='none');
+        document.querySelectorAll('a[href="medicines.html"]').forEach(e=>e.style.display='none');
+      }
+      // Billing visible to admin and patient
+      if(role !== 'admin' && role !== 'patient'){
+        document.querySelectorAll('a[href="billing.html"]').forEach(e=>e.style.display='none');
+      }
+
+      // Tailor dashboard cards a little based on role
+      if(role==='doctor') document.querySelectorAll('.stat-card')[3]?.classList.add('hidden');
+      if(role==='patient') document.querySelectorAll('.stat-card')[1]?.classList.add('hidden');
+    }catch(e){ console.error(e); }
+  })();
+</script>
+</html>

@@ -1,0 +1,239 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Billing & Invoices — MediCore Hospital</title>
+    <link rel="stylesheet" href="../../css/style.css" />
+    <link rel="stylesheet" href="../../css/dashboard.css" />
+    <link rel="stylesheet" href="../../css/patient.css" />
+</head>
+<body>
+
+    <div class="app-shell">
+
+        <!-- ============================= SIDEBAR ============================= -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-brand">
+                <span class="mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M2 12h20" /></svg></span>
+                <div>
+                    <div class="name">MediCore</div>
+                    <div class="role-tag">Patient Portal</div>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav" aria-label="Patient navigation">
+                <a href="dashboard.html" class="sidebar-link">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9" rx="1" /><rect x="14" y="3" width="7" height="5" rx="1" /><rect x="14" y="12" width="7" height="9" rx="1" /><rect x="3" y="16" width="7" height="5" rx="1" /></svg>
+                    Dashboard
+                </a>
+                <a href="appointments.html" class="sidebar-link">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" /><path d="M16 2v4M8 2v4M3 10h18" /></svg>
+                    My Appointments
+                </a>
+                <a href="prescriptions.html" class="sidebar-link">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12h6M9 16h6M9 8h1" /><rect x="4" y="3" width="16" height="18" rx="2" /></svg>
+                    Prescriptions
+                </a>
+                <a href="billing.html" class="sidebar-link is-active">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2" /><path d="M2 10h20" /></svg>
+                    Billing &amp; Invoices
+                    <span class="count-pill">1 due</span>
+                </a>
+                <a href="feedback.html" class="sidebar-link">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 0 0 0-7.8Z" /></svg>
+                    Feedback
+                </a>
+
+                <div class="sidebar-section-label">Account</div>
+                <a href="profile.html" class="sidebar-link">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4" /><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8" /></svg>
+                    My Profile
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="sidebar-user">
+                    <span class="avatar avatar-sm" style="background:var(--teal-500);color:#fff;">RA</span>
+                    <div>
+                        <div class="u-name">Rafiq Ahmed</div>
+                        <div class="u-role">Patient ID: PAT-7710</div>
+                    </div>
+                </div>
+                <button class="sidebar-logout" id="logoutBtn">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" /><path d="M16 17l5-5-5-5M21 12H9" /></svg>
+                    Log Out
+                </button>
+            </div>
+        </aside>
+
+        <!-- ============================= MAIN ============================= -->
+        <div class="app-main">
+
+            <header class="topbar">
+                <div class="topbar-left">
+                    <button class="icon-btn menu-toggle" id="menuToggle" aria-label="Toggle menu">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18" /></svg>
+                    </button>
+                    <div class="topbar-title">
+                        <h1>Billing &amp; Invoices</h1>
+                        <div class="subtitle">View and pay your hospital invoices</div>
+                    </div>
+                </div>
+                <div class="topbar-right">
+                    <span class="avatar avatar-sm" style="background:var(--teal-500);color:#fff;">RA</span>
+                </div>
+            </header>
+
+            <main class="app-content">
+
+                <div class="grid grid-3 mb-5">
+                    <div class="stat-card">
+                        <div class="stat-card-top">
+                            <span class="stat-icon tone-warning"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2" /><path d="M2 10h20" /></svg></span>
+                        </div>
+                        <div class="stat-value">৳3,200</div>
+                        <div class="stat-label">Outstanding Balance</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card-top">
+                            <span class="stat-icon tone-success" style="background:var(--success-bg);color:var(--success);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4" /><circle cx="12" cy="12" r="9" /></svg></span>
+                        </div>
+                        <div class="stat-value">৳18,450</div>
+                        <div class="stat-label">Total Paid (2026)</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card-top">
+                            <span class="stat-icon tone-info"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12h6M9 16h6M9 8h1" /><rect x="4" y="3" width="16" height="18" rx="2" /></svg></span>
+                        </div>
+                        <div class="stat-value">9</div>
+                        <div class="stat-label">Total Invoices</div>
+                    </div>
+                </div>
+
+                <div class="tabs mb-5" id="billingTabs">
+                    <button class="tab-btn is-active" data-status="pending">Pending (1)</button>
+                    <button class="tab-btn" data-status="paid">Paid (8)</button>
+                </div>
+
+                <div class="flex flex-col gap-4" id="pending-invoices">
+                    <div class="invoice-card">
+                        <span class="inv-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2" /><path d="M2 10h20" /></svg></span>
+                        <div class="inv-info">
+                            <div class="inv-id">INV-20261901</div>
+                            <div class="inv-meta">Cardiology consultation · Dr. Nasrin Karim · Due 28 Sep 2026</div>
+                        </div>
+                        <div class="inv-amount">৳3,200</div>
+                        <div class="inv-actions">
+                            <button class="btn btn-secondary btn-sm view-invoice-btn" data-invoice="INV-20261901">Details</button>
+                            <button class="btn btn-primary btn-sm pay-invoice-btn" data-invoice="INV-20261901">Pay Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex flex-col gap-4" id="paid-invoices" style="display:none;">
+                    <div class="invoice-card">
+                        <span class="inv-icon" style="background:var(--success-bg);color:var(--success);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2" /><path d="M2 10h20" /></svg></span>
+                        <div class="inv-info">
+                            <div class="inv-id">INV-20261845</div>
+                            <div class="inv-meta">ECG &amp; lab tests · Paid 24 Aug 2026</div>
+                        </div>
+                        <div class="inv-amount">৳2,450</div>
+                        <div class="inv-actions">
+                            <span class="badge badge-success">Paid</span>
+                            <button class="icon-btn" aria-label="Download receipt"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15V3m0 12-4-4m4 4 4-4" /><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /></svg></button>
+                        </div>
+                    </div>
+                    <div class="invoice-card">
+                        <span class="inv-icon" style="background:var(--success-bg);color:var(--success);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2" /><path d="M2 10h20" /></svg></span>
+                        <div class="inv-info">
+                            <div class="inv-id">INV-20261732</div>
+                            <div class="inv-meta">Orthopedics X-ray &amp; consultation · Paid 18 Jun 2026</div>
+                        </div>
+                        <div class="inv-amount">৳4,100</div>
+                        <div class="inv-actions">
+                            <span class="badge badge-success">Paid</span>
+                            <button class="icon-btn" aria-label="Download receipt"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15V3m0 12-4-4m4 4 4-4" /><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /></svg></button>
+                        </div>
+                    </div>
+                </div>
+
+            </main>
+        </div>
+    </div>
+
+    <!-- ============================= PAYMENT MODAL ============================= -->
+    <div class="modal-overlay" id="paymentModalOverlay">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Pay Invoice — INV-20261901</h3>
+                <button class="icon-btn" id="closePaymentModalBtn" aria-label="Close">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12" /></svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-4">
+                    <div class="invoice-breakdown-row"><span>Consultation Fee</span><span>৳1,500</span></div>
+                    <div class="invoice-breakdown-row"><span>ECG Test</span><span>৳1,200</span></div>
+                    <div class="invoice-breakdown-row"><span>Service Charge</span><span>৳500</span></div>
+                    <div class="invoice-breakdown-row total"><span>Total Due</span><span>৳3,200</span></div>
+                </div>
+
+                <div class="field">
+                    <label for="paymentMethod">Payment Method</label>
+                    <select class="input" id="paymentMethod" required>
+                        <option value="card">Credit / Debit Card</option>
+                        <option value="bkash">bKash</option>
+                        <option value="nagad">Nagad</option>
+                        <option value="bank">Bank Transfer</option>
+                    </select>
+                </div>
+
+                <div id="cardFields">
+                    <div class="field">
+                        <label for="cardNumber">Card Number</label>
+                        <input class="input" type="text" id="cardNumber" placeholder="1234 5678 9012 3456" />
+                    </div>
+                    <div class="form-grid-2">
+                        <div class="field">
+                            <label for="cardExpiry">Expiry Date</label>
+                            <input class="input" type="text" id="cardExpiry" placeholder="MM/YY" />
+                        </div>
+                        <div class="field">
+                            <label for="cardCvv">CVV</label>
+                            <input class="input" type="text" id="cardCvv" placeholder="123" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" id="cancelPaymentBtn">Cancel</button>
+                <button type="button" class="btn btn-primary" id="confirmPaymentBtn">Pay ৳3,200</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================= PAYMENT SUCCESS MODAL ============================= -->
+    <div class="modal-overlay" id="paymentSuccessOverlay">
+        <div class="modal" style="max-width:420px;">
+            <div class="modal-body text-center" style="padding-top:32px;">
+                <div class="stat-icon" style="width:56px;height:56px;margin:0 auto 16px;border-radius:50%;background:var(--success-bg);color:var(--success);">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="26" height="26"><path d="M9 12l2 2 4-4" /><circle cx="12" cy="12" r="9" /></svg>
+                </div>
+                <h3 class="mb-2">Payment Successful</h3>
+                <p class="text-sm text-muted">৳3,200 paid for INV-20261901. A receipt has been emailed to you.</p>
+            </div>
+            <div class="modal-footer" style="justify-content:center;">
+                <button type="button" class="btn btn-primary" id="closePaymentSuccessBtn">Done</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast-stack" id="toastStack"></div>
+
+    <script src="../../js/utils.js"></script>
+    <script src="../../js/api.js"></script>
+    <script src="../../js/auth.js"></script>
+    <script src="../../js/patient/billing.js"></script>
+</body>
+</html>

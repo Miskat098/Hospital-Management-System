@@ -1,0 +1,490 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Doctor Dashboard — MediCore Hospital</title>
+    <link rel="stylesheet" href="../../css/style.css" />
+    <link rel="stylesheet" href="../../css/dashboard.css" />
+    <link rel="stylesheet" href="../../css/doctor.css" />
+</head>
+<body>
+
+    <div class="app-shell">
+
+        <!-- ============================= SIDEBAR ============================= -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-brand">
+                <span class="mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M2 12h20" /></svg></span>
+                <div>
+                    <div class="name">MediCore</div>
+                    <div class="role-tag">Doctor Portal</div>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav" aria-label="Doctor navigation">
+                <a href="dashboard.html" class="sidebar-link is-active">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9" rx="1" /><rect x="14" y="3" width="7" height="5" rx="1" /><rect x="14" y="12" width="7" height="9" rx="1" /><rect x="3" y="16" width="7" height="5" rx="1" /></svg>
+                    Dashboard
+                </a>
+                <a href="appointments.html" class="sidebar-link">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" /><path d="M16 2v4M8 2v4M3 10h18" /></svg>
+                    My Appointments
+                    <span class="count-pill">8 today</span>
+                </a>
+                <a href="patients.html" class="sidebar-link">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" /><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" /></svg>
+                    My Patients
+                </a>
+                <a href="write-prescription.html" class="sidebar-link">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12h6M9 16h6M9 8h1" /><rect x="4" y="3" width="16" height="18" rx="2" /></svg>
+                    Write Prescription
+                </a>
+
+                <div class="sidebar-section-label">Account</div>
+                <a href="#" class="sidebar-link">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3" /><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.6a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z" /></svg>
+                    Settings
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="sidebar-user">
+                    <span class="avatar avatar-sm" style="background:var(--teal-500);color:#fff;">NK</span>
+                    <div>
+                        <div class="u-name">Dr. Nasrin Karim</div>
+                        <div class="u-role">Cardiology</div>
+                    </div>
+                </div>
+                <button class="sidebar-logout" id="logoutBtn">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" /><path d="M16 17l5-5-5-5M21 12H9" /></svg>
+                    Log Out
+                </button>
+            </div>
+        </aside>
+
+        <!-- ============================= MAIN ============================= -->
+        <div class="app-main">
+
+            <header class="topbar">
+                <div class="topbar-left">
+                    <button class="icon-btn menu-toggle" id="menuToggle" aria-label="Toggle menu">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18" /></svg>
+                    </button>
+                    <div class="topbar-title">
+                        <h1>Good morning, Dr. Karim</h1>
+                        <div class="subtitle">Monday, 21 September 2026 · 8 appointments today</div>
+                    </div>
+                </div>
+                <div class="topbar-right">
+                    <div class="topbar-search">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8" /><path d="m21 21-4.3-4.3" /></svg>
+                        <input class="input" type="search" placeholder="Search patients…" />
+                    </div>
+                    <button class="topbar-icon-btn" aria-label="Notifications">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9" /><path d="M13.7 21a2 2 0 0 1-3.4 0" /></svg>
+                        <span class="dot"></span>
+                    </button>
+                    <span class="avatar avatar-sm" style="background:var(--teal-500);color:#fff;">NK</span>
+                </div>
+            </header>
+
+            <main class="app-content">
+
+                <!-- KPI cards -->
+                <div class="grid grid-4 mb-5">
+                    <div class="stat-card">
+                        <div class="stat-card-top">
+                            <span class="stat-icon tone-teal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" /><path d="M16 2v4M8 2v4M3 10h18" /></svg></span>
+                        </div>
+                        <div class="stat-value">8</div>
+                        <div class="stat-label">Appointments Today</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card-top">
+                            <span class="stat-icon tone-info"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" /></svg></span>
+                        </div>
+                        <div class="stat-value">312</div>
+                        <div class="stat-label">Assigned Patients</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card-top">
+                            <span class="stat-icon tone-warning"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12h6M9 16h6M9 8h1" /><rect x="4" y="3" width="16" height="18" rx="2" /></svg></span>
+                        </div>
+                        <div class="stat-value">3</div>
+                        <div class="stat-label">Prescriptions Pending</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card-top">
+                            <span class="stat-icon tone-coral"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 0 0 0-7.8Z" /></svg></span>
+                        </div>
+                        <div class="stat-value">4.9</div>
+                        <div class="stat-label">Average Rating</div>
+                    </div>
+                </div>
+
+                <div class="grid" style="grid-template-columns: 2fr 1fr;">
+                    <div class="panel">
+                        <div class="panel-header">
+                            <div>
+                                <h3>Today's Schedule</h3>
+                                <p class="text-sm text-muted mb-0">Monday, 21 September 2026</p>
+                            </div>
+                            <a href="appointments.html" class="btn btn-secondary btn-sm">View Full Schedule</a>
+                        </div>
+                        <div class="panel-body">
+                            <div class="schedule-timeline">
+                                <div class="timeline-slot">
+                                    <div class="timeline-time">9:00<span class="meridiem">AM</span></div>
+                                    <div class="timeline-card status-completed">
+                                        <span class="avatar avatar-sm">RA</span>
+                                        <div class="tc-info">
+                                            <div class="tc-name">Rafiq Ahmed</div>
+                                            <div class="tc-reason">Follow-up · Hypertension review</div>
+                                        </div>
+                                        <span class="badge badge-neutral">Completed</span>
+                                    </div>
+                                </div>
+                                <div class="timeline-slot">
+                                    <div class="timeline-time">9:30<span class="meridiem">AM</span></div>
+                                    <div class="timeline-card status-completed">
+                                        <span class="avatar avatar-sm">MJ</span>
+                                        <div class="tc-info">
+                                            <div class="tc-name">Mahmuda Jahan</div>
+                                            <div class="tc-reason">New Patient · Chest pain evaluation</div>
+                                        </div>
+                                        <span class="badge badge-neutral">Completed</span>
+                                    </div>
+                                </div>
+                                <div class="timeline-slot">
+                                    <div class="timeline-time">10:30<span class="meridiem">AM</span></div>
+                                    <div class="timeline-card status-in-progress">
+                                        <span class="avatar avatar-sm">SB</span>
+                                        <div class="tc-info">
+                                            <div class="tc-name">Shirin Begum</div>
+                                            <div class="tc-reason">Follow-up · Post-op checkup</div>
+                                        </div>
+                                        <div class="tc-actions">
+                                            <button class="btn btn-primary btn-sm">Start Visit</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="timeline-slot">
+                                    <div class="timeline-time">11:00<span class="meridiem">AM</span></div>
+                                    <div class="timeline-card">
+                                        <span class="avatar avatar-sm">TI</span>
+                                        <div class="tc-info">
+                                            <div class="tc-name">Tanvir Islam</div>
+                                            <div class="tc-reason">New Patient · Irregular heartbeat</div>
+                                        </div>
+                                        <div class="tc-actions">
+                                            <button class="icon-btn" aria-label="Reschedule"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="17" height="17"><circle cx="12" cy="12" r="9" /><path d="M12 7v5l3 3" /></svg></button>
+                                            <button class="icon-btn danger" aria-label="Cancel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="17" height="17"><path d="M18 6 6 18M6 6l12 12" /></svg></button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="timeline-slot">
+                                    <div class="timeline-time">2:00<span class="meridiem">PM</span></div>
+                                    <div class="timeline-card status-cancelled">
+                                        <span class="avatar avatar-sm">FK</span>
+                                        <div class="tc-info">
+                                            <div class="tc-name">Farhana Khan</div>
+                                            <div class="tc-reason">Follow-up · Cancelled by patient</div>
+                                        </div>
+                                        <span class="badge badge-danger">Cancelled</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel">
+                        <div class="panel-header">
+                            <h3>Pending Prescriptions</h3>
+                        </div>
+                        <div class="panel-body flex flex-col gap-3">
+                            <div class="patient-list-item">
+                                <span class="avatar avatar-sm">SB</span>
+                                <div class="pli-info">
+                                    <div class="pli-name">Shirin Begum</div>
+                                    <div class="pli-meta">Post-op checkup · Today</div>
+                                </div>
+                                <a href="write-prescription.html" class="btn btn-secondary btn-sm">Write</a>
+                            </div>
+                            <div class="patient-list-item">
+                                <span class="avatar avatar-sm">TI</span>
+                                <div class="pli-info">
+                                    <div class="pli-name">Tanvir Islam</div>
+                                    <div class="pli-meta">Irregular heartbeat · Today</div>
+                                </div>
+                                <a href="write-prescription.html" class="btn btn-secondary btn-sm">Write</a>
+                            </div>
+                            <div class="patient-list-item">
+                                <span class="avatar avatar-sm">MJ</span>
+                                <div class="pli-info">
+                                    <div class="pli-name">Mahmuda Jahan</div>
+                                    <div class="pli-meta">Chest pain evaluation · Today</div>
+                                </div>
+                                <a href="write-prescription.html" class="btn btn-secondary btn-sm">Write</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </main>
+        </div>
+    </div>
+
+    <div class="toast-stack" id="toastStack"></div>
+
+    <script src="../../js/utils.js"></script>
+    <script src="../../js/api.js"></script>
+    <script src="../../js/auth.js"></script>
+    <script src="../../js/doctor/dashboard.js"></script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Doctor Dashboard — MediCore Hospital</title>
+    <link rel="stylesheet" href="../../css/style.css" />
+    <link rel="stylesheet" href="../../css/dashboard.css" />
+    <link rel="stylesheet" href="../../css/doctor.css" />
+</head>
+<body>
+
+    <div class="app-shell">
+
+        <!-- ============================= SIDEBAR ============================= -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-brand">
+                <span class="mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M2 12h20" /></svg></span>
+                <div>
+                    <div class="name">MediCore</div>
+                    <div class="role-tag">Doctor Portal</div>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav" aria-label="Doctor navigation">
+                <a href="dashboard.html" class="sidebar-link is-active">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9" rx="1" /><rect x="14" y="3" width="7" height="5" rx="1" /><rect x="14" y="12" width="7" height="9" rx="1" /><rect x="3" y="16" width="7" height="5" rx="1" /></svg>
+                    Dashboard
+                </a>
+                <a href="appointments.html" class="sidebar-link">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" /><path d="M16 2v4M8 2v4M3 10h18" /></svg>
+                    My Appointments
+                    <span class="count-pill">8 today</span>
+                </a>
+                <a href="patients.html" class="sidebar-link">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" /><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" /></svg>
+                    My Patients
+                </a>
+                <a href="write-prescription.html" class="sidebar-link">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12h6M9 16h6M9 8h1" /><rect x="4" y="3" width="16" height="18" rx="2" /></svg>
+                    Write Prescription
+                </a>
+
+                <div class="sidebar-section-label">Account</div>
+                <a href="#" class="sidebar-link">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3" /><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.6a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z" /></svg>
+                    Settings
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="sidebar-user">
+                    <span class="avatar avatar-sm" style="background:var(--teal-500);color:#fff;">NK</span>
+                    <div>
+                        <div class="u-name">Dr. Nasrin Karim</div>
+                        <div class="u-role">Cardiology</div>
+                    </div>
+                </div>
+                <button class="sidebar-logout" id="logoutBtn">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" /><path d="M16 17l5-5-5-5M21 12H9" /></svg>
+                    Log Out
+                </button>
+            </div>
+        </aside>
+
+        <!-- ============================= MAIN ============================= -->
+        <div class="app-main">
+
+            <header class="topbar">
+                <div class="topbar-left">
+                    <button class="icon-btn menu-toggle" id="menuToggle" aria-label="Toggle menu">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18" /></svg>
+                    </button>
+                    <div class="topbar-title">
+                        <h1>Good morning, Dr. Karim</h1>
+                        <div class="subtitle">Monday, 21 September 2026 · 8 appointments today</div>
+                    </div>
+                </div>
+                <div class="topbar-right">
+                    <div class="topbar-search">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8" /><path d="m21 21-4.3-4.3" /></svg>
+                        <input class="input" type="search" placeholder="Search patients…" />
+                    </div>
+                    <button class="topbar-icon-btn" aria-label="Notifications">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9" /><path d="M13.7 21a2 2 0 0 1-3.4 0" /></svg>
+                        <span class="dot"></span>
+                    </button>
+                    <span class="avatar avatar-sm" style="background:var(--teal-500);color:#fff;">NK</span>
+                </div>
+            </header>
+
+            <main class="app-content">
+
+                <!-- KPI cards -->
+                <div class="grid grid-4 mb-5">
+                    <div class="stat-card">
+                        <div class="stat-card-top">
+                            <span class="stat-icon tone-teal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" /><path d="M16 2v4M8 2v4M3 10h18" /></svg></span>
+                        </div>
+                        <div class="stat-value">8</div>
+                        <div class="stat-label">Appointments Today</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card-top">
+                            <span class="stat-icon tone-info"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" /></svg></span>
+                        </div>
+                        <div class="stat-value">312</div>
+                        <div class="stat-label">Assigned Patients</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card-top">
+                            <span class="stat-icon tone-warning"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12h6M9 16h6M9 8h1" /><rect x="4" y="3" width="16" height="18" rx="2" /></svg></span>
+                        </div>
+                        <div class="stat-value">3</div>
+                        <div class="stat-label">Prescriptions Pending</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card-top">
+                            <span class="stat-icon tone-coral"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 0 0 0-7.8Z" /></svg></span>
+                        </div>
+                        <div class="stat-value">4.9</div>
+                        <div class="stat-label">Average Rating</div>
+                    </div>
+                </div>
+
+                <div class="grid" style="grid-template-columns: 2fr 1fr;">
+                    <div class="panel">
+                        <div class="panel-header">
+                            <div>
+                                <h3>Today's Schedule</h3>
+                                <p class="text-sm text-muted mb-0">Monday, 21 September 2026</p>
+                            </div>
+                            <a href="appointments.html" class="btn btn-secondary btn-sm">View Full Schedule</a>
+                        </div>
+                        <div class="panel-body">
+                            <div class="schedule-timeline">
+                                <div class="timeline-slot">
+                                    <div class="timeline-time">9:00<span class="meridiem">AM</span></div>
+                                    <div class="timeline-card status-completed">
+                                        <span class="avatar avatar-sm">RA</span>
+                                        <div class="tc-info">
+                                            <div class="tc-name">Rafiq Ahmed</div>
+                                            <div class="tc-reason">Follow-up · Hypertension review</div>
+                                        </div>
+                                        <span class="badge badge-neutral">Completed</span>
+                                    </div>
+                                </div>
+                                <div class="timeline-slot">
+                                    <div class="timeline-time">9:30<span class="meridiem">AM</span></div>
+                                    <div class="timeline-card status-completed">
+                                        <span class="avatar avatar-sm">MJ</span>
+                                        <div class="tc-info">
+                                            <div class="tc-name">Mahmuda Jahan</div>
+                                            <div class="tc-reason">New Patient · Chest pain evaluation</div>
+                                        </div>
+                                        <span class="badge badge-neutral">Completed</span>
+                                    </div>
+                                </div>
+                                <div class="timeline-slot">
+                                    <div class="timeline-time">10:30<span class="meridiem">AM</span></div>
+                                    <div class="timeline-card status-in-progress">
+                                        <span class="avatar avatar-sm">SB</span>
+                                        <div class="tc-info">
+                                            <div class="tc-name">Shirin Begum</div>
+                                            <div class="tc-reason">Follow-up · Post-op checkup</div>
+                                        </div>
+                                        <div class="tc-actions">
+                                            <button class="btn btn-primary btn-sm">Start Visit</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="timeline-slot">
+                                    <div class="timeline-time">11:00<span class="meridiem">AM</span></div>
+                                    <div class="timeline-card">
+                                        <span class="avatar avatar-sm">TI</span>
+                                        <div class="tc-info">
+                                            <div class="tc-name">Tanvir Islam</div>
+                                            <div class="tc-reason">New Patient · Irregular heartbeat</div>
+                                        </div>
+                                        <div class="tc-actions">
+                                            <button class="icon-btn" aria-label="Reschedule"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="17" height="17"><circle cx="12" cy="12" r="9" /><path d="M12 7v5l3 3" /></svg></button>
+                                            <button class="icon-btn danger" aria-label="Cancel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="17" height="17"><path d="M18 6 6 18M6 6l12 12" /></svg></button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="timeline-slot">
+                                    <div class="timeline-time">2:00<span class="meridiem">PM</span></div>
+                                    <div class="timeline-card status-cancelled">
+                                        <span class="avatar avatar-sm">FK</span>
+                                        <div class="tc-info">
+                                            <div class="tc-name">Farhana Khan</div>
+                                            <div class="tc-reason">Follow-up · Cancelled by patient</div>
+                                        </div>
+                                        <span class="badge badge-danger">Cancelled</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel">
+                        <div class="panel-header">
+                            <h3>Pending Prescriptions</h3>
+                        </div>
+                        <div class="panel-body flex flex-col gap-3">
+                            <div class="patient-list-item">
+                                <span class="avatar avatar-sm">SB</span>
+                                <div class="pli-info">
+                                    <div class="pli-name">Shirin Begum</div>
+                                    <div class="pli-meta">Post-op checkup · Today</div>
+                                </div>
+                                <a href="write-prescription.html" class="btn btn-secondary btn-sm">Write</a>
+                            </div>
+                            <div class="patient-list-item">
+                                <span class="avatar avatar-sm">TI</span>
+                                <div class="pli-info">
+                                    <div class="pli-name">Tanvir Islam</div>
+                                    <div class="pli-meta">Irregular heartbeat · Today</div>
+                                </div>
+                                <a href="write-prescription.html" class="btn btn-secondary btn-sm">Write</a>
+                            </div>
+                            <div class="patient-list-item">
+                                <span class="avatar avatar-sm">MJ</span>
+                                <div class="pli-info">
+                                    <div class="pli-name">Mahmuda Jahan</div>
+                                    <div class="pli-meta">Chest pain evaluation · Today</div>
+                                </div>
+                                <a href="write-prescription.html" class="btn btn-secondary btn-sm">Write</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </main>
+        </div>
+    </div>
+
+    <div class="toast-stack" id="toastStack"></div>
+
+    <script src="../../js/utils.js"></script>
+    <script src="../../js/api.js"></script>
+    <script src="../../js/auth.js"></script>
+    <script src="../../js/doctor/dashboard.js"></script>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>Hospital_Management_System</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\..\..\Downloads\hms-backend-step2\hms-backend2\Controllers\AccountController.cs" Link="Controllers\AccountController.cs" />
+    <Compile Include="..\..\..\Downloads\hms-backend-step2\hms-backend2\Controllers\PatientsController.cs" Link="Controllers\PatientsController.cs" />
+    <Compile Include="..\..\..\Downloads\hms-backend-step2\hms-backend2\Helpers\PasswordHelper.cs" Link="Helpers\PasswordHelper.cs" />
+    <Compile Include="..\..\..\Downloads\hms-backend\hms-backend\Data\ApplicationDbContext.cs" Link="Data\ApplicationDbContext.cs" />
+    <Compile Include="..\..\..\Downloads\hms-backend\hms-backend\Models\Appointment.cs" Link="Models\Appointment.cs" />
+    <Compile Include="..\..\..\Downloads\hms-backend\hms-backend\Models\Billing.cs" Link="Models\Billing.cs" />
+    <Compile Include="..\..\..\Downloads\hms-backend\hms-backend\Models\Department.cs" Link="Models\Department.cs" />
+    <Compile Include="..\..\..\Downloads\hms-backend\hms-backend\Models\Doctor.cs" Link="Models\Doctor.cs" />
+    <Compile Include="..\..\..\Downloads\hms-backend\hms-backend\Models\Feedback.cs" Link="Models\Feedback.cs" />
+    <Compile Include="..\..\..\Downloads\hms-backend\hms-backend\Models\Medicine.cs" Link="Models\Medicine.cs" />
+    <Compile Include="..\..\..\Downloads\hms-backend\hms-backend\Models\Patient.cs" Link="Models\Patient.cs" />
+    <Compile Include="..\..\..\Downloads\hms-backend\hms-backend\Models\Prescription.cs" Link="Models\Prescription.cs" />
+    <Compile Include="..\..\..\Downloads\hms-backend\hms-backend\Models\User.cs" Link="Models\User.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Helpers\" />
+    <Folder Include="Data\" />
+    <Folder Include="Views\Patients\" />
+  </ItemGroup>
+
+  <ItemGroup>
+
+
+    <None Include="..\..\..\Downloads\hms-backend-step2\hms-backend2\Views\Patients\Create.cshtml" Link="Views\Patients\Create.cshtml" />
+    <None Include="..\..\..\Downloads\hms-backend-step2\hms-backend2\Views\Patients\Delete.cshtml" Link="Views\Patients\Delete.cshtml" />
+    <None Include="..\..\..\Downloads\hms-backend-step2\hms-backend2\Views\Patients\Edit.cshtml" Link="Views\Patients\Edit.cshtml" />
+    <None Include="..\..\..\Downloads\hms-backend-step2\hms-backend2\Views\Patients\Index.cshtml" Link="Views\Patients\Index.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.11">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="10.0.11" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="11.0.0-preview.7.26381.103">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+</Project>

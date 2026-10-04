@@ -1,0 +1,305 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Billing & Revenue — MediCore Hospital</title>
+    <link rel="stylesheet" href="../../css/style.css" />
+    <link rel="stylesheet" href="../../css/dashboard.css" />
+    <link rel="stylesheet" href="../../css/admin.css" />
+</head>
+<body>
+
+    <div class="app-shell">
+
+        <!-- ============================= SIDEBAR ============================= -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-brand">
+                <span class="mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M2 12h20" /></svg></span>
+                <div>
+                    <div class="name">MediCore</div>
+                    <div class="role-tag">Admin Console</div>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav" aria-label="Admin navigation">
+                <a href="dashboard.html" class="sidebar-link">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9" rx="1" /><rect x="14" y="3" width="7" height="5" rx="1" /><rect x="14" y="12" width="7" height="9" rx="1" /><rect x="3" y="16" width="7" height="5" rx="1" /></svg>
+                    Dashboard
+                </a>
+                <a href="staff-management.html" class="sidebar-link">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" /><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" /></svg>
+                    Staff Management
+                </a>
+                <a href="department-management.html" class="sidebar-link">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="14" rx="2" /><path d="M9 21V11h6v10M9 7V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v3" /></svg>
+                    Departments
+                </a>
+                <a href="medicine-inventory.html" class="sidebar-link">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m10.5 20.5 8-8a4.95 4.95 0 1 0-7-7l-8 8a4.95 4.95 0 1 0 7 7Z" /><path d="m8.5 8.5 7 7" /></svg>
+                    Medicine Inventory
+                    <span class="count-pill">6 low</span>
+                </a>
+                <a href="billing-overview.html" class="sidebar-link is-active">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2" /><path d="M2 10h20" /></svg>
+                    Billing &amp; Revenue
+                </a>
+
+                <div class="sidebar-section-label">Account</div>
+                <a href="#" class="sidebar-link">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3" /><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.6a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z" /></svg>
+                    Settings
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="sidebar-user">
+                    <span class="avatar avatar-sm" style="background:var(--teal-500);color:#fff;">AK</span>
+                    <div>
+                        <div class="u-name">Ayesha Khatun</div>
+                        <div class="u-role">System Administrator</div>
+                    </div>
+                </div>
+                <button class="sidebar-logout" id="logoutBtn">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" /><path d="M16 17l5-5-5-5M21 12H9" /></svg>
+                    Log Out
+                </button>
+            </div>
+        </aside>
+
+        <!-- ============================= MAIN ============================= -->
+        <div class="app-main">
+
+            <header class="topbar">
+                <div class="topbar-left">
+                    <button class="icon-btn menu-toggle" id="menuToggle" aria-label="Toggle menu">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18" /></svg>
+                    </button>
+                    <div class="topbar-title">
+                        <h1>Billing &amp; Revenue</h1>
+                        <div class="subtitle">Financial overview across all departments</div>
+                    </div>
+                </div>
+                <div class="topbar-right">
+                    <select class="input" id="periodSelect" style="width:160px;">
+                        <option value="7d">Last 7 days</option>
+                        <option value="30d" selected>Last 30 days</option>
+                        <option value="90d">Last 90 days</option>
+                        <option value="12m">Last 12 months</option>
+                    </select>
+                    <button class="topbar-icon-btn" aria-label="Notifications">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9" /><path d="M13.7 21a2 2 0 0 1-3.4 0" /></svg>
+                        <span class="dot"></span>
+                    </button>
+                    <span class="avatar avatar-sm" style="background:var(--teal-500);color:#fff;">AK</span>
+                </div>
+            </header>
+
+            <main class="app-content">
+
+                <!-- KPI cards -->
+                <div class="grid grid-4 mb-5">
+                    <div class="stat-card">
+                        <div class="stat-card-top">
+                            <span class="stat-icon tone-teal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2" /><path d="M2 10h20" /></svg></span>
+                            <span class="stat-trend up">+12.8%</span>
+                        </div>
+                        <div class="stat-value">৳8.42L</div>
+                        <div class="stat-label">Total Revenue (30d)</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card-top">
+                            <span class="stat-icon tone-info"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12h6M9 16h6M9 8h1" /><rect x="4" y="3" width="16" height="18" rx="2" /></svg></span>
+                            <span class="stat-trend up">+6.1%</span>
+                        </div>
+                        <div class="stat-value">1,024</div>
+                        <div class="stat-label">Invoices Issued</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card-top">
+                            <span class="stat-icon tone-warning"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" /><path d="M12 6v6l4 2" /></svg></span>
+                            <span class="stat-trend down">-2.3%</span>
+                        </div>
+                        <div class="stat-value">142</div>
+                        <div class="stat-label">Pending Payments</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card-top">
+                            <span class="stat-icon tone-coral"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" /><path d="M12 8v5M12 16h.01" /></svg></span>
+                        </div>
+                        <div class="stat-value">27</div>
+                        <div class="stat-label">Overdue Invoices</div>
+                    </div>
+                </div>
+
+                <div class="revenue-summary-grid mb-5">
+                    <div class="panel">
+                        <div class="panel-header">
+                            <h3>Revenue Trend</h3>
+                            <span class="text-sm text-muted">Last 8 weeks (৳ thousands)</span>
+                        </div>
+                        <div class="panel-body">
+                            <div class="chart-placeholder">
+                                <div class="bar" style="height:42%;"><span>412</span></div>
+                                <div class="bar" style="height:58%;"><span>568</span></div>
+                                <div class="bar" style="height:51%;"><span>501</span></div>
+                                <div class="bar" style="height:67%;"><span>642</span></div>
+                                <div class="bar" style="height:60%;"><span>589</span></div>
+                                <div class="bar" style="height:74%;"><span>701</span></div>
+                                <div class="bar" style="height:82%;"><span>778</span></div>
+                                <div class="bar" style="height:90%;"><span>842</span></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel">
+                        <div class="panel-header">
+                            <h3>Invoice Status</h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="invoice-status-list">
+                                <div class="invoice-status-row">
+                                    <div class="isr-left">
+                                        <span class="isr-icon tone-success" style="background:var(--success-bg);color:var(--success);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4" /><circle cx="12" cy="12" r="9" /></svg></span>
+                                        <span class="text-sm">Paid</span>
+                                    </div>
+                                    <strong>855</strong>
+                                </div>
+                                <div class="invoice-status-row">
+                                    <div class="isr-left">
+                                        <span class="isr-icon" style="background:var(--warning-bg);color:var(--warning);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9" /><path d="M12 7v5l3 3" /></svg></span>
+                                        <span class="text-sm">Pending</span>
+                                    </div>
+                                    <strong>142</strong>
+                                </div>
+                                <div class="invoice-status-row">
+                                    <div class="isr-left">
+                                        <span class="isr-icon" style="background:var(--coral-bg);color:var(--coral);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" /><path d="M12 8v5M12 16h.01" /></svg></span>
+                                        <span class="text-sm">Overdue</span>
+                                    </div>
+                                    <strong>27</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel">
+                    <div class="panel-header">
+                        <div>
+                            <h3>Recent Invoices</h3>
+                            <p class="text-sm text-muted mb-0">All patient billing across departments</p>
+                        </div>
+                        <div class="panel-toolbar">
+                            <select class="input" id="invoiceStatusFilter" style="width:150px;">
+                                <option value="">All Statuses</option>
+                                <option value="paid">Paid</option>
+                                <option value="pending">Pending</option>
+                                <option value="overdue">Overdue</option>
+                            </select>
+                            <button class="btn btn-secondary btn-sm">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M12 15V3m0 12-4-4m4 4 4-4" /><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /></svg>
+                                Export
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="data-table-wrap">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Invoice ID</th>
+                                    <th>Patient</th>
+                                    <th>Department</th>
+                                    <th>Date</th>
+                                    <th>Amount</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="cell-primary">INV-20261918</td>
+                                    <td>
+                                        <div class="row-person">
+                                            <span class="avatar avatar-sm">SB</span>
+                                            <span>Shirin Begum</span>
+                                        </div>
+                                    </td>
+                                    <td>Orthopedics</td>
+                                    <td>18 Sep 2026</td>
+                                    <td class="cell-primary">৳3,200</td>
+                                    <td><span class="badge badge-success">Paid</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="cell-primary">INV-20261917</td>
+                                    <td>
+                                        <div class="row-person">
+                                            <span class="avatar avatar-sm">TI</span>
+                                            <span>Tanvir Islam</span>
+                                        </div>
+                                    </td>
+                                    <td>Pediatrics</td>
+                                    <td>17 Sep 2026</td>
+                                    <td class="cell-primary">৳1,850</td>
+                                    <td><span class="badge badge-warning">Pending</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="cell-primary">INV-20261901</td>
+                                    <td>
+                                        <div class="row-person">
+                                            <span class="avatar avatar-sm">RA</span>
+                                            <span>Rafiq Ahmed</span>
+                                        </div>
+                                    </td>
+                                    <td>Cardiology</td>
+                                    <td>12 Sep 2026</td>
+                                    <td class="cell-primary">৳5,400</td>
+                                    <td><span class="badge badge-success">Paid</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="cell-primary">INV-20261884</td>
+                                    <td>
+                                        <div class="row-person">
+                                            <span class="avatar avatar-sm">FK</span>
+                                            <span>Farhana Khan</span>
+                                        </div>
+                                    </td>
+                                    <td>Neurology</td>
+                                    <td>28 Aug 2026</td>
+                                    <td class="cell-primary">৳7,100</td>
+                                    <td><span class="badge badge-danger">Overdue</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="pagination">
+                        <span>Showing 1–4 of 1,024 invoices</span>
+                        <div class="pagination-controls">
+                            <button class="page-btn" disabled aria-label="Previous page">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="m15 18-6-6 6-6" /></svg>
+                            </button>
+                            <button class="page-btn is-active">1</button>
+                            <button class="page-btn">2</button>
+                            <button class="page-btn">3</button>
+                            <span>…</span>
+                            <button class="page-btn">256</button>
+                            <button class="page-btn" aria-label="Next page">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="m9 18 6-6-6-6" /></svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </main>
+        </div>
+    </div>
+
+    <div class="toast-stack" id="toastStack"></div>
+
+    <script src="../../js/utils.js"></script>
+    <script src="../../js/api.js"></script>
+    <script src="../../js/auth.js"></script>
+    <script src="../../js/admin/billing.js"></script>
+</body>
+</html>

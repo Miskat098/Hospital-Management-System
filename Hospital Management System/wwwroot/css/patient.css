@@ -1,0 +1,390 @@
+﻿/* ==========================================================================
+   MediCore HMS — Patient Stylesheet
+   File: wwwroot/css/patient.css
+   Depends on: style.css, dashboard.css (must be loaded first)
+   Used by: pages/patient/*.html
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Doctor search / booking (appointments.html)
+   -------------------------------------------------------------------------- */
+.booking-search-bar {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr auto;
+    gap: var(--space-3);
+    align-items: end;
+}
+
+@media (max-width: 860px) {
+    .booking-search-bar {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 560px) {
+    .booking-search-bar {
+        grid-template-columns: 1fr;
+    }
+}
+
+.doctor-select-card {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    padding: var(--space-4);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    transition: border-color var(--dur-fast) var(--ease);
+}
+
+    .doctor-select-card:hover {
+        border-color: var(--teal-500);
+    }
+
+    .doctor-select-card .dsc-info {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .doctor-select-card .dsc-name {
+        font-weight: 700;
+    }
+
+    .doctor-select-card .dsc-dept {
+        font-size: 0.8125rem;
+        color: var(--teal-700);
+        font-weight: 600;
+    }
+
+    .doctor-select-card .dsc-meta {
+        font-size: 0.78rem;
+        color: var(--muted);
+        margin-top: 2px;
+    }
+
+    .doctor-select-card .dsc-fee {
+        font-family: var(--font-heading);
+        font-weight: 700;
+        font-size: 1.05rem;
+        text-align: right;
+        flex-shrink: 0;
+    }
+
+        .doctor-select-card .dsc-fee small {
+            display: block;
+            font-family: var(--font-body);
+            font-weight: 500;
+            font-size: 0.7rem;
+            color: var(--muted);
+        }
+
+.slot-picker {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+}
+
+.slot-btn {
+    padding: 0.55rem 0.9rem;
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-sm);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--ink-soft);
+}
+
+    .slot-btn:hover {
+        border-color: var(--teal-500);
+    }
+
+    .slot-btn.is-selected {
+        background: var(--teal-600);
+        border-color: var(--teal-600);
+        color: #fff;
+    }
+
+    .slot-btn:disabled {
+        color: var(--muted-2);
+        background: var(--bg);
+        text-decoration: line-through;
+        cursor: not-allowed;
+    }
+
+/* --------------------------------------------------------------------------
+   My Appointments (list of upcoming / past)
+   -------------------------------------------------------------------------- */
+.appointment-card {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    padding: var(--space-4);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+}
+
+    .appointment-card .ac-date-block {
+        width: 58px;
+        text-align: center;
+        flex-shrink: 0;
+        background: var(--teal-50);
+        border-radius: var(--radius-sm);
+        padding: var(--space-2) 0;
+    }
+
+        .appointment-card .ac-date-block .ac-day {
+            font-family: var(--font-heading);
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: var(--teal-800);
+            line-height: 1;
+        }
+
+        .appointment-card .ac-date-block .ac-month {
+            font-size: 0.68rem;
+            font-weight: 700;
+            color: var(--teal-700);
+            text-transform: uppercase;
+        }
+
+    .appointment-card .ac-info {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .appointment-card .ac-doctor {
+        font-weight: 700;
+    }
+
+    .appointment-card .ac-dept {
+        font-size: 0.8125rem;
+        color: var(--muted);
+    }
+
+    .appointment-card .ac-time {
+        font-size: 0.8125rem;
+        color: var(--ink-soft);
+        font-weight: 600;
+        margin-top: 4px;
+    }
+
+    .appointment-card .ac-actions {
+        display: flex;
+        gap: var(--space-2);
+        flex-shrink: 0;
+    }
+
+/* --------------------------------------------------------------------------
+   Prescriptions (prescriptions.html)
+   -------------------------------------------------------------------------- */
+.prescription-card {
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+}
+
+    .prescription-card .rx-card-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: var(--space-4) var(--space-5);
+        background: var(--bg);
+        border-bottom: 1px solid var(--border);
+    }
+
+        .prescription-card .rx-card-head .rxh-doctor {
+            font-weight: 700;
+            font-size: 0.9375rem;
+        }
+
+        .prescription-card .rx-card-head .rxh-date {
+            font-size: 0.78rem;
+            color: var(--muted);
+        }
+
+    .prescription-card .rx-card-body {
+        padding: var(--space-5);
+    }
+
+.med-line {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-block: var(--space-3);
+    border-bottom: 1px solid var(--border);
+    font-size: 0.875rem;
+}
+
+    .med-line:last-child {
+        border-bottom: none;
+    }
+
+    .med-line .ml-name {
+        font-weight: 600;
+    }
+
+    .med-line .ml-dose {
+        color: var(--muted);
+        font-size: 0.8125rem;
+    }
+
+/* --------------------------------------------------------------------------
+   Billing (billing.html)
+   -------------------------------------------------------------------------- */
+.invoice-card {
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-5);
+    display: flex;
+    align-items: center;
+    gap: var(--space-5);
+    flex-wrap: wrap;
+}
+
+    .invoice-card .inv-icon {
+        width: 48px;
+        height: 48px;
+        border-radius: var(--radius-sm);
+        background: var(--info-bg);
+        color: var(--info);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+    }
+
+        .invoice-card .inv-icon svg {
+            width: 24px;
+            height: 24px;
+        }
+
+    .invoice-card .inv-info {
+        flex: 1;
+        min-width: 180px;
+    }
+
+    .invoice-card .inv-id {
+        font-weight: 700;
+    }
+
+    .invoice-card .inv-meta {
+        font-size: 0.8125rem;
+        color: var(--muted);
+    }
+
+    .invoice-card .inv-amount {
+        font-family: var(--font-heading);
+        font-size: 1.3rem;
+        font-weight: 800;
+    }
+
+    .invoice-card .inv-actions {
+        display: flex;
+        gap: var(--space-2);
+    }
+
+.invoice-breakdown-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-block: var(--space-2);
+    font-size: 0.875rem;
+    color: var(--ink-soft);
+}
+
+    .invoice-breakdown-row.total {
+        font-weight: 700;
+        color: var(--ink);
+        border-top: 1px solid var(--border);
+        padding-top: var(--space-3);
+        margin-top: var(--space-2);
+    }
+
+/* --------------------------------------------------------------------------
+   Feedback (feedback.html)
+   -------------------------------------------------------------------------- */
+.star-rating {
+    display: flex;
+    gap: 6px;
+    direction: ltr;
+}
+
+    .star-rating input {
+        position: absolute;
+        opacity: 0;
+        pointer-events: none;
+    }
+
+    .star-rating label {
+        cursor: pointer;
+        width: 34px;
+        height: 34px;
+        color: var(--border-strong);
+        transition: color var(--dur-fast) var(--ease);
+    }
+
+        .star-rating label svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .star-rating input:checked ~ label,
+        .star-rating label:hover,
+        .star-rating label:hover ~ label {
+            color: var(--warning);
+        }
+
+.feedback-history-item {
+    padding: var(--space-4);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+}
+
+    .feedback-history-item .fhi-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: var(--space-2);
+    }
+
+    .feedback-history-item .fhi-stars {
+        display: flex;
+        gap: 2px;
+        color: var(--warning);
+    }
+
+        .feedback-history-item .fhi-stars svg {
+            width: 14px;
+            height: 14px;
+        }
+
+    .feedback-history-item p {
+        font-size: 0.875rem;
+        color: var(--ink-soft);
+    }
+
+/* --------------------------------------------------------------------------
+   Profile (profile.html)
+   -------------------------------------------------------------------------- */
+.profile-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-5);
+    padding-bottom: var(--space-5);
+    margin-bottom: var(--space-5);
+    border-bottom: 1px solid var(--border);
+    flex-wrap: wrap;
+}
+
+    .profile-header .avatar-lg {
+        background: var(--teal-600);
+        color: #fff;
+    }
+
+    .profile-header .ph-name {
+        font-size: 1.3rem;
+    }
+
+    .profile-header .ph-meta {
+        font-size: 0.875rem;
+        color: var(--muted);
+    }

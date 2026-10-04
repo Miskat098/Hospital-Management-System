@@ -1,0 +1,69 @@
+@{
+	Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sign In &middot; MediChart HMS</title>
+<link rel="stylesheet" href="~/css/style.css">
+</head>
+<body>
+<div class="auth-wrap">
+  <div class="auth-side">
+	<div class="brand">
+	  <div class="brand-mark">M</div>
+	  <div class="brand-name" style="color:#fff;">MediChart<span>Hospital System</span></div>
+	</div>
+	<div class="auth-quote">
+	  &ldquo;One record per patient, one view for every department.&rdquo;
+	  <small>USER &middot; PATIENT &middot; DOCTOR &middot; APPOINTMENT, all linked</small>
+	</div>
+  </div>
+
+  <div class="auth-form-col">
+	<div class="auth-card">
+	  <h1>Welcome back</h1>
+	  <p class="lead">Sign in to manage patients, appointments and billing.</p>
+
+	  @if (ViewBag.Error != null)
+	  {
+		  <div style="background:var(--bad-tint); color:var(--bad); padding:10px 14px; border-radius:8px; font-size:13px; margin-bottom:14px;">
+			  @ViewBag.Error
+		  </div>
+	  }
+	  @if (TempData["Success"] != null)
+	  {
+		  <div style="background:var(--good-tint); color:var(--good); padding:10px 14px; border-radius:8px; font-size:13px; margin-bottom:14px;">
+			  @TempData["Success"]
+		  </div>
+	  }
+
+	  <form asp-controller="Account" asp-action="Login" method="post">
+		@Html.AntiForgeryToken()
+		<div class="field" style="margin-bottom:16px;">
+		  <label>Email <span class="req">*</span></label>
+		  <input type="email" name="email" placeholder="you@hospital.com" required>
+		</div>
+		<div class="field" style="margin-bottom:8px;">
+		  <label>Password <span class="req">*</span></label>
+		  <input type="password" name="password" placeholder="&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;" required>
+		</div>
+		<div class="field" style="margin-bottom:12px;">
+		  <label>Role <span class="req">*</span></label>
+		  <select name="role" required>
+			<option value="Patient">Patient</option>
+			<option value="Doctor">Doctor</option>
+			<option value="Admin">Admin</option>
+		  </select>
+		</div>
+		<button type="submit" class="btn btn-primary btn-block" style="margin-top:18px;">Sign In</button>
+	  </form>
+
+	  <p class="auth-footnote">Don't have an account? <a asp-controller="Account" asp-action="Register" style="font-weight:600;">Register here</a></p>
+	</div>
+  </div>
+</div>
+</body>
+</html>

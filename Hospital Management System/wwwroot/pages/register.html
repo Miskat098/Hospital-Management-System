@@ -1,0 +1,148 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Create Patient Account — MediCore Hospital</title>
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/auth.css" />
+</head>
+<body>
+
+    <div class="auth-shell">
+
+        <!-- ============================= FORM PANEL ============================= -->
+        <div class="auth-form-panel">
+            <div class="auth-topbar">
+                <a href="../index.html" class="auth-brand">
+                    <span class="mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M2 12h20" /></svg></span>
+                    <span class="brand-name">Medi<span>Core</span></span>
+                </a>
+                <a href="../index.html" class="btn btn-ghost btn-sm">Back to site</a>
+            </div>
+
+            <div class="auth-form-wrap" style="max-width:460px;">
+                <h1>Create your patient account</h1>
+                <p class="auth-subtitle">Registration is for patients only. Staff accounts are created by an administrator.</p>
+
+                <form id="registerForm" novalidate>
+
+                    <div class="form-grid-2">
+                        <div class="field">
+                            <label for="firstName">First name</label>
+                            <input class="input" type="text" id="firstName" name="firstName" placeholder="Farhana" required />
+                            <span class="error-msg">First name is required.</span>
+                        </div>
+                        <div class="field">
+                            <label for="lastName">Last name</label>
+                            <input class="input" type="text" id="lastName" name="lastName" placeholder="Islam" required />
+                            <span class="error-msg">Last name is required.</span>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label for="regEmail">Email address</label>
+                        <div class="input-group">
+                            <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2" /><path d="m22 6-10 7L2 6" /></svg>
+                            <input class="input" type="email" id="regEmail" name="email" placeholder="you@example.com" required />
+                        </div>
+                        <span class="error-msg">Please enter a valid email address.</span>
+                    </div>
+
+                    <div class="form-grid-2">
+                        <div class="field">
+                            <label for="phone">Phone number</label>
+                            <input class="input" type="tel" id="phone" name="phone" placeholder="01XXXXXXXXX" required pattern="^01[0-9]{9}$" />
+                            <span class="error-msg">Enter a valid 11-digit phone number.</span>
+                        </div>
+                        <div class="field">
+                            <label for="dob">Date of birth</label>
+                            <input class="input" type="date" id="dob" name="dob" required />
+                            <span class="error-msg">Date of birth is required.</span>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label for="gender">Gender</label>
+                        <select class="input" id="gender" name="gender" required>
+                            <option value="" disabled selected>Select gender</option>
+                            <option value="Female">Female</option>
+                            <option value="Male">Male</option>
+                            <option value="Other">Other</option>
+                        </select>
+                        <span class="error-msg">Please select a gender.</span>
+                    </div>
+
+                    <div class="field">
+                        <label for="regPassword">Password</label>
+                        <div class="input-group">
+                            <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="10" rx="2" /><path d="M7 11V7a5 5 0 0 1 10 0v4" /></svg>
+                            <input class="input" type="password" id="regPassword" name="password" placeholder="At least 8 characters" required minlength="8" />
+                        </div>
+                        <div class="pw-strength" id="pwStrengthMeter">
+                            <span class="seg"></span><span class="seg"></span><span class="seg"></span>
+                        </div>
+                        <span class="hint" id="pwStrengthLabel">Use 8+ characters with a number and a symbol.</span>
+                    </div>
+
+                    <div class="field">
+                        <label for="confirmPassword">Confirm password</label>
+                        <input class="input" type="password" id="confirmPassword" name="confirmPassword" placeholder="Re-enter your password" required />
+                        <span class="error-msg">Passwords do not match.</span>
+                    </div>
+
+                    <div class="field">
+                        <label class="checkbox-row text-sm">
+                            <input type="checkbox" id="termsCheck" name="termsCheck" required />
+                            I agree to the Terms of Service and Privacy Policy
+                        </label>
+                        <span class="error-msg">You must accept the terms to continue.</span>
+                    </div>
+
+                    <div id="registerAlert" class="alert alert-danger mb-5" style="display:none;" role="alert">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" /><path d="M12 8v5M12 16h.01" /></svg>
+                        <span id="registerAlertText">Something went wrong. Please check the form and try again.</span>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-lg btn-block" id="registerSubmitBtn">
+                        Create Account
+                    </button>
+                </form>
+
+                <p class="auth-form-footer-link">
+                    Already have an account? <a href="login.html">Log in</a>
+                </p>
+            </div>
+        </div>
+
+        <!-- ============================= VISUAL PANEL ============================= -->
+        <div class="auth-visual">
+            <div class="auth-visual-quote">
+                <div class="q-mark">“</div>
+                <p>Booking a follow-up took less than a minute, and I could see my doctor's notes right after the visit.</p>
+                <div class="attribution">Rafiq Ahmed, Cardiology patient</div>
+            </div>
+
+            <div class="auth-visual-panel">
+                <div class="avp-row">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" /><path d="M16 2v4M8 2v4M3 10h18" /></svg>
+                    <span class="avp-text">Book and cancel appointments anytime</span>
+                </div>
+                <div class="avp-row">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12h6M9 16h6M9 8h1" /><rect x="4" y="3" width="16" height="18" rx="2" /></svg>
+                    <span class="avp-text">Download prescriptions as PDF</span>
+                </div>
+                <div class="avp-row">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2" /><path d="M2 10h20" /></svg>
+                    <span class="avp-text">Pay invoices securely online</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="../js/utils.js"></script>
+    <script src="../js/api.js"></script>
+    <script src="../js/auth.js"></script>
+</body>
+</html>

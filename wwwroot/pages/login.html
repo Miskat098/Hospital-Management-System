@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sign In &middot; MediChart HMS</title>
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+<div class="auth-wrap">
+  <div class="auth-side">
+    <div class="brand">
+      <div class="brand-mark">M</div>
+      <div class="brand-name" style="color:#fff;">MediChart<span>Hospital System</span></div>
+    </div>
+    <div class="auth-quote">
+      &ldquo;One record per patient, one view for every department.&rdquo;
+      <small>USER &middot; PATIENT &middot; DOCTOR &middot; APPOINTMENT, all linked</small>
+    </div>
+  </div>
+
+  <div class="auth-form-col">
+    <div class="auth-card">
+      <h1>Welcome back</h1>
+      <p class="lead">Sign in to manage patients, appointments and billing.</p>
+
+      <form>
+        <div class="field" style="margin-bottom:16px;">
+          <label>Email <span class="req">*</span></label>
+          <input type="email" id="emailInput" placeholder="you@hospital.com" required>
+        </div>
+        <div class="field" style="margin-bottom:8px;">
+          <label>Password <span class="req">*</span></label>
+          <input type="password" id="passwordInput" placeholder="&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;" required>
+        </div>
+        <div class="field" style="margin-bottom:12px;">
+          <label>Role <span class="req">*</span></label>
+          <select id="roleSelect" required>
+            <option value="Patient">Patient</option>
+            <option value="Doctor">Doctor</option>
+            <option value="Admin">Admin</option>
+          </select>
+        </div>
+        <div style="display:flex; justify-content:space-between; align-items:center; margin:6px 0 20px;">
+          <label style="display:flex; align-items:center; gap:6px; font-size:12.5px; color:var(--muted);">
+            <input type="checkbox" style="width:auto; padding:0;"> Remember me
+          </label>
+          <a href="/Account/Forgot" style="font-size:12.5px; font-weight:600;">Forgot password?</a>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+      </form>
+
+      <div class="divider">or continue as</div>
+      <div style="display:flex; gap:10px;">
+        <a href="dashboard.html" class="btn btn-ghost btn-block">Admin</a>
+        <a href="dashboard.html" class="btn btn-ghost btn-block">Doctor</a>
+        <a href="dashboard.html" class="btn btn-ghost btn-block">Patient</a>
+      </div>
+
+      <p class="auth-footnote">Don't have an account? <a href="register.html" style="font-weight:600;">Register here</a></p>
+    </div>
+  </div>
+</div>
+<script>
+  // Submit static login form to backend API
+  (function(){
+    const form = document.querySelector('.auth-card form');
+    form.addEventListener('submit', async function (e) {
+      e.preventDefault();
+      const email = document.getElementById('emailInput').value.trim();
+      const password = document.getElementById('passwordInput').value;
+      const role = document.getElementById('roleSelect').value;
+      try {
+        const res = await fetch('/api/account/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          // Send properties with PascalCase to match backend model binding expectations
+          body: JSON.stringify({ Email: email, Password: password, Role: role })
+        });
+        if (res.status === 200) {
+          const data = await res.json();
+          window.location.href = data.redirect || '/pages/dashboard.html';
+        } else {
+          const err = await res.json();
+          alert(err.message || 'Login failed');
+        }
+      } catch (err) { alert('Network error'); }
+    });
+  })();
+</script>
+</body>
+</html>

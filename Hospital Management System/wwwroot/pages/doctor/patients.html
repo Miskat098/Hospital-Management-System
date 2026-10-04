@@ -1,0 +1,235 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Patients — MediCore Hospital</title>
+    <link rel="stylesheet" href="../../css/style.css" />
+    <link rel="stylesheet" href="../../css/dashboard.css" />
+    <link rel="stylesheet" href="../../css/doctor.css" />
+</head>
+<body>
+
+    <div class="app-shell">
+
+        <!-- ============================= SIDEBAR ============================= -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-brand">
+                <span class="mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M2 12h20" /></svg></span>
+                <div>
+                    <div class="name">MediCore</div>
+                    <div class="role-tag">Doctor Portal</div>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav" aria-label="Doctor navigation">
+                <a href="dashboard.html" class="sidebar-link">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9" rx="1" /><rect x="14" y="3" width="7" height="5" rx="1" /><rect x="14" y="12" width="7" height="9" rx="1" /><rect x="3" y="16" width="7" height="5" rx="1" /></svg>
+                    Dashboard
+                </a>
+                <a href="appointments.html" class="sidebar-link">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" /><path d="M16 2v4M8 2v4M3 10h18" /></svg>
+                    My Appointments
+                    <span class="count-pill">8 today</span>
+                </a>
+                <a href="patients.html" class="sidebar-link is-active">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" /><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" /></svg>
+                    My Patients
+                </a>
+                <a href="write-prescription.html" class="sidebar-link">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12h6M9 16h6M9 8h1" /><rect x="4" y="3" width="16" height="18" rx="2" /></svg>
+                    Write Prescription
+                </a>
+
+                <div class="sidebar-section-label">Account</div>
+                <a href="#" class="sidebar-link">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3" /><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.6a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z" /></svg>
+                    Settings
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="sidebar-user">
+                    <span class="avatar avatar-sm" style="background:var(--teal-500);color:#fff;">NK</span>
+                    <div>
+                        <div class="u-name">Dr. Nasrin Karim</div>
+                        <div class="u-role">Cardiology</div>
+                    </div>
+                </div>
+                <button class="sidebar-logout" id="logoutBtn">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" /><path d="M16 17l5-5-5-5M21 12H9" /></svg>
+                    Log Out
+                </button>
+            </div>
+        </aside>
+
+        <!-- ============================= MAIN ============================= -->
+        <div class="app-main">
+
+            <header class="topbar">
+                <div class="topbar-left">
+                    <button class="icon-btn menu-toggle" id="menuToggle" aria-label="Toggle menu">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18" /></svg>
+                    </button>
+                    <div class="topbar-title">
+                        <h1>My Patients</h1>
+                        <div class="subtitle">312 patients under your care</div>
+                    </div>
+                </div>
+                <div class="topbar-right">
+                    <div class="topbar-search">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8" /><path d="m21 21-4.3-4.3" /></svg>
+                        <input class="input" type="search" id="patientSearchInput" placeholder="Search patients…" />
+                    </div>
+                    <span class="avatar avatar-sm" style="background:var(--teal-500);color:#fff;">NK</span>
+                </div>
+            </header>
+
+            <main class="app-content">
+                <div class="grid" style="grid-template-columns: 380px 1fr;">
+
+                    <!-- Patient list -->
+                    <div class="panel">
+                        <div class="panel-header">
+                            <h3>Patient List</h3>
+                        </div>
+                        <div class="panel-body flex flex-col gap-3" id="patientListContainer" style="max-height:640px; overflow-y:auto;">
+
+                            <div class="patient-list-item is-selected" data-patient-id="1" style="border-color:var(--teal-500);background:var(--teal-50);">
+                                <span class="avatar avatar-md">RA</span>
+                                <div class="pli-info">
+                                    <div class="pli-name">Rafiq Ahmed</div>
+                                    <div class="pli-meta">48 yrs · Male · Hypertension</div>
+                                </div>
+                                <div class="pli-last-visit">Last visit<br />21 Sep 2026</div>
+                            </div>
+
+                            <div class="patient-list-item" data-patient-id="2">
+                                <span class="avatar avatar-md">MJ</span>
+                                <div class="pli-info">
+                                    <div class="pli-name">Mahmuda Jahan</div>
+                                    <div class="pli-meta">35 yrs · Female · New Patient</div>
+                                </div>
+                                <div class="pli-last-visit">Last visit<br />21 Sep 2026</div>
+                            </div>
+
+                            <div class="patient-list-item" data-patient-id="3">
+                                <span class="avatar avatar-md">SB</span>
+                                <div class="pli-info">
+                                    <div class="pli-name">Shirin Begum</div>
+                                    <div class="pli-meta">52 yrs · Female · Post-op care</div>
+                                </div>
+                                <div class="pli-last-visit">Last visit<br />21 Sep 2026</div>
+                            </div>
+
+                            <div class="patient-list-item" data-patient-id="4">
+                                <span class="avatar avatar-md">TI</span>
+                                <div class="pli-info">
+                                    <div class="pli-name">Tanvir Islam</div>
+                                    <div class="pli-meta">41 yrs · Male · Arrhythmia</div>
+                                </div>
+                                <div class="pli-last-visit">Last visit<br />14 Sep 2026</div>
+                            </div>
+
+                            <div class="patient-list-item" data-patient-id="5">
+                                <span class="avatar avatar-md">JA</span>
+                                <div class="pli-info">
+                                    <div class="pli-name">Jasmine Akter</div>
+                                    <div class="pli-meta">29 yrs · Female · Medication review</div>
+                                </div>
+                                <div class="pli-last-visit">Last visit<br />8 Sep 2026</div>
+                            </div>
+
+                            <div class="patient-list-item" data-patient-id="6">
+                                <span class="avatar avatar-md">KH</span>
+                                <div class="pli-info">
+                                    <div class="pli-name">Kamal Hossain</div>
+                                    <div class="pli-meta">57 yrs · Male · Palpitations</div>
+                                </div>
+                                <div class="pli-last-visit">Last visit<br />2 Sep 2026</div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- Patient detail / medical history -->
+                    <div class="panel">
+                        <div class="panel-body">
+                            <div class="profile-header" style="border:none;padding-bottom:0;margin-bottom:20px;">
+                                <span class="avatar avatar-lg">RA</span>
+                                <div style="flex:1;">
+                                    <div class="ph-name">Rafiq Ahmed</div>
+                                    <div class="ph-meta">48 years old · Male · Patient ID: PAT-7710</div>
+                                </div>
+                                <a href="write-prescription.html" class="btn btn-primary btn-sm">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M9 12h6M9 16h6M9 8h1" /><rect x="4" y="3" width="16" height="18" rx="2" /></svg>
+                                    Write Prescription
+                                </a>
+                            </div>
+
+                            <div class="grid grid-3 mb-5">
+                                <div class="card" style="padding:16px;">
+                                    <div class="text-xs text-muted mb-1">Blood Group</div>
+                                    <div class="font-heading" style="font-weight:700;font-size:1.1rem;">B+</div>
+                                </div>
+                                <div class="card" style="padding:16px;">
+                                    <div class="text-xs text-muted mb-1">Known Allergies</div>
+                                    <div class="font-heading" style="font-weight:700;font-size:1.1rem;">Penicillin</div>
+                                </div>
+                                <div class="card" style="padding:16px;">
+                                    <div class="text-xs text-muted mb-1">Chronic Conditions</div>
+                                    <div class="font-heading" style="font-weight:700;font-size:1.1rem;">Hypertension</div>
+                                </div>
+                            </div>
+
+                            <h4 class="mb-4">Medical History</h4>
+                            <div>
+                                <div class="history-entry">
+                                    <span class="dot"></span>
+                                    <div>
+                                        <div class="he-date">21 SEP 2026</div>
+                                        <div class="he-title">Follow-up Consultation</div>
+                                        <div class="he-detail">Blood pressure stable at 128/82. Continued current medication regimen. Next review in 4 weeks.</div>
+                                    </div>
+                                </div>
+                                <div class="history-entry">
+                                    <span class="dot"></span>
+                                    <div>
+                                        <div class="he-date">24 AUG 2026</div>
+                                        <div class="he-title">Prescription Issued</div>
+                                        <div class="he-detail">Amlodipine 5mg (once daily) and Atorvastatin 20mg (once daily) prescribed for 30 days.</div>
+                                    </div>
+                                </div>
+                                <div class="history-entry">
+                                    <span class="dot"></span>
+                                    <div>
+                                        <div class="he-date">24 AUG 2026</div>
+                                        <div class="he-title">Routine Checkup</div>
+                                        <div class="he-detail">ECG performed — normal sinus rhythm. Cholesterol panel ordered.</div>
+                                    </div>
+                                </div>
+                                <div class="history-entry">
+                                    <span class="dot"></span>
+                                    <div>
+                                        <div class="he-date">2 JUL 2026</div>
+                                        <div class="he-title">Initial Diagnosis</div>
+                                        <div class="he-detail">Diagnosed with stage 1 hypertension. Lifestyle modification advised alongside medication.</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <div class="toast-stack" id="toastStack"></div>
+
+    <script src="../../js/utils.js"></script>
+    <script src="../../js/api.js"></script>
+    <script src="../../js/auth.js"></script>
+    <script src="../../js/doctor/appointments.js"></script>
+</body>
+</html>

@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Patients &middot; MediChart HMS</title>
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-mark">M</div>
+      <div class="brand-name">MediChart<span>Hospital System</span></div>
+    </div>
+    <div class="nav-group-label">Records</div>
+      <a href="dashboard.html" class="nav-link"><span class="ic">&#9635;</span>Dashboard</a>
+      <a href="patients.html" class="nav-link active"><span class="ic">&#9906;</span>Patients</a>
+      <a href="doctors.html" class="nav-link"><span class="ic">&#9877;</span>Doctors</a>
+      <a href="departments.html" class="nav-link"><span class="ic">&#127974;</span>Departments</a>
+      <a href="appointments.html" class="nav-link"><span class="ic">&#128197;</span>Appointments</a>
+      <a href="prescriptions.html" class="nav-link"><span class="ic">&#128209;</span>Prescriptions</a>
+      <a href="billing.html" class="nav-link"><span class="ic">&#128179;</span>Billing</a>
+      <a href="feedback.html" class="nav-link"><span class="ic">&#9733;</span>Feedback</a>
+      <a href="medicines.html" class="nav-link"><span class="ic">&#128138;</span>Medicines</a>
+    <div class="sidebar-foot">
+      <div class="mini-user">
+        <div class="mini-avatar">AR</div>
+        <div><strong>Admin Rahman</strong><small>Front Desk &middot; Admin</small></div>
+      </div>
+      <a href="/Account/Logout" class="nav-link" style="margin-top:6px;"><span class="ic">&#8592;</span>Sign out</a>
+    </div>
+  </aside>
+  <div class="main">
+    <header class="topbar">
+      <div><div class="eyebrow">Records</div><h1>Patients</h1></div>
+      <div class="topbar-right">
+        <div class="search">&#128269;&nbsp; Search by name or ID...</div>
+        <button class="icon-btn">&#128276;</button>
+      </div>
+    </header>
+    <main class="content">
+      <div class="card">
+        <div class="card-head"><div><h2>Register New Patient</h2><div class="hint">Creates a USER record and links a PATIENT profile</div></div></div>
+        <div class="card-body">
+          <form id="createPatientForm" class="form-grid">
+            <div class="field"><label>Full Name <span class="req">*</span></label><input id="pName" type="text" placeholder="e.g. Rafiul Hasan" required></div>
+            <div class="field"><label>Email <span class="req">*</span></label><input id="pEmail" type="email" placeholder="patient@email.com" required></div>
+            <div class="field"><label>Phone <span class="req">*</span></label><input id="pPhone" type="tel" placeholder="01XXXXXXXXX" required></div>
+            <div class="field"><label>Date of Birth <span class="req">*</span></label><input id="pDob" type="date" required></div>
+            <div class="field"><label>Gender</label>
+              <select id="pGender"><option value="">Select</option><option>Male</option><option>Female</option><option>Other</option></select>
+            </div>
+            <div class="field"><label>Blood Group</label>
+              <select id="pBloodGroup"><option value="">Select</option><option>A+</option><option>A-</option><option>B+</option><option>B-</option><option>O+</option><option>O-</option><option>AB+</option><option>AB-</option></select>
+            </div>
+            <div class="field full"><label>Temporary Password</label><input id="pPassword" type="password" placeholder="Auto-generated or set manually"></div>
+            <div class="form-actions field full">
+              <button type="submit" class="btn btn-primary">Save Patient</button>
+              <button type="reset" class="btn btn-ghost">Clear Form</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><div><h2>All Patients</h2><div class="hint">1,248 records</div></div><a href="#" class="btn btn-outline btn-sm">Export CSV</a></div>
+        <table>
+          <thead><tr><th>Patient ID</th><th>Name</th><th>DOB</th><th>Gender</th><th>Blood Group</th><th>Phone</th><th></th></tr></thead>
+          <tbody id="patientsTbody">
+            <!-- populated by JS -->
+          </tbody>
+        </table>
+        <div class="pagination"><div class="page-btn active">1</div><div class="page-btn">2</div><div class="page-btn">3</div><div class="page-btn">&#8250;</div></div>
+      </div>
+
+    </main>
+  </div>
+</div>
+</body>
+<script>
+  let editingPatientId = null;
+  const form = document.getElementById('createPatientForm');
+  form.addEventListener('submit', async function(e){
+    e.preventDefault();
+    const payload = {
+      Name: document.getElementById('pName').value.trim(),
+      Email: document.getElementById('pEmail').value.trim(),
+      Phone: document.getElementById('pPhone').value.trim(),
+      DOB: document.getElementById('pDob').value,
+      Gender: document.getElementById('pGender').value,
+      BloodGroup: document.getElementById('pBloodGroup').value,
+      Password: document.getElementById('pPassword').value
+    };
+    try{
+      if (editingPatientId) {
+        const res = await fetch('/api/patients/' + editingPatientId, { method: 'PUT', headers: {'Content-Type':'application/json'}, body: JSON.stringify(payload) });
+        const data = await res.json();
+        if (res.ok) { alert('Patient updated'); editingPatientId = null; form.reset(); loadPatients(); } else { alert(data.message || 'Error'); }
+      } else {
+        const res = await fetch('/api/patients', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify(payload) });
+        const data = await res.json();
+        if(res.ok) { alert('Patient created'); form.reset(); loadPatients(); } else { alert(data.message || 'Error'); }
+      }
+    }catch(e){ alert('Network error'); }
+  });
+  async function loadPatients(){
+    try{
+      const res = await fetch('/api/patients/forcurrent');
+      if(!res.ok) return;
+      const data = await res.json();
+      const tbody = document.getElementById('patientsTbody');
+      tbody.innerHTML = '';
+      data.forEach(p => {
+        const tr = document.createElement('tr');
+        const idTd = document.createElement('td'); idTd.innerHTML = `<span class="id-chip">PT-${p.PatientID}</span>`;
+        const nameTd = document.createElement('td'); nameTd.className = 'name-cell'; nameTd.innerHTML = `<div class="avatar">${(p.Name||'').split(' ').map(n=>n[0]).slice(0,2).join('')}</div><span class="cell-name">${p.Name}</span>`;
+        const dobTd = document.createElement('td'); dobTd.textContent = p.DOB ? new Date(p.DOB).toLocaleDateString() : '';
+        const genderTd = document.createElement('td'); genderTd.textContent = p.Gender || '';
+        const bgTd = document.createElement('td'); bgTd.innerHTML = `<span class="badge badge-neutral">${p.BloodGroup||''}</span>`;
+        const phoneTd = document.createElement('td'); phoneTd.textContent = p.Phone || '';
+        const actTd = document.createElement('td'); actTd.className = 'row-actions';
+        const editBtn = document.createElement('button'); editBtn.className='btn btn-ghost btn-sm'; editBtn.textContent='Edit';
+        const delBtn = document.createElement('button'); delBtn.className='btn btn-danger-ghost btn-sm'; delBtn.textContent='Delete';
+        editBtn.addEventListener('click', async ()=>{
+          try{
+            const r = await fetch('/api/patients/' + p.PatientID);
+            if(!r.ok) { alert('Failed to load patient'); return; }
+            const pd = await r.json();
+            document.getElementById('pName').value = pd.Name || '';
+            document.getElementById('pEmail').value = pd.Email || '';
+            document.getElementById('pPhone').value = pd.Phone || '';
+            if (pd.DOB) document.getElementById('pDob').value = new Date(pd.DOB).toISOString().split('T')[0];
+            document.getElementById('pGender').value = pd.Gender || '';
+            document.getElementById('pBloodGroup').value = pd.BloodGroup || '';
+            editingPatientId = p.PatientID;
+          }catch(e){ alert('Network error'); }
+        });
+        delBtn.addEventListener('click', async ()=>{
+          if(!confirm('Delete this patient?')) return;
+          const r = await fetch('/api/patients/'+p.PatientID, { method: 'DELETE' });
+          if(r.ok) { alert('Deleted'); loadPatients(); } else alert('Delete failed');
+        });
+        actTd.appendChild(editBtn); actTd.appendChild(delBtn);
+        tr.appendChild(idTd); tr.appendChild(nameTd); tr.appendChild(dobTd); tr.appendChild(genderTd); tr.appendChild(bgTd); tr.appendChild(phoneTd); tr.appendChild(actTd);
+        tbody.appendChild(tr);
+      });
+    }catch(e){ console.error(e); }
+  }
+  loadPatients();
+</script>
+<script>
+  // hide/show navigation links based on role
+  (async function(){
+    try{
+      const res = await fetch('/api/account/current'); if(!res.ok) return; const info = await res.json(); if(!info.authenticated) return;
+      const role = (info.UserRole||'').toLowerCase();
+      const hide = (href)=>{ const el=document.querySelector('a[href="'+href+'"]'); if(el) el.style.display = 'none'; };
+      if(role !== 'admin'){
+        // admin-only
+        hide('doctors.html'); hide('departments.html'); hide('medicines.html');
+      }
+      if(!(role==='admin' || role==='doctor' || role==='patient')){
+        hide('patients.html');
+      }
+      if(!(role==='admin' || role==='doctor' || role==='patient')){
+        hide('feedback.html');
+      }
+      if(!(role==='admin' || role==='patient' || role==='doctor')){
+        hide('appointments.html'); hide('prescriptions.html');
+      }
+    }catch(e){console.error(e);} })();
+</script>
+<script src="../js/role-nav.js"></script>
+<script>
+  (async function(){
+    const info = await getCurrentUser();
+    if(!info.authenticated){ window.location.href='/pages/login.html'; return; }
+    const role = (info.UserRole||'').toLowerCase();
+    // Only Admin should be able to create patients from this page. Doctors may edit via patient detail view; Patients should not see create form.
+    if(role !== 'admin'){
+      const card = document.getElementById('createPatientForm')?.closest('.card'); if(card) card.style.display='none';
+      // hide action buttons for non-admins (but viewing remains)
+      document.querySelectorAll('.row-actions button').forEach(btn=>{ const t=btn.textContent.trim().toLowerCase(); if(t!=='view') btn.remove(); });
+    }
+  })();
+</script>
+</html>

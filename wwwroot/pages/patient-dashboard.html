@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Patient Dashboard · MediChart HMS</title>
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-mark">M</div>
+      <div class="brand-name">MediChart<span>Hospital System</span></div>
+    </div>
+    <div class="nav-group-label">Patient</div>
+      <a href="patient-dashboard.html" class="nav-link active"><span class="ic">&#9635;</span>Dashboard</a>
+      <a href="appointments.html" class="nav-link"><span class="ic">&#128197;</span>My Appointments</a>
+      <a href="appointments.html" class="nav-link"><span class="ic">&#10133;</span>Book Appointment</a>
+      <a href="doctors.html" class="nav-link"><span class="ic">&#9877;</span>My Doctors</a>
+      <a href="prescriptions.html" class="nav-link"><span class="ic">&#128209;</span>My Prescriptions</a>
+      <a href="billing.html" class="nav-link"><span class="ic">&#128179;</span>Billing</a>
+      <a href="feedback.html" class="nav-link"><span class="ic">&#9733;</span>Feedback</a>
+      <a href="patients.html" class="nav-link"><span class="ic">&#128100;</span>My Profile</a>
+      <a href="/Account/Logout" class="nav-link" style="margin-top:6px;"><span class="ic">&#8592;</span>Sign out</a>
+    <div class="sidebar-foot">
+      <div class="mini-user" id="miniUserPat">
+        <div class="mini-avatar">PT</div>
+        <div><strong>Patient</strong><small>View profile</small></div>
+      </div>
+    </div>
+  </aside>
+  <div class="main">
+    <header class="topbar">
+      <div><div class="eyebrow">Welcome</div><h1>My Dashboard</h1></div>
+      <div class="topbar-right">
+        <div class="search">&#128269;&nbsp; Search doctors...</div>
+        <button class="icon-btn">&#128276;</button>
+      </div>
+    </header>
+    <main class="content">
+      <section class="stats-row">
+        <div class="stat-card"><div class="stripe"></div><div class="tag">Upcoming Appointment</div><div class="num" id="nextAppt">—</div><div class="delta">&nbsp;</div></div>
+        <div class="stat-card"><div class="stripe"></div><div class="tag">Assigned Doctor</div><div class="num" id="assignedDoc">—</div><div class="delta">&nbsp;</div></div>
+        <div class="stat-card"><div class="stripe"></div><div class="tag">Recent Prescriptions</div><div class="num" id="recentPresc">0</div><div class="delta">&nbsp;</div></div>
+      </section>
+
+      <div class="card">
+        <div class="card-head"><div><h2>Upcoming Appointments</h2><div class="hint">Your scheduled visits</div></div><a href="appointments.html" class="btn btn-outline btn-sm">View all</a></div>
+        <table id="patAppts"><thead><tr><th>Appt ID</th><th>Doctor</th><th>Date / Time</th><th>Status</th></tr></thead><tbody></tbody></table>
+      </div>
+
+    </main>
+  </div>
+</div>
+<script src="../js/role-nav.js"></script>
+<script>
+  (async function(){
+    const info = await getCurrentUser();
+    if(!info.authenticated){ window.location.href='/pages/login.html'; return; }
+    if((info.UserRole||'').toLowerCase() !== 'patient'){
+      if((info.UserRole||'').toLowerCase()==='admin') window.location.href='/pages/admin-dashboard.html';
+      else if((info.UserRole||'').toLowerCase()==='doctor') window.location.href='/pages/doctor-dashboard.html';
+      else window.location.href='/pages/access-denied.html';
+      return;
+    }
+
+    document.getElementById('miniUserPat').querySelector('div strong').textContent = info.UserName || 'Patient';
+
+    try{
+      const res = await fetch('/api/appointments/forcurrent');
+      if(res.ok){ const list = await res.json(); const tbody = document.querySelector('#patAppts tbody');
+        document.getElementById('recentPresc').textContent = await (async ()=>{ const pr = await fetch('/api/prescriptions'); if(pr.ok){ const arr=await pr.json(); return arr.length; } return 0; })();
+        if(list.length>0){ document.getElementById('nextAppt').textContent = new Date(list[0].AppointmentDateTime).toLocaleString(); document.getElementById('assignedDoc').textContent = list[0].DoctorName || '-'; }
+        list.slice(0,8).forEach(a=>{ const tr=document.createElement('tr'); tr.innerHTML = `<td><span class="id-chip">APT-${a.ApptID}</span></td><td>${a.DoctorName||''}</td><td>${new Date(a.AppointmentDateTime).toLocaleString()}</td><td>${a.Status||''}</td>`; tbody.appendChild(tr); });
+      }
+    }catch(e){ console.warn(e); }
+  })();
+</script>
+</body>
+</html>

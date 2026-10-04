@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Billing &middot; MediChart HMS</title>
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-mark">M</div>
+      <div class="brand-name">MediChart<span>Hospital System</span></div>
+    </div>
+    <div class="nav-group-label">Records</div>
+      <a href="dashboard.html" class="nav-link"><span class="ic">&#9635;</span>Dashboard</a>
+      <a href="patients.html" class="nav-link"><span class="ic">&#9906;</span>Patients</a>
+      <a href="doctors.html" class="nav-link"><span class="ic">&#9877;</span>Doctors</a>
+      <a href="departments.html" class="nav-link"><span class="ic">&#127974;</span>Departments</a>
+      <a href="appointments.html" class="nav-link"><span class="ic">&#128197;</span>Appointments</a>
+      <a href="prescriptions.html" class="nav-link"><span class="ic">&#128209;</span>Prescriptions</a>
+      <a href="billing.html" class="nav-link active"><span class="ic">&#128179;</span>Billing</a>
+      <a href="feedback.html" class="nav-link"><span class="ic">&#9733;</span>Feedback</a>
+      <a href="medicines.html" class="nav-link"><span class="ic">&#128138;</span>Medicines</a>
+    <div class="sidebar-foot">
+      <div class="mini-user">
+        <div class="mini-avatar">AR</div>
+        <div><strong>Admin Rahman</strong><small>Front Desk &middot; Admin</small></div>
+      </div>
+      <a href="/Account/Logout" class="nav-link" style="margin-top:6px;"><span class="ic">&#8592;</span>Sign out</a>
+    </div>
+  </aside>
+  <div class="main">
+    <header class="topbar">
+      <div><div class="eyebrow">Finance</div><h1>Billing</h1></div>
+      <div class="topbar-right">
+        <div class="search">&#128269;&nbsp; Search invoices...</div>
+        <button class="icon-btn">&#128276;</button>
+      </div>
+    </header>
+    <main class="content">
+      <div class="card">
+        <div class="card-head"><div><h2>Create Invoice</h2></div></div>
+        <div class="card-body">
+          <form id="createBillForm" class="form-grid">
+            <div class="field full"><label>Appointment <span class="req">*</span></label><select id="billApptSelect"><option value="">Select appointment</option></select></div>
+            <div class="field"><label>Amount (&#2547;) <span class="req">*</span></label><input id="billAmount" type="number" placeholder="1500"></div>
+            <div class="field"><label>Payment Status</label>
+              <select id="billStatus"><option>Unpaid</option><option>Paid</option><option>Partially Paid</option></select>
+            </div>
+            <div class="form-actions field full">
+              <button type="submit" class="btn btn-primary">Save Invoice</button>
+              <button type="reset" class="btn btn-ghost">Clear Form</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><div><h2>All Invoices</h2></div></div>
+        <table>
+          <thead><tr><th>Bill ID</th><th>Appointment</th><th>Amount</th><th>Status</th><th></th></tr></thead>
+          <tbody id="billingTbody">
+            <!-- populated by JS -->
+          </tbody>
+        </table>
+      </div>
+
+    </main>
+  </div>
+</div>
+</body>
+<script>
+  async function loadBilling(){
+    try{
+      const res = await fetch('/api/billing'); if(!res.ok) return; const data = await res.json();
+      const tbody = document.getElementById('billingTbody'); tbody.innerHTML = '';
+      data.forEach(b=>{
+        const tr = document.createElement('tr');
+        tr.innerHTML = `<td><span class="id-chip">BIL-${b.BillID}</span></td><td>APT-${b.ApptID} — ${b.Patient||''}</td><td>&#2547;${b.Amount}</td><td><span class="badge">${b.Status}</span></td><td class="row-actions"><button class="btn btn-ghost btn-sm">Receipt</button></td>`;
+        tbody.appendChild(tr);
+      });
+    }catch(e){ console.error(e); }
+  }
+
+  async function loadApptsToBillSelect(){
+    try{ const res = await fetch('/api/appointments/forcurrent'); if(!res.ok) return; const data = await res.json(); const sel = document.getElementById('billApptSelect'); sel.innerHTML = '<option value="">Select appointment</option>'; data.forEach(a=>{ const opt=document.createElement('option'); opt.value=a.ApptID; opt.textContent=`APT-${a.ApptID} — ${a.Patient||''}`; sel.appendChild(opt); }); }catch(e){console.error(e);} 
+  }
+
+  document.getElementById('createBillForm').addEventListener('submit', async function(e){
+    e.preventDefault();
+    const apptId = parseInt(document.getElementById('billApptSelect').value);
+    const amount = parseFloat(document.getElementById('billAmount').value);
+    const status = document.getElementById('billStatus').value;
+    if(!apptId || !amount) { alert('Appointment and amount required'); return; }
+    try{ const res = await fetch('/api/billing', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ ApptID: apptId, Amount: amount, PaymentStatus: status }) }); const data = await res.json(); if(res.ok){ alert('Invoice created'); loadBilling(); } else alert(data.message||'Error'); }catch(e){alert('Network error');}
+  });
+
+  let editingBillId = null;
+  // replace submit to support update
+  document.getElementById('createBillForm').addEventListener('submit', async function(e){
+    e.preventDefault();
+    const apptId = parseInt(document.getElementById('billApptSelect').value);
+    const amount = parseFloat(document.getElementById('billAmount').value);
+    const status = document.getElementById('billStatus').value;
+    if(!apptId || !amount) { alert('Appointment and amount required'); return; }
+    try{
+      if (editingBillId) {
+        const res = await fetch('/api/billing/' + editingBillId, { method:'PUT', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ ApptID: apptId, Amount: amount, PaymentStatus: status }) });
+        const data = await res.json(); if(res.ok){ alert('Invoice updated'); editingBillId = null; document.getElementById('createBillForm').reset(); loadBilling(); } else alert(data.message||'Error');
+      } else {
+        const res = await fetch('/api/billing', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ ApptID: apptId, Amount: amount, PaymentStatus: status }) }); const data = await res.json(); if(res.ok){ alert('Invoice created'); loadBilling(); } else alert(data.message||'Error');
+      }
+    }catch(e){alert('Network error');}
+  });
+
+  // handle edit button click on invoice rows
+  document.addEventListener('click', async function(e){
+    if (!e.target.matches('.btn.btn-ghost.btn-sm')) return;
+    const row = e.target.closest('tr'); if(!row) return;
+    const idChip = row.querySelector('.id-chip'); if(!idChip) return;
+    const idText = idChip.textContent || '';
+    const match = idText.match(/BIL-(\d+)/);
+    if(!match) return;
+    // if this is a Receipt button or other non-edit action, ignore (only Admin can edit)
+    if ((e.target.textContent||'').trim().toLowerCase() === 'receipt') return;
+    const id = match[1];
+    try{
+      const r = await fetch('/api/billing/' + id);
+      if(!r.ok) { alert('Failed to load'); return; }
+      const bill = await r.json();
+      document.getElementById('billApptSelect').value = bill.ApptID || '';
+      document.getElementById('billAmount').value = bill.Amount || '';
+      document.getElementById('billStatus').value = bill.PaymentStatus || 'Unpaid';
+      editingBillId = id;
+      window.scrollTo(0,0);
+    }catch(e){ alert('Network error'); }
+  });
+
+  loadApptsToBillSelect(); loadBilling();
+  // Role script can be appended below this line.
+</script>
+<script>
+  (async function(){
+    try{
+      const res = await fetch('/api/account/current');
+      if(!res.ok){ console.error('Failed to check authentication'); return; }
+      const info = await res.json();
+      if(!info.authenticated){ window.location.href = '/pages/login.html'; return; }
+      const role = (info.UserRole||'').toLowerCase();
+      if(!(role === 'admin' || role === 'patient')){
+        const link = document.querySelector('a[href="billing.html"]');
+        if(link) link.style.display = 'none';
+      }
+      if(role !== 'admin'){
+        const formCard = document.getElementById('createBillForm')?.closest('.card');
+        if(formCard) formCard.style.display = 'none';
+        document.querySelectorAll('.row-actions button').forEach(btn=>{
+          if((btn.textContent||'').trim().toLowerCase() !== 'receipt') btn.remove();
+        });
+      }
+    }catch(e){ console.error(e); }
+  })();
+</script>
+</html>

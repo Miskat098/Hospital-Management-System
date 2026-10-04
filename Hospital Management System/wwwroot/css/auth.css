@@ -1,0 +1,329 @@
+﻿/* ==========================================================================
+   MediCore HMS — Auth Stylesheet
+   File: wwwroot/css/auth.css
+   Depends on: style.css (must be loaded first)
+   Used by: pages/login.html, pages/register.html
+   ========================================================================== */
+
+.auth-shell {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+@media (max-width: 900px) {
+    .auth-shell {
+        grid-template-columns: 1fr;
+    }
+
+    .auth-visual {
+        display: none;
+    }
+}
+
+/* --------------------------------------------------------------------------
+   Left panel — form
+   -------------------------------------------------------------------------- */
+.auth-form-panel {
+    display: flex;
+    flex-direction: column;
+    padding: var(--space-6) var(--space-6) var(--space-7);
+}
+
+.auth-topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--space-7);
+}
+
+.auth-brand {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+}
+
+    .auth-brand .mark {
+        width: 38px;
+        height: 38px;
+        border-radius: var(--radius-sm);
+        background: var(--teal-600);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+        .auth-brand .mark svg {
+            width: 20px;
+            height: 20px;
+            color: #fff;
+        }
+
+    .auth-brand .brand-name {
+        font-family: var(--font-heading);
+        font-weight: 700;
+        font-size: 1.05rem;
+    }
+
+        .auth-brand .brand-name span {
+            color: var(--teal-600);
+        }
+
+.auth-form-wrap {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-width: 420px;
+    width: 100%;
+    margin-inline: auto;
+}
+
+    .auth-form-wrap h1 {
+        font-size: 1.7rem;
+        margin-bottom: var(--space-2);
+    }
+
+    .auth-form-wrap .auth-subtitle {
+        color: var(--muted);
+        font-size: 0.9375rem;
+        margin-bottom: var(--space-6);
+    }
+
+/* Role selector (segmented control) */
+.role-select {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-2);
+    background: var(--bg);
+    padding: 4px;
+    border-radius: var(--radius-md);
+    margin-bottom: var(--space-6);
+}
+
+.role-option {
+    position: relative;
+}
+
+    .role-option input {
+        position: absolute;
+        opacity: 0;
+        inset: 0;
+        cursor: pointer;
+    }
+
+    .role-option label {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 6px;
+        padding: var(--space-3) var(--space-2);
+        border-radius: var(--radius-sm);
+        font-size: 0.8125rem;
+        font-weight: 600;
+        color: var(--muted);
+        cursor: pointer;
+        transition: background var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease), box-shadow var(--dur-fast) var(--ease);
+        text-align: center;
+    }
+
+        .role-option label svg {
+            width: 20px;
+            height: 20px;
+        }
+
+    .role-option input:checked + label {
+        background: var(--surface);
+        color: var(--teal-700);
+        box-shadow: var(--shadow-md);
+    }
+
+    .role-option input:focus-visible + label {
+        outline: 2px solid var(--teal-600);
+        outline-offset: 2px;
+    }
+
+.auth-form-footer-link {
+    text-align: center;
+    margin-top: var(--space-6);
+    font-size: 0.875rem;
+    color: var(--muted);
+}
+
+    .auth-form-footer-link a {
+        color: var(--teal-700);
+        font-weight: 600;
+    }
+
+        .auth-form-footer-link a:hover {
+            text-decoration: underline;
+        }
+
+.auth-row-between {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--space-5);
+}
+
+    .auth-row-between a {
+        font-size: 0.8125rem;
+        color: var(--teal-700);
+        font-weight: 600;
+    }
+
+        .auth-row-between a:hover {
+            text-decoration: underline;
+        }
+
+.auth-divider {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    margin-block: var(--space-5);
+    color: var(--muted-2);
+    font-size: 0.75rem;
+}
+
+    .auth-divider::before, .auth-divider::after {
+        content: "";
+        flex: 1;
+        height: 1px;
+        background: var(--border);
+    }
+
+.demo-credentials {
+    background: var(--info-bg);
+    border: 1px solid #c7ddf1;
+    border-radius: var(--radius-md);
+    padding: var(--space-4);
+    font-size: 0.8125rem;
+    color: var(--info);
+    margin-top: var(--space-5);
+}
+
+    .demo-credentials strong {
+        display: block;
+        margin-bottom: 4px;
+    }
+
+    .demo-credentials code {
+        background: rgba(255,255,255,0.6);
+        padding: 1px 6px;
+        border-radius: 4px;
+        font-size: 0.78rem;
+    }
+
+/* --------------------------------------------------------------------------
+   Right panel — visual
+   -------------------------------------------------------------------------- */
+.auth-visual {
+    background: var(--teal-900);
+    color: #fff;
+    padding: var(--space-7);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    overflow: hidden;
+}
+
+    .auth-visual::before {
+        content: "";
+        position: absolute;
+        bottom: -140px;
+        left: -120px;
+        width: 420px;
+        height: 420px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(255,255,255,0.07) 0%, transparent 70%);
+    }
+
+.auth-visual-quote {
+    position: relative;
+    z-index: 1;
+    max-width: 30ch;
+}
+
+    .auth-visual-quote .q-mark {
+        font-family: var(--font-heading);
+        font-size: 3rem;
+        color: var(--teal-500);
+        line-height: 1;
+        margin-bottom: var(--space-4);
+    }
+
+    .auth-visual-quote p {
+        color: #e7f2f0;
+        font-size: 1.25rem;
+        font-family: var(--font-heading);
+        font-weight: 600;
+        line-height: 1.4;
+    }
+
+    .auth-visual-quote .attribution {
+        margin-top: var(--space-5);
+        font-size: 0.85rem;
+        color: #a9cbc5;
+        font-family: var(--font-body);
+        font-weight: 400;
+    }
+
+.auth-visual-panel {
+    position: relative;
+    z-index: 1;
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.14);
+    border-radius: var(--radius-lg);
+    padding: var(--space-5);
+}
+
+    .auth-visual-panel .avp-row {
+        display: flex;
+        align-items: center;
+        gap: var(--space-3);
+        padding-block: var(--space-2);
+    }
+
+        .auth-visual-panel .avp-row:not(:last-child) {
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+    .auth-visual-panel svg {
+        width: 18px;
+        height: 18px;
+        color: var(--teal-500);
+        flex-shrink: 0;
+    }
+
+    .auth-visual-panel .avp-text {
+        font-size: 0.85rem;
+        color: #dcece9;
+    }
+
+/* Password strength meter (register page) */
+.pw-strength {
+    display: flex;
+    gap: 4px;
+    margin-top: var(--space-2);
+}
+
+    .pw-strength .seg {
+        height: 4px;
+        flex: 1;
+        border-radius: var(--radius-pill);
+        background: var(--border);
+    }
+
+    .pw-strength.weak .seg:nth-child(1) {
+        background: var(--coral);
+    }
+
+    .pw-strength.medium .seg:nth-child(1),
+    .pw-strength.medium .seg:nth-child(2) {
+        background: var(--warning);
+    }
+
+    .pw-strength.strong .seg {
+        background: var(--success);
+    }

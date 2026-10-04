@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Feedback &middot; MediChart HMS</title>
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-mark">M</div>
+      <div class="brand-name">MediChart<span>Hospital System</span></div>
+    </div>
+    <div class="nav-group-label">Records</div>
+      <a href="dashboard.html" class="nav-link"><span class="ic">&#9635;</span>Dashboard</a>
+      <a href="patients.html" class="nav-link"><span class="ic">&#9906;</span>Patients</a>
+      <a href="doctors.html" class="nav-link"><span class="ic">&#9877;</span>Doctors</a>
+      <a href="departments.html" class="nav-link"><span class="ic">&#127974;</span>Departments</a>
+      <a href="appointments.html" class="nav-link"><span class="ic">&#128197;</span>Appointments</a>
+      <a href="prescriptions.html" class="nav-link"><span class="ic">&#128209;</span>Prescriptions</a>
+      <a href="billing.html" class="nav-link"><span class="ic">&#128179;</span>Billing</a>
+      <a href="feedback.html" class="nav-link active"><span class="ic">&#9733;</span>Feedback</a>
+      <a href="medicines.html" class="nav-link"><span class="ic">&#128138;</span>Medicines</a>
+    <div class="sidebar-foot">
+      <div class="mini-user">
+        <div class="mini-avatar">AR</div>
+        <div><strong>Admin Rahman</strong><small>Front Desk &middot; Admin</small></div>
+      </div>
+      <a href="/Account/Logout" class="nav-link" style="margin-top:6px;"><span class="ic">&#8592;</span>Sign out</a>
+    </div>
+  </aside>
+  <div class="main">
+    <header class="topbar">
+      <div><div class="eyebrow">Patient Experience</div><h1>Feedback</h1></div>
+      <div class="topbar-right">
+        <div class="search">&#128269;&nbsp; Search feedback...</div>
+        <button class="icon-btn">&#128276;</button>
+      </div>
+    </header>
+    <main class="content">
+      <div class="card">
+        <div class="card-head"><div><h2>All Feedback</h2><div class="hint">Patient ratings &amp; comments per doctor</div></div></div>
+        <table>
+          <thead><tr><th>Feedback ID</th><th>Patient</th><th>Doctor</th><th>Rating</th><th>Comment</th></tr></thead>
+          <tbody id="feedbackTbody">
+            <!-- populated by JS -->
+          </tbody>
+        </table>
+      </div>
+
+    </main>
+  </div>
+</div>
+</body>
+<script>
+  async function loadFeedback(){
+    try{
+      const res = await fetch('/api/feedbacks'); if(!res.ok) return; const data = await res.json();
+      const tbody = document.getElementById('feedbackTbody'); tbody.innerHTML=''; data.forEach(f=>{ const tr=document.createElement('tr'); tr.innerHTML = `<td><span class="id-chip">FB-${f.FeedbackID}</span></td><td>${f.Patient||''}</td><td>${f.Doctor||''}</td><td><span class="badge">${f.Rating}</span></td><td>${f.Comment||''}</td>`; tbody.appendChild(tr); });
+    }catch(e){ console.error(e); }
+  }
+
+  loadFeedback();
+</script>
+</script>
+<script src="../js/role-nav.js"></script>
+<script>
+  (async function(){
+    const info = await getCurrentUser();
+    if(!info.authenticated){ window.location.href='/pages/login.html'; return; }
+    const role = (info.UserRole||'').toLowerCase();
+    // Feedback is viewable by all roles; creation uses API and is restricted server-side to patients. No UI hiding required here.
+  })();
+</script>
+</html>

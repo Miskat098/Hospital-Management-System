@@ -1,0 +1,149 @@
+@{
+	Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Create Account &middot; MediChart HMS</title>
+<link rel="stylesheet" href="~/css/style.css">
+</head>
+<body>
+<div class="auth-wrap">
+  <div class="auth-side">
+	<div class="brand">
+	  <div class="brand-mark">M</div>
+	  <div class="brand-name" style="color:#fff;">MediChart<span>Hospital System</span></div>
+	</div>
+	<div class="auth-quote">
+	  &ldquo;Every account starts as a USER, then branches into a role.&rdquo;
+	  <small>Role: Patient &middot; Doctor &middot; Admin</small>
+	</div>
+  </div>
+
+  <div class="auth-form-col">
+	<div class="auth-card" style="max-width:420px;">
+	  <h1>Create your account</h1>
+	  <p class="lead">Register to book appointments and view your records.</p>
+
+	  @if (!ViewData.ModelState.IsValid)
+	  {
+		  <div style="background:var(--bad-tint); color:var(--bad); padding:10px 14px; border-radius:8px; font-size:13px; margin-bottom:14px;">
+			  @Html.ValidationSummary()
+		  </div>
+	  }
+
+	  <form asp-controller="Account" asp-action="Register" method="post" id="registerForm">
+		@Html.AntiForgeryToken()
+		<div class="form-grid" style="margin-bottom:16px;">
+		  <div class="field full">
+			<label>Full Name <span class="req">*</span></label>
+			<input type="text" name="Name" placeholder="e.g. Rafiul Hasan" required>
+		  </div>
+		  <div class="field full">
+			<label>Email <span class="req">*</span></label>
+			<input type="email" name="Email" id="emailInput" placeholder="you@email.com" required>
+			<small id="emailStatus" class="helper"></small>
+		  </div>
+		  <div class="field">
+			<label>Phone <span class="req">*</span></label>
+			<input type="tel" name="Phone" placeholder="01XXXXXXXXX" required>
+		  </div>
+		  <div class="field">
+			<label>Role</label>
+			<select name="Role">
+			  <option value="Patient">Patient</option>
+			  <option value="Doctor">Doctor</option>
+			</select>
+		  </div>
+		  <div class="field">
+			<label>Date of Birth</label>
+			<input type="date" name="dob">
+		  </div>
+			<div class="field">
+			<label>Gender</label>
+			<select name="gender">
+			  <option value="">Select</option>
+			  <option>Male</option>
+			  <option>Female</option>
+			  <option>Other</option>
+			</select>
+		  </div>
+		  <div class="field">
+			<label>Blood Group</label>
+			<select name="bloodGroup">
+			  <option>A+</option><option>A-</option><option>B+</option><option>B-</option>
+			  <option>O+</option><option>O-</option><option>AB+</option><option>AB-</option>
+			</select>
+		  </div>
+		  <div class="field">
+			<label>Password <span class="req">*</span></label>
+			<input type="password" name="password" id="passwordInput" placeholder="&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;" required>
+			<small id="pwStrength" class="helper"></small>
+		  </div>
+		  <div class="field">
+			<label>Confirm Password <span class="req">*</span></label>
+			<input type="password" name="confirmPassword" placeholder="&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;" required>
+		  </div>
+		</div>
+		<button type="submit" class="btn btn-primary btn-block">Create Account</button>
+	  </form>
+
+	  <p class="auth-footnote">Already have an account? <a asp-controller="Account" asp-action="Login" style="font-weight:600;">Sign in</a></p>
+	</div>
+  </div>
+</div>
+
+<script>
+  // ---- Real-time email availability check ----
+  const emailInput = document.getElementById('emailInput');
+  const emailStatus = document.getElementById('emailStatus');
+  let emailTimer;
+
+  emailInput.addEventListener('input', function () {
+	clearTimeout(emailTimer);
+	const email = emailInput.value.trim();
+	if (!email) { emailStatus.textContent = ''; return; }
+
+	emailTimer = setTimeout(async () => {
+	  try {
+		const res = await fetch('/Account/CheckEmail?email=' + encodeURIComponent(email));
+		const data = await res.json();
+		if (data.available) {
+		  emailStatus.textContent = '✓ Email is available';
+		  emailStatus.style.color = 'var(--good)';
+		} else {
+		  emailStatus.textContent = '✕ Email is already registered';
+		  emailStatus.style.color = 'var(--bad)';
+		}
+	  } catch (e) { /* ignore network errors silently */ }
+	}, 500); // debounce: wait 500ms after typing stops
+  });
+
+  // ---- Password strength indicator ----
+  const pwInput = document.getElementById('passwordInput');
+  const pwStrength = document.getElementById('pwStrength');
+
+  pwInput.addEventListener('input', function () {
+	const val = pwInput.value;
+	let score = 0;
+	if (val.length >= 8) score++;
+	if (/[A-Z]/.test(val)) score++;
+	if (/[0-9]/.test(val)) score++;
+	if (/[^A-Za-z0-9]/.test(val)) score++;
+
+	const levels = [
+	  { text: '', color: '' },
+	  { text: 'Weak password', color: 'var(--bad)' },
+	  { text: 'Fair password', color: 'var(--warn)' },
+	  { text: 'Good password', color: 'var(--warn)' },
+	  { text: 'Strong password', color: 'var(--good)' }
+	];
+	const level = levels[score];
+	pwStrength.textContent = val ? level.text : '';
+	pwStrength.style.color = level.color;
+  });
+</script>
+</body>
+</html>

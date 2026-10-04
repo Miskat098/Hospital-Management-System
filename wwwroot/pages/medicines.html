@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Medicines &middot; MediChart HMS</title>
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-mark">M</div>
+      <div class="brand-name">MediChart<span>Hospital System</span></div>
+    </div>
+    <div class="nav-group-label">Records</div>
+      <a href="dashboard.html" class="nav-link"><span class="ic">&#9635;</span>Dashboard</a>
+      <a href="patients.html" class="nav-link"><span class="ic">&#9906;</span>Patients</a>
+      <a href="doctors.html" class="nav-link"><span class="ic">&#9877;</span>Doctors</a>
+      <a href="departments.html" class="nav-link"><span class="ic">&#127974;</span>Departments</a>
+      <a href="appointments.html" class="nav-link"><span class="ic">&#128197;</span>Appointments</a>
+      <a href="prescriptions.html" class="nav-link"><span class="ic">&#128209;</span>Prescriptions</a>
+      <a href="billing.html" class="nav-link"><span class="ic">&#128179;</span>Billing</a>
+      <a href="feedback.html" class="nav-link"><span class="ic">&#9733;</span>Feedback</a>
+      <a href="medicines.html" class="nav-link active"><span class="ic">&#128138;</span>Medicines</a>
+    <div class="sidebar-foot">
+      <div class="mini-user">
+        <div class="mini-avatar">AR</div>
+        <div><strong>Admin Rahman</strong><small>Front Desk &middot; Admin</small></div>
+      </div>
+      <a href="/Account/Logout" class="nav-link" style="margin-top:6px;"><span class="ic">&#8592;</span>Sign out</a>
+    </div>
+  </aside>
+  <div class="main">
+    <header class="topbar">
+      <div><div class="eyebrow">Pharmacy</div><h1>Medicines</h1></div>
+      <div class="topbar-right">
+        <div class="search">&#128269;&nbsp; Search medicines...</div>
+        <button class="icon-btn">&#128276;</button>
+      </div>
+    </header>
+    <main class="content">
+      <div class="card">
+        <div class="card-head"><div><h2>Add Medicine</h2></div></div>
+        <div class="card-body">
+          <form id="createMedForm" class="form-grid">
+            <div class="field"><label>Medicine Name <span class="req">*</span></label><input id="medName" type="text" placeholder="e.g. Paracetamol 500mg" required></div>
+            <div class="field"><label>Stock Quantity <span class="req">*</span></label><input id="medStock" type="number" placeholder="120"></div>
+            <div class="field full"><label>Price per Unit (&#2547;) <span class="req">*</span></label><input id="medPrice" type="number" placeholder="5"></div>
+            <div class="form-actions field full">
+              <button type="submit" class="btn btn-primary">Save Medicine</button>
+              <button type="reset" class="btn btn-ghost">Clear Form</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><div><h2>Inventory</h2></div></div>
+        <table>
+          <thead><tr><th>Med ID</th><th>Name</th><th>Stock</th><th>Price</th><th></th></tr></thead>
+          <tbody id="medsTbody">
+            <!-- populated by JS -->
+          </tbody>
+        </table>
+      </div>
+
+    </main>
+  </div>
+</div>
+</body>
+<script>
+  let editingMedId = null;
+  document.getElementById('createMedForm').addEventListener('submit', async function(e){
+    e.preventDefault();
+    const payload = { Name: document.getElementById('medName').value.trim(), Stock: parseInt(document.getElementById('medStock').value)||0, Price: parseFloat(document.getElementById('medPrice').value)||0 };
+    try{
+      if (editingMedId) {
+        const res = await fetch('/api/medicines/' + editingMedId, { method: 'PUT', headers: {'Content-Type':'application/json'}, body: JSON.stringify(payload) });
+        const data = await res.json();
+        if (res.ok) { alert('Medicine updated'); editingMedId = null; document.getElementById('createMedForm').reset(); loadMeds(); } else alert(data.message||'Error');
+      } else {
+        const res = await fetch('/api/medicines', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload) });
+        const data = await res.json();
+        if(res.ok){ alert('Medicine added'); loadMeds(); } else alert(data.message||'Error');
+      }
+    }catch(e){ alert('Network error'); }
+  });
+
+  async function loadMeds(){
+    try{ const res = await fetch('/api/medicines'); if(!res.ok) return; const data = await res.json(); const tbody = document.getElementById('medsTbody'); tbody.innerHTML=''; data.forEach(m=>{ const tr=document.createElement('tr'); tr.innerHTML = `<td><span class="id-chip">MED-${m.MedID}</span></td><td class="cell-name">${m.Name}</td><td><span class="badge">${m.Stock} units</span></td><td>&#2547;${m.Price}</td><td class="row-actions"><button class="btn btn-ghost btn-sm edit-med" data-id="${m.MedID}">Edit</button><button class="btn btn-danger-ghost btn-sm delete-med" data-id="${m.MedID}">Delete</button></td>`; tbody.appendChild(tr); });
+      // attach handlers
+      document.querySelectorAll('.delete-med').forEach(btn => 
+        btn.addEventListener('click', async () => {
+          if (!confirm('Delete medicine?')) return;
+          const id = btn.getAttribute('data-id');
+          const r = await fetch('/api/medicines/' + id, { method: 'DELETE' });
+          if (r.ok) {
+            alert('Deleted');
+            loadMeds();
+          } else {
+            alert('Delete failed');
+          }
+        })
+      );
+      document.querySelectorAll('.edit-med').forEach(btn => 
+        btn.addEventListener('click', async () => {
+          const id = btn.getAttribute('data-id');
+          try {
+            const r = await fetch('/api/medicines/' + id);
+            if (!r.ok) {
+              alert('Failed to load');
+              return;
+            }
+            const med = await r.json();
+            document.getElementById('medName').value = med.Name || '';
+            document.getElementById('medStock').value = med.Stock || 0;
+            document.getElementById('medPrice').value = med.Price || 0;
+            editingMedId = id;
+          } catch (e) {
+            alert('Network error');
+          }
+        })
+      );
+    }catch(e){ console.error(e); } }
+
+  loadMeds();
+</script>
+</script>
+<script src="../js/role-nav.js"></script>
+<script>
+  (async function(){
+    const info = await getCurrentUser();
+    if(!info.authenticated){ window.location.href='/pages/login.html'; return; }
+    const role = (info.UserRole||'').toLowerCase();
+    if(role !== 'admin'){
+      // hide create form for non-admins
+      const card = document.getElementById('createMedForm')?.closest('.card'); if(card) card.style.display='none';
+      // remove edit/delete buttons
+      document.querySelectorAll('.row-actions button').forEach(btn=>{ const t = btn.textContent.trim().toLowerCase(); if(t!=='') btn.remove(); });
+    }
+  })();
+</script>
+</html>

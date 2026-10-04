@@ -1,0 +1,665 @@
+﻿/* ==========================================================================
+   MediCore HMS — Dashboard Shell Stylesheet
+   File: wwwroot/css/dashboard.css
+   Depends on: style.css (must be loaded first)
+   Contains: App shell, Sidebar, Topbar, Stat cards, Data tables,
+             Pagination, Empty states, Tabs
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   App Shell
+   -------------------------------------------------------------------------- */
+.app-shell {
+    display: grid;
+    grid-template-columns: var(--sidebar-width) 1fr;
+    min-height: 100vh;
+}
+
+.app-main {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.app-content {
+    padding: var(--space-6);
+    flex: 1;
+}
+
+@media (max-width: 960px) {
+    .app-shell {
+        grid-template-columns: 1fr;
+    }
+
+    .sidebar {
+        position: fixed;
+        z-index: 900;
+        height: 100vh;
+        transform: translateX(-100%);
+        transition: transform var(--dur-med) var(--ease);
+    }
+
+        .sidebar.is-open {
+            transform: translateX(0);
+            box-shadow: var(--shadow-lg);
+        }
+
+    .app-content {
+        padding: var(--space-4);
+    }
+}
+
+/* --------------------------------------------------------------------------
+   Sidebar
+   -------------------------------------------------------------------------- */
+.sidebar {
+    background: var(--teal-900);
+    color: #eaf3f1;
+    width: var(--sidebar-width);
+    display: flex;
+    flex-direction: column;
+    padding: var(--space-5) var(--space-4);
+}
+
+.sidebar-brand {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-2) var(--space-2) var(--space-6);
+    color: #fff;
+}
+
+    .sidebar-brand .mark {
+        width: 36px;
+        height: 36px;
+        border-radius: var(--radius-sm);
+        background: var(--teal-500);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+    }
+
+        .sidebar-brand .mark svg {
+            width: 20px;
+            height: 20px;
+        }
+
+    .sidebar-brand .name {
+        font-family: var(--font-heading);
+        font-weight: 700;
+        font-size: 1.05rem;
+        line-height: 1.1;
+    }
+
+    .sidebar-brand .role-tag {
+        font-size: 0.7rem;
+        color: var(--teal-100);
+        opacity: 0.8;
+    }
+
+.sidebar-section-label {
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: #8bb3ac;
+    padding: var(--space-4) var(--space-2) var(--space-2);
+}
+
+.sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.sidebar-link {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: 0.7rem var(--space-3);
+    border-radius: var(--radius-sm);
+    color: #cfe4e0;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: background var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease);
+}
+
+    .sidebar-link svg {
+        width: 19px;
+        height: 19px;
+        flex-shrink: 0;
+        opacity: 0.85;
+    }
+
+    .sidebar-link:hover {
+        background: rgba(255,255,255,0.06);
+        color: #fff;
+    }
+
+    .sidebar-link.is-active {
+        background: var(--teal-600);
+        color: #fff;
+    }
+
+        .sidebar-link.is-active svg {
+            opacity: 1;
+        }
+
+    .sidebar-link .count-pill {
+        margin-left: auto;
+        background: rgba(255,255,255,0.14);
+        color: #fff;
+        font-size: 0.7rem;
+        font-weight: 700;
+        padding: 1px 7px;
+        border-radius: var(--radius-pill);
+    }
+
+.sidebar-footer {
+    margin-top: auto;
+    padding-top: var(--space-5);
+    border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+.sidebar-user {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-2);
+    border-radius: var(--radius-sm);
+}
+
+    .sidebar-user .u-name {
+        font-size: 0.875rem;
+        font-weight: 600;
+        color: #fff;
+    }
+
+    .sidebar-user .u-role {
+        font-size: 0.75rem;
+        color: #9dc2bc;
+    }
+
+.sidebar-logout {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    width: 100%;
+    margin-top: var(--space-2);
+    padding: 0.65rem var(--space-2);
+    color: #f3c9c4;
+    font-size: 0.875rem;
+    font-weight: 600;
+    border-radius: var(--radius-sm);
+}
+
+    .sidebar-logout:hover {
+        background: rgba(193, 68, 58, 0.25);
+    }
+
+    .sidebar-logout svg {
+        width: 18px;
+        height: 18px;
+    }
+
+/* --------------------------------------------------------------------------
+   Topbar
+   -------------------------------------------------------------------------- */
+.topbar {
+    height: var(--topbar-height);
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 var(--space-6);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.topbar-left {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+}
+
+.menu-toggle {
+    display: none;
+}
+
+.topbar-title h1 {
+    font-size: 1.25rem;
+}
+
+.topbar-title .subtitle {
+    font-size: 0.8125rem;
+    color: var(--muted);
+}
+
+.topbar-right {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+}
+
+.topbar-search {
+    position: relative;
+    display: none;
+}
+
+    .topbar-search input {
+        width: 260px;
+        padding: 0.55rem 0.9rem 0.55rem 2.3rem;
+        border: 1px solid var(--border);
+        border-radius: var(--radius-pill);
+        background: var(--bg);
+        font-size: 0.875rem;
+    }
+
+    .topbar-search svg {
+        position: absolute;
+        left: 0.8rem;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 16px;
+        height: 16px;
+        color: var(--muted);
+    }
+
+@media (min-width: 720px) {
+    .topbar-search {
+        display: block;
+    }
+}
+
+.topbar-icon-btn {
+    position: relative;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    color: var(--muted);
+}
+
+    .topbar-icon-btn:hover {
+        background: var(--bg);
+    }
+
+    .topbar-icon-btn svg {
+        width: 20px;
+        height: 20px;
+    }
+
+    .topbar-icon-btn .dot {
+        position: absolute;
+        top: 8px;
+        right: 9px;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--coral);
+        border: 2px solid var(--surface);
+    }
+
+@media (max-width: 960px) {
+    .menu-toggle {
+        display: flex;
+    }
+
+    .topbar {
+        padding: 0 var(--space-4);
+    }
+}
+
+/* --------------------------------------------------------------------------
+   Stat Cards
+   -------------------------------------------------------------------------- */
+.stat-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-5);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+}
+
+.stat-card-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+.stat-card .stat-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+    .stat-card .stat-icon svg {
+        width: 22px;
+        height: 22px;
+    }
+
+.stat-icon.tone-teal {
+    background: var(--teal-100);
+    color: var(--teal-700);
+}
+
+.stat-icon.tone-info {
+    background: var(--info-bg);
+    color: var(--info);
+}
+
+.stat-icon.tone-warning {
+    background: var(--warning-bg);
+    color: var(--warning);
+}
+
+.stat-icon.tone-coral {
+    background: var(--coral-bg);
+    color: var(--coral);
+}
+
+.stat-trend {
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: var(--radius-pill);
+}
+
+    .stat-trend.up {
+        background: var(--success-bg);
+        color: var(--success);
+    }
+
+    .stat-trend.down {
+        background: var(--coral-bg);
+        color: var(--coral);
+    }
+
+.stat-value {
+    font-family: var(--font-heading);
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--ink);
+    line-height: 1;
+}
+
+.stat-label {
+    font-size: 0.8125rem;
+    color: var(--muted);
+    font-weight: 500;
+}
+
+/* --------------------------------------------------------------------------
+   Panels / section headers used across dashboard pages
+   -------------------------------------------------------------------------- */
+.panel {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+}
+
+.panel-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--space-5);
+    border-bottom: 1px solid var(--border);
+    gap: var(--space-4);
+    flex-wrap: wrap;
+}
+
+    .panel-header h3 {
+        margin-bottom: 2px;
+    }
+
+.panel-body {
+    padding: var(--space-5);
+}
+
+.panel-toolbar {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    flex-wrap: wrap;
+}
+
+/* --------------------------------------------------------------------------
+   Data Table
+   -------------------------------------------------------------------------- */
+.data-table-wrap {
+    overflow-x: auto;
+}
+
+.data-table {
+    width: 100%;
+    font-size: 0.875rem;
+}
+
+    .data-table thead th {
+        text-align: left;
+        font-size: 0.7rem;
+        font-weight: 700;
+        color: var(--muted);
+        padding: var(--space-3) var(--space-4);
+        border-bottom: 1px solid var(--border);
+        white-space: nowrap;
+    }
+
+    .data-table tbody td {
+        padding: var(--space-4);
+        border-bottom: 1px solid var(--border);
+        color: var(--ink-soft);
+        vertical-align: middle;
+    }
+
+    .data-table tbody tr:last-child td {
+        border-bottom: none;
+    }
+
+    .data-table tbody tr {
+        transition: background var(--dur-fast) var(--ease);
+    }
+
+        .data-table tbody tr:hover {
+            background: var(--bg);
+        }
+
+    .data-table .cell-primary {
+        font-weight: 600;
+        color: var(--ink);
+    }
+
+    .data-table .cell-sub {
+        font-size: 0.75rem;
+        color: var(--muted);
+    }
+
+    .data-table .cell-actions {
+        display: flex;
+        gap: var(--space-1);
+        justify-content: flex-end;
+    }
+
+.row-person {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+}
+
+/* --------------------------------------------------------------------------
+   Pagination
+   -------------------------------------------------------------------------- */
+.pagination {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--space-4) var(--space-5);
+    border-top: 1px solid var(--border);
+    font-size: 0.8125rem;
+    color: var(--muted);
+    flex-wrap: wrap;
+    gap: var(--space-3);
+}
+
+.pagination-controls {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.page-btn {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-sm);
+    font-weight: 600;
+    color: var(--ink-soft);
+}
+
+    .page-btn:hover {
+        background: var(--bg);
+    }
+
+    .page-btn.is-active {
+        background: var(--teal-600);
+        color: #fff;
+    }
+
+    .page-btn:disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
+    }
+
+        .page-btn:disabled:hover {
+            background: none;
+        }
+
+/* --------------------------------------------------------------------------
+   Tabs
+   -------------------------------------------------------------------------- */
+.tabs {
+    display: flex;
+    gap: var(--space-5);
+    border-bottom: 1px solid var(--border);
+}
+
+.tab-btn {
+    padding: var(--space-3) 0;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--muted);
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+}
+
+    .tab-btn.is-active {
+        color: var(--teal-700);
+        border-bottom-color: var(--teal-600);
+    }
+
+/* --------------------------------------------------------------------------
+   Empty State
+   -------------------------------------------------------------------------- */
+.empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: var(--space-8) var(--space-5);
+    color: var(--muted);
+}
+
+    .empty-state svg {
+        width: 48px;
+        height: 48px;
+        color: var(--border-strong);
+        margin-bottom: var(--space-4);
+    }
+
+    .empty-state h4 {
+        color: var(--ink-soft);
+        margin-bottom: var(--space-2);
+    }
+
+    .empty-state p {
+        color: var(--muted);
+        font-size: 0.875rem;
+    }
+
+/* --------------------------------------------------------------------------
+   Skeleton loading state
+   -------------------------------------------------------------------------- */
+.skeleton {
+    background: linear-gradient(90deg, var(--border) 25%, #eef2f1 37%, var(--border) 63%);
+    background-size: 400% 100%;
+    animation: skeleton-loading 1.4s ease infinite;
+    border-radius: var(--radius-sm);
+}
+
+@keyframes skeleton-loading {
+    0% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0 50%;
+    }
+}
+
+/* --------------------------------------------------------------------------
+   Toast notifications
+   -------------------------------------------------------------------------- */
+.toast-stack {
+    position: fixed;
+    bottom: var(--space-5);
+    right: var(--space-5);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    z-index: 1100;
+}
+
+.toast {
+    min-width: 280px;
+    max-width: 360px;
+    background: var(--ink);
+    color: #fff;
+    padding: var(--space-4);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-md);
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-3);
+    font-size: 0.875rem;
+    animation: toast-in var(--dur-med) var(--ease);
+}
+
+    .toast.toast-success {
+        background: var(--success);
+    }
+
+    .toast.toast-danger {
+        background: var(--coral);
+    }
+
+@keyframes toast-in {
+    from {
+        opacity: 0;
+        transform: translateX(16px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}

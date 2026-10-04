@@ -1,0 +1,134 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Log In — MediCore Hospital</title>
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/auth.css" />
+</head>
+<body>
+
+    <div class="auth-shell">
+
+        <!-- ============================= FORM PANEL ============================= -->
+        <div class="auth-form-panel">
+            <div class="auth-topbar">
+                <a href="../index.html" class="auth-brand">
+                    <span class="mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M2 12h20" /></svg></span>
+                    <span class="brand-name">Medi<span>Core</span></span>
+                </a>
+                <a href="../index.html" class="btn btn-ghost btn-sm">Back to site</a>
+            </div>
+
+            <div class="auth-form-wrap">
+                <h1>Welcome back</h1>
+                <p class="auth-subtitle">Log in to manage your appointments, records, and more.</p>
+
+                <form id="loginForm" novalidate>
+
+                    <div class="field">
+                        <label id="roleLabel">I am logging in as</label>
+                        <div class="role-select" role="radiogroup" aria-labelledby="roleLabel">
+                            <div class="role-option">
+                                <input type="radio" name="role" id="roleAdmin" value="Admin" />
+                                <label for="roleAdmin">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 3 6v6c0 5.2 3.8 9.4 9 10 5.2-.6 9-4.8 9-10V6l-9-4Z" /></svg>
+                                    Admin
+                                </label>
+                            </div>
+                            <div class="role-option">
+                                <input type="radio" name="role" id="roleDoctor" value="Doctor" checked />
+                                <label for="roleDoctor">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12h6M9 16h6M9 8h1" /><rect x="4" y="3" width="16" height="18" rx="2" /></svg>
+                                    Doctor
+                                </label>
+                            </div>
+                            <div class="role-option">
+                                <input type="radio" name="role" id="rolePatient" value="Patient" />
+                                <label for="rolePatient">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4" /><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8" /></svg>
+                                    Patient
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="field" id="emailField">
+                        <label for="email">Email address</label>
+                        <div class="input-group">
+                            <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2" /><path d="m22 6-10 7L2 6" /></svg>
+                            <input class="input" type="email" id="email" name="email" placeholder="you@medicore.com" required autocomplete="username" />
+                        </div>
+                        <span class="error-msg">Please enter a valid email address.</span>
+                    </div>
+
+                    <div class="field" id="passwordField">
+                        <label for="password">Password</label>
+                        <div class="input-group">
+                            <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="10" rx="2" /><path d="M7 11V7a5 5 0 0 1 10 0v4" /></svg>
+                            <input class="input" type="password" id="password" name="password" placeholder="••••••••" required autocomplete="current-password" minlength="6" />
+                        </div>
+                        <span class="error-msg">Password must be at least 6 characters.</span>
+                    </div>
+
+                    <div class="auth-row-between">
+                        <label class="checkbox-row text-sm">
+                            <input type="checkbox" id="rememberMe" name="rememberMe" />
+                            Remember me
+                        </label>
+                        <a href="#" id="forgotPasswordLink">Forgot password?</a>
+                    </div>
+
+                    <div id="loginAlert" class="alert alert-danger mb-5" style="display:none;" role="alert">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" /><path d="M12 8v5M12 16h.01" /></svg>
+                        <span id="loginAlertText">Invalid email or password. Please try again.</span>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-lg btn-block" id="loginSubmitBtn">
+                        Log In
+                    </button>
+
+                    <div class="demo-credentials">
+                        <strong>Demo credentials (frontend preview only)</strong>
+                        Email: <code>demo@medicore.com</code> &nbsp; Password: <code>demo123</code>
+                    </div>
+                </form>
+
+                <p class="auth-form-footer-link">
+                    New patient? <a href="register.html">Create an account</a>
+                </p>
+            </div>
+        </div>
+
+        <!-- ============================= VISUAL PANEL ============================= -->
+        <div class="auth-visual">
+            <div class="auth-visual-quote">
+                <div class="q-mark">“</div>
+                <p>Every record, every prescription, every appointment — in one secure place.</p>
+                <div class="attribution">MediCore Hospital Management System</div>
+            </div>
+
+            <div class="auth-visual-panel">
+                <div class="avp-row">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4" /><circle cx="12" cy="12" r="9" /></svg>
+                    <span class="avp-text">Role-based access for Admins, Doctors &amp; Patients</span>
+                </div>
+                <div class="avp-row">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="10" rx="2" /><path d="M7 11V7a5 5 0 0 1 10 0v4" /></svg>
+                    <span class="avp-text">Encrypted session handling</span>
+                </div>
+                <div class="avp-row">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9" /><path d="M12 7v5l3 3" /></svg>
+                    <span class="avp-text">Real-time appointment sync</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="../js/utils.js"></script>
+    <script src="../js/api.js"></script>
+    <script src="../js/auth.js"></script>
+</body>
+</html>

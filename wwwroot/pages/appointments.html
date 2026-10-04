@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Appointments &middot; MediChart HMS</title>
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-mark">M</div>
+      <div class="brand-name">MediChart<span>Hospital System</span></div>
+    </div>
+    <div class="nav-group-label">Records</div>
+      <a href="dashboard.html" class="nav-link"><span class="ic">&#9635;</span>Dashboard</a>
+      <a href="patients.html" class="nav-link"><span class="ic">&#9906;</span>Patients</a>
+      <a href="doctors.html" class="nav-link"><span class="ic">&#9877;</span>Doctors</a>
+      <a href="departments.html" class="nav-link"><span class="ic">&#127974;</span>Departments</a>
+      <a href="appointments.html" class="nav-link active"><span class="ic">&#128197;</span>Appointments</a>
+      <a href="prescriptions.html" class="nav-link"><span class="ic">&#128209;</span>Prescriptions</a>
+      <a href="billing.html" class="nav-link"><span class="ic">&#128179;</span>Billing</a>
+      <a href="feedback.html" class="nav-link"><span class="ic">&#9733;</span>Feedback</a>
+      <a href="medicines.html" class="nav-link"><span class="ic">&#128138;</span>Medicines</a>
+    <div class="sidebar-foot">
+      <div class="mini-user">
+        <div class="mini-avatar">AR</div>
+        <div><strong>Admin Rahman</strong><small>Front Desk &middot; Admin</small></div>
+      </div>
+      <a href="/Account/Logout" class="nav-link" style="margin-top:6px;"><span class="ic">&#8592;</span>Sign out</a>
+    </div>
+  </aside>
+  <div class="main">
+    <header class="topbar">
+      <div><div class="eyebrow">Scheduling</div><h1>Appointments</h1></div>
+      <div class="topbar-right">
+        <div class="search">&#128269;&nbsp; Search appointments...</div>
+        <button class="icon-btn">&#128276;</button>
+      </div>
+    </header>
+    <main class="content">
+      <div class="card">
+        <div class="card-head"><div><h2>Book Appointment</h2></div></div>
+        <div class="card-body">
+          <form id="bookForm" class="form-grid">
+            <div class="field"><label>Patient <span class="req">*</span></label>
+              <select id="patientSelect"><option value="">Select patient</option><option value="1">Rafiul Hasan &mdash; PT-0182</option><option value="2">Sumaiya Akter &mdash; PT-0201</option></select></div>
+            <div class="field"><label>Doctor <span class="req">*</span></label>
+              <select id="doctorSelect"><option value="">Select doctor</option><option value="1">Dr. Nusrat Jahan &mdash; Cardiology</option><option value="2">Dr. Kamrul Islam &mdash; Orthopedics</option></select></div>
+            <div class="field"><label>Date <span class="req">*</span></label><input type="date" id="dateInput" required></div>
+            <div class="field"><label>Time <span class="req">*</span></label><input type="time" id="timeInput" required></div>
+            <div class="field full"><label>Status</label>
+              <select id="statusSelect"><option>Scheduled</option><option>Confirmed</option><option>Completed</option><option>Cancelled</option></select>
+            </div>
+            <div class="form-actions field full">
+              <button type="submit" class="btn btn-primary">Book Appointment</button>
+              <button type="reset" class="btn btn-ghost">Clear Form</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><div><h2>All Appointments</h2></div></div>
+        <table>
+          <thead><tr><th>Appt ID</th><th>Patient</th><th>Doctor</th><th>Date / Time</th><th>Status</th><th></th></tr></thead>
+          <tbody id="appointmentsTbody">
+            <!-- populated by JS -->
+          </tbody>
+        </table>
+      </div>
+
+    </main>
+  </div>
+</div>
+</body>
+<script>
+  // Load appointments for current user and populate table
+  async function loadAppointments(){
+    try{
+      const res = await fetch('/api/appointments/forcurrent');
+      if (!res.ok) return;
+      const data = await res.json();
+      const tbody = document.getElementById('appointmentsTbody');
+      tbody.innerHTML = '';
+      data.forEach(a => {
+        const tr = document.createElement('tr');
+        const idTd = document.createElement('td'); idTd.innerHTML = `<span class="id-chip">APT-${a.ApptID}</span>`;
+        const pTd = document.createElement('td'); pTd.textContent = a.PatientName || '';
+        const dTd = document.createElement('td'); dTd.textContent = a.DoctorName || '';
+        const dtTd = document.createElement('td'); dtTd.textContent = new Date(a.AppointmentDateTime).toLocaleString();
+        const sTd = document.createElement('td'); sTd.innerHTML = `<span class="badge">${a.Status}</span>`;
+        const actTd = document.createElement('td'); actTd.className = 'row-actions'; actTd.innerHTML = '<button class="btn btn-ghost btn-sm">Edit</button>';
+        tr.appendChild(idTd); tr.appendChild(pTd); tr.appendChild(dTd); tr.appendChild(dtTd); tr.appendChild(sTd); tr.appendChild(actTd);
+        tbody.appendChild(tr);
+      });
+    }catch(e){ console.error(e); }
+  }
+
+  document.getElementById('bookForm').addEventListener('submit', async function(e){
+    e.preventDefault();
+    const patientId = parseInt(document.getElementById('patientSelect').value) || null;
+    const doctorId = parseInt(document.getElementById('doctorSelect').value);
+    const date = document.getElementById('dateInput').value;
+    const time = document.getElementById('timeInput').value;
+    if(!doctorId || !date || !time){ alert('Please select doctor, date and time'); return; }
+    const dt = new Date(date + 'T' + time);
+    try{
+      const res = await fetch('/api/appointments', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ PatientID: patientId, DoctorID: doctorId, AppointmentDateTime: dt }) });
+      const data = await res.json();
+      if(res.ok) { alert('Appointment booked'); loadAppointments(); }
+      else alert(data.message || 'Booking failed');
+    }catch(e){ alert('Network error'); }
+  });
+
+  // initial
+  loadAppointments();
+</script>
+<script>
+  (async function(){
+    try{ const res = await fetch('/api/account/current'); if(!res.ok) return; const info = await res.json(); if(!info.authenticated) { window.location.href='/pages/login.html'; return; } const role=(info.UserRole||'').toLowerCase();
+        // Hide admin-only controls if not admin
+        if(role!=='admin'){
+          const formCard = document.getElementById('bookForm')?.closest('.card'); if(formCard) formCard.style.display='none';
+          document.querySelectorAll('.row-actions button').forEach(btn=>{ const t=btn.textContent.trim().toLowerCase(); if(t!=='view') btn.remove(); });
+        }
+      }catch(e){console.error(e);} })();
+</script>
+</html>
